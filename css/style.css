@@ -569,3 +569,17 @@ img.me-3 {
 .text-primary {
     color: #00024F !important;
 }
+
+.navbar .navbar-nav .nav-link:hover, .navbar .navbar-nav .nav-link.active {
+    color: #00024F;
+}
+
+.btn-outline-body {
+    color: #777777;
+    border-color: #00024F;
+}
+
+.btn-primary:hover {
+    background-color: #222727;
+    color: #eee;
+}
