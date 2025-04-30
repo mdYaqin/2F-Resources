@@ -64,6 +64,14 @@ h6,
     color: #FFFFFF;
 }
 
+.btn-primary {
+    color: #000;
+    background-color: #00024F;
+    border-color: #222727;
+}
+
+
+
 .btn-square {
     width: 38px;
     height: 38px;
@@ -550,4 +558,14 @@ h6,
 
 .footer .copyright a:hover {
     color: var(--primary);
+}
+
+
+img.me-3 {
+    width: 77px;
+
+}
+
+.text-primary {
+    color: #00024F !important;
 }
