@@ -584,10 +584,6 @@ img.me-3 {
     color: #eee;
 }
 
-.fact-item .fact-icon {
-    background: #00024F !important;
-}
-
 .section-title {
     color: #00024F !important;
 }
@@ -646,4 +642,23 @@ i.fa.fa-envelope.text-primary.me-3 {
 
 .dropdown-item.active, .dropdown-item:active {
     background-color: #00024F !important;
+}
+
+.text-primary {
+    color: #00024F !important; /* or your preferred blue */
+}
+
+img.mb-4 {
+    filter: hue-rotate(180deg);
+    color :#00024F !important
+}
+
+img.flex-shrink-0 {
+    filter: hue-rotate(180deg);
+    color :#00024F !important
+}
+
+.fact-item .fact-icon {
+    filter: hue-rotate(180deg);
+    color :#00024F !important
 }
