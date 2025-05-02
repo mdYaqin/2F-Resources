@@ -617,5 +617,33 @@ img.me-3 {
 }
 
 .bg-dark {
+    background-color: #222727 !important;
+}
+
+i.fa.fa-map-marker-alt.text-primary.me-3 {
+    color: #FFFFFF !important;
+}
+
+i.fa.fa-phone-alt.text-primary.me-3 {
+    color: #FFFFFF !important;
+}
+
+i.fa.fa-envelope.text-primary.me-3 {
+    color: #FFFFFF !important;
+}
+
+.fact-icon {
+    color: #00024F !important
+}
+
+.d-flex.flex-shrink-0.align-items-center.justify-content-center.bg-dark {
+    background-color:  #777 !important;
+}
+
+.mb-4 a {
+    color: #00024F !important;
+}
+
+.dropdown-item.active, .dropdown-item:active {
     background-color: #00024F !important;
 }
