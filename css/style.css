@@ -583,3 +583,39 @@ img.me-3 {
     background-color: #222727;
     color: #eee;
 }
+
+.fact-item .fact-icon {
+    background: #00024F !important;
+}
+
+.section-title {
+    color: #00024F !important;
+}
+
+.about-img::before, .feature-img::before {
+    border: 5px solid #00024F !important;
+}
+
+.border-primary {
+    border-color: #00024F !important;
+}
+
+.project .nav .nav-link.active {
+    background: #00024F !important;
+}
+
+.testimonial-carousel .owl-dots .owl-dot::after {
+    color: #00024F !important;
+}
+
+.team-item .team-social .btn {
+    color: #00024F !important;
+}
+
+.footer .btn.btn-link::before {
+    color: #FFFFFF !important;
+}
+
+.bg-dark {
+    background-color: #00024F !important;
+}
