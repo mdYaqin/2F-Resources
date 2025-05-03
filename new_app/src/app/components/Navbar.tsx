@@ -1,28 +1,31 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function Navbar() {
-  const pathname = usePathname();
-
   useEffect(() => {
-    // Enable Bootstrap dropdowns manually if needed
-    const dropdowns = document.querySelectorAll(".dropdown-toggle");
-    dropdowns.forEach((dropdown) => {
-      dropdown.addEventListener("click", (e) => e.preventDefault());
-    });
+    AOS.init({ duration: 1000, once: true });
   }, []);
 
   return (
     <nav
-      className="navbar navbar-expand-lg bg-white navbar-light sticky-top py-lg-0 px-lg-5 wow fadeIn"
-      data-wow-delay="0.1s"
+      className="navbar navbar-expand-lg bg-white navbar-light sticky-top py-lg-0 px-lg-5"
+      data-aos="fade-in"
+      data-aos-delay="100"
     >
       <Link href="/" className="navbar-brand ms-4 ms-lg-0">
-        <h1 className="text-primary m-0">
-          <img className="me-3" src="/img/icons/Logo1.svg" alt="Icon" />
+        <h1 className="text-primary m-0 d-flex align-items-center">
+          <Image
+            src="/img/icons/Logo1.svg"
+            alt="Logo"
+            width={80}
+            height={80}
+            className="me-3"
+          />
           2F Resources
         </h1>
       </Link>
@@ -33,31 +36,18 @@ export default function Navbar() {
         data-bs-toggle="collapse"
         data-bs-target="#navbarCollapse"
       >
-        <span className="navbar-toggler-icon"></span>
+        <span className="navbar-toggler-icon" />
       </button>
 
       <div className="collapse navbar-collapse" id="navbarCollapse">
         <div className="navbar-nav ms-auto p-4 p-lg-0">
-          <Link
-            href="/"
-            className={`nav-item nav-link ${pathname === "/" ? "active" : ""}`}
-          >
+          <Link href="/" className="nav-item nav-link active">
             Home
           </Link>
-          <Link
-            href="/about"
-            className={`nav-item nav-link ${
-              pathname === "/about" ? "active" : ""
-            }`}
-          >
+          <Link href="/about" className="nav-item nav-link">
             About
           </Link>
-          <Link
-            href="/service"
-            className={`nav-item nav-link ${
-              pathname === "/service" ? "active" : ""
-            }`}
-          >
+          <Link href="/service" className="nav-item nav-link">
             Services
           </Link>
 
@@ -65,7 +55,9 @@ export default function Navbar() {
             <a
               href="#"
               className="nav-link dropdown-toggle"
+              role="button"
               data-bs-toggle="dropdown"
+              aria-expanded="false"
             >
               Pages
             </a>
@@ -91,12 +83,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          <Link
-            href="/contact"
-            className={`nav-item nav-link ${
-              pathname === "/contact" ? "active" : ""
-            }`}
-          >
+          <Link href="/contact" className="nav-item nav-link">
             Contact
           </Link>
         </div>

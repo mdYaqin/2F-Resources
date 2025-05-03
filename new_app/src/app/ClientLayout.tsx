@@ -4,6 +4,8 @@
 import { useEffect } from "react";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Topbar from "./components/Topbar";
 
 export default function ClientLayout({
   children,
@@ -45,8 +47,10 @@ export default function ClientLayout({
 
   return (
     <>
+      <Topbar />
       <Navbar />
       {children}
+      <Footer />
     </>
   );
 }
