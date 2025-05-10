@@ -6,6 +6,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Topbar from "./components/Topbar";
+import Pageloader from "./components/Pageloader";
 
 export default function ClientLayout({
   children,
@@ -17,7 +18,7 @@ export default function ClientLayout({
       setTimeout(() => {
         const spinnerEl = document.getElementById("spinner");
         if (spinnerEl) spinnerEl.classList.remove("show");
-      }, 1);
+      }, 100);
     };
     spinner();
 
@@ -47,6 +48,7 @@ export default function ClientLayout({
 
   return (
     <>
+      <Pageloader />
       <Topbar />
       <Navbar />
       {children}
