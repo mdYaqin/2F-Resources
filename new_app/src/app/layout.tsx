@@ -1,9 +1,10 @@
 // src/app/layout.tsx
-import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap/dist/css/bootstrap.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "animate.css/animate.min.css";
-// import "./globals.css";
+import "@/styles/scss/bootstrap.scss";
+import "./globals.css";
 
 import { Open_Sans, Teko } from "next/font/google";
 import ClientLayout from "./ClientLayout";

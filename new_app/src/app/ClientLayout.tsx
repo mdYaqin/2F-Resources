@@ -3,10 +3,10 @@
 
 import { useEffect } from "react";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Topbar from "./components/Topbar";
-import Pageloader from "./components/Pageloader";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import Topbar from "../components/Topbar";
+import Pageloader from "../components/Pageloader";
 
 export default function ClientLayout({
   children,
