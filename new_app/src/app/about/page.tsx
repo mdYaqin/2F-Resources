@@ -7,17 +7,11 @@ import ProjectsSection from "@/components/ProjectsSection";
 import TeamMembers from "@/components/TeamMembers";
 import Testimonials from "@/components/Testimonials";
 
-export default function Home() {
+export default function About() {
   return (
     <>
-      <Carousel />
-      <FactsSection />
       <AboutSection />
-      <ServicesSection />
       <FeatureSection />
-      <ProjectsSection />
-      <TeamMembers />
-      <Testimonials />
     </>
   );
 }
