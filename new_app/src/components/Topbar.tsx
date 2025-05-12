@@ -30,23 +30,17 @@ export default function Topbar() {
         </div>
 
         <div className="col-lg-5 px-5 text-end">
-          <div className="h-100 d-inline-flex align-items-center py-3 me-2">
+          {/* <div className="h-100 d-inline-flex align-items-center py-3 me-2">
             <a className="text-body px-2" href="#">
               Terms
             </a>
             <a className="text-body px-2" href="#">
               Privacy
             </a>
-          </div>
+          </div> */}
           <div className="h-100 d-inline-flex align-items-center">
             <a className="btn btn-sm-square btn-outline-body me-1" href="#">
               <i className="fab fa-facebook-f" />
-            </a>
-            <a className="btn btn-sm-square btn-outline-body me-1" href="#">
-              <i className="fab fa-twitter" />
-            </a>
-            <a className="btn btn-sm-square btn-outline-body me-1" href="#">
-              <i className="fab fa-linkedin-in" />
             </a>
             <a className="btn btn-sm-square btn-outline-body me-0" href="#">
               <i className="fab fa-instagram" />

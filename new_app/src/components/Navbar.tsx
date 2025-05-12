@@ -47,11 +47,11 @@ export default function Navbar() {
           <Link href="/about" className="nav-item nav-link">
             About
           </Link>
-          <Link href="/service" className="nav-item nav-link">
-            Services
+          <Link href="/project" className="nav-item nav-link">
+            Our Projects
           </Link>
 
-          <div className="nav-item dropdown">
+          {/* <div className="nav-item dropdown">
             <a
               href="#"
               className="nav-link dropdown-toggle"
@@ -59,7 +59,7 @@ export default function Navbar() {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Pages
+            Pages
             </a>
             <div className="dropdown-menu border-0 m-0">
               <Link href="/feature" className="dropdown-item">
@@ -81,7 +81,7 @@ export default function Navbar() {
                 404 Page
               </Link>
             </div>
-          </div>
+          </div> */}
 
           <Link href="/contact" className="nav-item nav-link">
             Contact
