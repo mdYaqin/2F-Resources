@@ -6,6 +6,7 @@ import FeatureSection from "@/components/FeatureSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import TeamMembers from "@/components/TeamMembers";
 import Testimonials from "@/components/Testimonials";
+import AppointmentSection from "@/components/AppointmentSection";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
       <FeatureSection />
       <ProjectsSection />
       <TeamMembers />
+      <AppointmentSection />
       <Testimonials />
     </>
   );
