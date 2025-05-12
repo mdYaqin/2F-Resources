@@ -15,7 +15,7 @@ export default function Footer() {
   return (
     <div
       className="container-fluid bg-dark text-body footer mt-5 pt-5 px-0"
-      data-wow-delay="0.1s"
+      data-aos-delay="100"
     >
       <div className="container py-5">
         <div className="row g-5">

@@ -1,5 +1,5 @@
 // src/app/layout.tsx
-// import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "animate.css/animate.min.css";

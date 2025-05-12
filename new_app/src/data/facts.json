@@ -1,0 +1,20 @@
+[
+  {
+    "icon": "/img/icons/icon-2.png",
+    "title": "Design Approach",
+    "description": "Erat ipsum justo amet duo et elitr dolor...",
+    "delay": "100"
+  },
+  {
+    "icon": "/img/icons/icon-3.png",
+    "title": "Innovative Solutions",
+    "description": "Erat ipsum justo amet duo et elitr dolor...",
+    "delay": "300"
+  },
+  {
+    "icon": "/img/icons/icon-4.png",
+    "title": "Project Management",
+    "description": "Erat ipsum justo amet duo et elitr dolor...",
+    "delay": "500"
+  }
+]

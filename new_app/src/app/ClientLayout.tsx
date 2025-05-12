@@ -1,8 +1,6 @@
-// src/app/ClientLayout.tsx
 "use client";
 
 import { useEffect } from "react";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Topbar from "../components/Topbar";
@@ -14,6 +12,12 @@ export default function ClientLayout({
   children: React.ReactNode;
 }) {
   useEffect(() => {
+    // Dynamically import Bootstrap JS only on client
+    // @ts-expect-error: no type declarations for Bootstrap JS
+    import("bootstrap/dist/js/bootstrap.bundle.min.js").catch((err) =>
+      console.error("Bootstrap JS failed to load", err)
+    );
+
     const spinner = () => {
       setTimeout(() => {
         const spinnerEl = document.getElementById("spinner");
