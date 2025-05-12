@@ -53,7 +53,7 @@ export default function ClientLayout({
   return (
     <>
       <Pageloader />
-      {/* <Topbar /> */}
+       <Topbar /> 
       <Navbar />
       {children}
       <Footer />
