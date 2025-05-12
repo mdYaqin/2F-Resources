@@ -1,59 +1,60 @@
 "use client";
-import { useEffect } from "react";
+
+import React, { useEffect } from "react";
+import Image from "next/image";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Image from "next/image";
 import Link from "next/link";
 
 const teamMembers = [
   {
     name: "Architect Name",
-    role: "Designation",
+    designation: "Designation",
     img: "/img/team-1.jpg",
     socials: [
       { icon: "fab fa-facebook-f", url: "#" },
       { icon: "fab fa-twitter", url: "#" },
       { icon: "fab fa-instagram", url: "#" },
     ],
-    delay: "100",
+    aosDelay: "100",
   },
   {
     name: "Architect Name",
-    role: "Designation",
+    designation: "Designation",
     img: "/img/team-2.jpg",
     socials: [
       { icon: "fab fa-facebook-f", url: "#" },
       { icon: "fab fa-twitter", url: "#" },
       { icon: "fab fa-instagram", url: "#" },
     ],
-    delay: "300",
+    aosDelay: "300",
   },
   {
     name: "Architect Name",
-    role: "Designation",
+    designation: "Designation",
     img: "/img/team-3.jpg",
     socials: [
       { icon: "fas fa-envelope", url: "#" },
       { icon: "fab fa-whatsapp", url: "#" },
     ],
-    delay: "500",
+    aosDelay: "500",
   },
   {
     name: "Architect Name",
-    role: "Designation",
+    designation: "Designation",
     img: "/img/team-4.jpg",
     socials: [
       { icon: "fab fa-facebook-f", url: "#" },
       { icon: "fab fa-twitter", url: "#" },
       { icon: "fab fa-instagram", url: "#" },
     ],
-    delay: "700",
+    aosDelay: "700",
   },
 ];
 
-export default function TeamMembers() {
+const TeamSection = () => {
   useEffect(() => {
-    AOS.init({ duration: 1000, once: true });
+    AOS.init({ once: true });
   }, []);
 
   return (
@@ -63,7 +64,7 @@ export default function TeamMembers() {
           className="text-center mx-auto mb-5"
           data-aos="fade-up"
           data-aos-delay="100"
-          style={{ maxWidth: 600 }}
+          style={{ maxWidth: "600px" }}
         >
           <h4 className="section-title">Team Members</h4>
           <h1 className="display-5 mb-4">
@@ -71,29 +72,32 @@ export default function TeamMembers() {
           </h1>
         </div>
         <div className="row g-0 team-items">
-          {teamMembers.map((member, i) => (
+          {teamMembers.map((member, index) => (
             <div
-              key={i}
               className="col-lg-3 col-md-6"
+              key={index}
               data-aos="fade-up"
-              data-aos-delay={member.delay}
+              data-aos-delay={member.aosDelay}
             >
               <div className="team-item position-relative">
-                <div className="position-relative">
+                <div className="position-relative overflow-hidden">
                   <Image
                     src={member.img}
                     alt={member.name}
-                    className="img-fluid"
                     width={500}
                     height={600}
-                    style={{ width: "100%", height: "auto" }}
+                    className="img-fluid w-100"
+                    style={{ objectFit: "cover", height: "100%" }}
                   />
-                  <div className="team-social text-center position-absolute top-50 start-50 translate-middle">
+                  <div
+                    className="team-social position-absolute start-0 bottom-0 w-100 text-center py-2"
+                    style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+                  >
                     {member.socials.map((social, idx) => (
                       <Link
                         key={idx}
                         href={social.url}
-                        className="btn btn-square me-1"
+                        className="btn btn-square btn-sm text-white mx-1"
                       >
                         <i className={social.icon}></i>
                       </Link>
@@ -102,7 +106,7 @@ export default function TeamMembers() {
                 </div>
                 <div className="bg-light text-center p-4">
                   <h3 className="mt-2">{member.name}</h3>
-                  <span className="text-primary">{member.role}</span>
+                  <span className="text-primary">{member.designation}</span>
                 </div>
               </div>
             </div>
@@ -111,4 +115,6 @@ export default function TeamMembers() {
       </div>
     </div>
   );
-}
+};
+
+export default TeamSection;
