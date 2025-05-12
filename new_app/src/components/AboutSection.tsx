@@ -57,7 +57,7 @@ export default function AboutUs() {
                 <h3 className="mb-0">Experience</h3>
               </div>
             </div>
-            <a className="btn btn-primary py-3 px-5" href="">
+            <a className="btn btn-primary py-3 px-5" href="/about">
               Read More
             </a>
           </div>
