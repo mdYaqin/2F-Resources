@@ -9,10 +9,11 @@ import Testimonials from "@/components/Testimonials";
 import PageHeader from "@/components/PageHeader";
 import AppointmentSection from "@/components/AppointmentSection";
 
-export default function Contact() {
+export default function Appointment() {
   return (
     <>
-      <PageHeader title="Contact Us" />
+      <PageHeader title="Appointment" />
+      <AppointmentSection />
     </>
   );
 }
