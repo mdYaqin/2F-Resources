@@ -71,7 +71,10 @@ const TeamSection = () => {
             We Are Creative Interior Design Team For Your Dream Home
           </h1>
         </div>
-        <div className="row g-0 team-items">
+        <div
+          className="row g-0 team-items"
+          style={{ display: "flex", justifyContent: "center" }}
+        >
           {teamMembers.map((member, index) => (
             <div
               className="col-lg-3 col-md-6"
@@ -81,14 +84,19 @@ const TeamSection = () => {
             >
               <div className="team-item position-relative">
                 <div className="position-relative overflow-hidden">
-                  <Image
-                    src={member.img}
-                    alt={member.name}
-                    width={500}
-                    height={600}
-                    className="img-fluid w-100"
-                    style={{ objectFit: "cover", height: "100%" }}
-                  />
+                  <div
+                    className="w-100"
+                    style={{ height: "400px", position: "relative" }}
+                  >
+                    <Image
+                      src={member.img}
+                      alt={member.name}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      sizes="(max-width: 768px) 100vw, 25vw"
+                    />
+                  </div>
+
                   <div
                     className="team-social position-absolute start-0 bottom-0 w-100 text-center py-2"
                     style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
