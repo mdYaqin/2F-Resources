@@ -34,43 +34,63 @@ export default function Footer() {
               Project.sales@2Fresources.com
             </p>
             <div className="d-flex pt-2">
-              <a className="btn btn-square btn-outline-body me-1" href="#">
-                <i className="fab fa-twitter"></i>
+              {/* <a className="btn btn-square btn-outline-body me-1" href="https://www.instagram.com/2f_resources/">
+                <i className="fab fa-instagram"></i>
               </a>
-              <a className="btn btn-square btn-outline-body me-1" href="#">
+              <a className="btn btn-square btn-outline-body me-1" href="https://www.facebook.com/profile.php?id=61572212326307">
                 <i className="fab fa-facebook-f"></i>
-              </a>
-              <a className="btn btn-square btn-outline-body me-1" href="#">
+              </a> */}
+              {/* <a className="btn btn-square btn-outline-body me-1" href="#">
                 <i className="fab fa-youtube"></i>
-              </a>
-              <a className="btn btn-square btn-outline-body me-0" href="#">
+              </a> */}
+              {/* <a className="btn btn-square btn-outline-body me-0" href="#">
                 <i className="fab fa-linkedin-in"></i>
-              </a>
+              </a> */}
             </div>
           </div>
 
-          <div
+
+
+          <div className="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+  <h3 className="text-light mb-4">Services</h3>
+  <ul className="list-unstyled text-light">
+    <li className="mb-2">
+      <a className="text-decoration-none text-secondary" href="#">
+        <i className=" me-2"></i> Interior Design
+      </a>
+    </li>
+    <li className="mb-2">
+      <a className="text-decoration-none text-secondary" href="#">
+        <i className=" me-2"></i> 3D Drawing
+      </a>
+    </li>
+    <li className="mb-2">
+      <a className="text-decoration-none text-secondary" href="#">
+        <i className=" me-2"></i> Layout Planning
+      </a>
+    </li>
+    <li className="mb-2">
+      <a className="text-decoration-none text-secondary" href="#">
+        <i className="me-2"></i> Renovation
+      </a>
+    </li>
+  </ul>
+</div>
+          {/* <div
             className="col-lg-3 col-md-6"
             data-aos="fade-up"
             data-aos-delay="200"
           >
-            <h3 className="text-light mb-4">Services</h3>
-            <a className="btn btn-link" href="#">
-              Architecture
-            </a>
-            <a className="btn btn-link" href="#">
-              3D Animation
-            </a>
-            <a className="btn btn-link" href="#">
-              House Planning
-            </a>
-            <a className="btn btn-link" href="#">
-              Interior Design
-            </a>
-            <a className="btn btn-link" href="#">
-              Construction
-            </a>
-          </div>
+  <h3 className="text-light mb-4">Services</h3>
+<div className="d-flex flex-column">
+  <a className="btn list" href="#">Interior Design</a>
+  <a className="btn list" href="#">3D Drawing</a>
+  <a className="btn list" href="#">Layout Planning</a>
+  <a className="btn list" href="#">Renovation</a>
+</div>
+          
+            
+          </div> */}
 
           <div
             className="col-lg-3 col-md-6"
@@ -99,8 +119,24 @@ export default function Footer() {
             className="col-lg-3 col-md-6"
             data-aos="fade-up"
             data-aos-delay="600"
+
+            
           >
-            <h3 className="text-light mb-4">Newsletter</h3>
+            <div className="d-flex pt-2">
+              <a className="btn btn-square btn-outline-body me-1" href="https://www.instagram.com/2f_resources/">
+                <i className="fab fa-instagram"></i>
+              </a>
+              <a className="btn btn-square btn-outline-body me-1" href="https://www.facebook.com/profile.php?id=61572212326307">
+                <i className="fab fa-facebook-f"></i>
+              </a>
+              {/* <a className="btn btn-square btn-outline-body me-1" href="#">
+                <i className="fab fa-youtube"></i>
+              </a> */}
+              {/* <a className="btn btn-square btn-outline-body me-0" href="#">
+                <i className="fab fa-linkedin-in"></i>
+              </a> */}
+            </div>
+            {/* <h3 className="text-light mb-4">Newsletter</h3>
             <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
             <div
               className="position-relative mx-auto"
@@ -117,7 +153,7 @@ export default function Footer() {
               >
                 SignUp
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

@@ -27,10 +27,10 @@ export default function ProjectsSection() {
           <div className="col-lg-4">
             <div className="nav nav-pills d-flex flex-column">
               {[
-                "Modern Complex",
-                "Royal Hotel",
-                "Mexwel Building",
-                "Shopping Complex",
+                "Jurong West ST 81",
+                "Bukit Timah Rd",
+                "Tampines Ave 8",
+                "Yishun St 51",
               ].map((label, i) => (
                 <button
                   key={i}
@@ -58,7 +58,7 @@ export default function ProjectsSection() {
                     <div className="col-md-6" style={{ minHeight: "350px" }}>
                       <div className="position-relative h-100">
                         <Image
-                          src={`/img/project-${i}.jpg`}
+                          src={`/img/project-${i}.jpeg`}
                           alt={`Project ${i}`}
                           fill
                           style={{ objectFit: "cover" }}

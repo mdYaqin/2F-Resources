@@ -29,18 +29,16 @@ export default function AboutUs() {
           <div className="col-lg-6" data-aos="fade-up" data-aos-delay="500">
             <h4 className="section-title">About Us</h4>
             <h1 className="display-5 mb-4">
-              A Creative Architecture Agency For Your Dream Home
+              A Creative Interior Design Agency For Your Dream Home
             </h1>
             <p>
-              Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu
-              diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet
-              lorem sit clita duo justo magna dolore erat amet
+            We are a passionate team of designers and project managers committed to turning your dream home into reality. With creativity at our core and precision in every detail, we craft spaces that blend beauty, functionality, and timeless elegance. Our collaborative approach ensures your vision takes center stage, while our expertise transforms challenges into innovative solutions. From concept to completion, we strive to deliver exceptional design that reflects your unique story. Let’s build something extraordinary together.
             </p>
-            <p className="mb-4">
+            {/* <p className="mb-4">
               Stet no et lorem dolor et diam, amet duo ut dolore vero eos. No
               stet est diam rebum amet diam ipsum. Clita clita labore, dolor duo
               nonumy clita sit at, sed sit sanctus dolor eos.
-            </p>
+            </p> */}
             <div className="d-flex align-items-center mb-5">
               <div
                 className="d-flex flex-shrink-0 align-items-center justify-content-center border border-5 border-primary"
@@ -48,7 +46,7 @@ export default function AboutUs() {
               >
                 <h1 className="display-1 mb-n2">
                   {/* To Do: fix count to start when on scroll view  */}
-                  <CountUp end={25} duration={4.5} />
+                  <CountUp end={10} duration={4.5} />
                 </h1>
               </div>
               <div className="ps-4">
@@ -57,9 +55,9 @@ export default function AboutUs() {
                 <h3 className="mb-0">Experience</h3>
               </div>
             </div>
-            <a className="btn btn-primary py-3 px-5" href="/about">
+            {/* <a className="btn btn-primary py-3 px-5" href="/about">
               Read More
-            </a>
+            </a> */}
           </div>
         </div>
       </div>

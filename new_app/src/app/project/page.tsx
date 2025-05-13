@@ -1,65 +1,98 @@
-// components/AboutUs.tsx
 "use client";
+import { useEffect } from "react";
+import AOS from "aos";
 import Image from "next/image";
-import CountUp from "react-countup";
+import Link from "next/link";
 
-export default function AboutUs() {
+export default function ProjectsSection() {
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
+
   return (
-    <div className="container-xxl py-5">
+    <div className="container-xxl project py-5">
       <div className="container">
-        <div className="row g-5">
-          <div className="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <div className="about-img d-flex gap-3">
-              <Image
-                className="img-fluid w-50"
-                src="/img/about-1.jpg"
-                alt="About 1"
-                width={500}
-                height={500}
-              />
-              <Image
-                className="img-fluid w-50"
-                src="/img/about-2.jpg"
-                alt="About 2"
-                width={500}
-                height={500}
-              />
+        <div
+          className="text-center mx-auto mb-5"
+          data-aos="fade-up"
+          data-aos-delay="100"
+          style={{ maxWidth: "600px" }}
+        >
+          <h4 className="section-title">Our Projects</h4>
+          <h1 className="display-5 mb-4">
+            Visit Our Latest Projects And Our Innovative Works
+          </h1>
+        </div>
+        <div className="row g-4" data-aos="fade-up" data-aos-delay="300">
+          <div className="col-lg-4">
+            <div className="nav nav-pills d-flex flex-column">
+              {[
+                "Jurong West ST 81",
+                "Bukit Timah Rd",
+                "Tampines Ave 8",
+                "Yishun St 51",
+              ].map((label, i) => (
+                <button
+                  key={i}
+                  className={`nav-link text-start p-4 mb-3 ${
+                    i === 0 ? "active" : ""
+                  }`}
+                  data-bs-toggle="pill"
+                  data-bs-target={`#tab-pane-${i + 1}`}
+                  type="button"
+                >
+                  <h3 className="m-0">{`0${i + 1}. ${label}`}</h3>
+                </button>
+              ))}
             </div>
           </div>
-          <div className="col-lg-6" data-aos="fade-up" data-aos-delay="500">
-            <h4 className="section-title">About Us</h4>
-            <h1 className="display-5 mb-4">
-              A Creative Architecture Agency For Your Dream Home
-            </h1>
-            <p>
-              Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu
-              diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet
-              lorem sit clita duo justo magna dolore erat amet
-            </p>
-            <p className="mb-4">
-              Stet no et lorem dolor et diam, amet duo ut dolore vero eos. No
-              stet est diam rebum amet diam ipsum. Clita clita labore, dolor duo
-              nonumy clita sit at, sed sit sanctus dolor eos.
-            </p>
-            <div className="d-flex align-items-center mb-5">
-              <div
-                className="d-flex flex-shrink-0 align-items-center justify-content-center border border-5 border-primary"
-                style={{ width: 120, height: 120 }}
-              >
-                <h1 className="display-1 mb-n2">
-                  {/* To Do: fix count to start when on scroll view  */}
-                  <CountUp end={25} duration={4.5} />
-                </h1>
-              </div>
-              <div className="ps-4">
-                <h3>Years</h3>
-                <h3>Working</h3>
-                <h3 className="mb-0">Experience</h3>
-              </div>
+          <div className="col-lg-8">
+            <div className="tab-content">
+              {[1, 2, 3, 4].map((i) => (
+                <div
+                  key={i}
+                  className={`tab-pane fade ${i === 1 ? "show active" : ""}`}
+                  id={`tab-pane-${i}`}
+                >
+                  <div className="row g-4">
+                    <div className="col-md-6" style={{ minHeight: "350px" }}>
+                      <div className="position-relative h-100">
+                        <Image
+                          src={`/img/project-${i}.jpeg`}
+                          alt={`Project ${i}`}
+                          fill
+                          style={{ objectFit: "cover" }}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <h1 className="mb-3">
+                        25 Years Of Experience In Architecture Industry
+                      </h1>
+                      <p className="mb-4">
+                        Tempor erat elitr rebum at clita. Diam dolor diam ipsum
+                        sit. Aliqu diam amet diam et eos...
+                      </p>
+                      <p>
+                        <i className="fa fa-check text-primary me-3"></i>Design
+                        Approach
+                      </p>
+                      <p>
+                        <i className="fa fa-check text-primary me-3"></i>
+                        Innovative Solutions
+                      </p>
+                      <p>
+                        <i className="fa fa-check text-primary me-3"></i>Project
+                        Management
+                      </p>
+                      <Link href="#" className="btn btn-primary py-3 px-5 mt-3">
+                        Read More
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-            <a className="btn btn-primary py-3 px-5" href="/about">
-              Read More
-            </a>
           </div>
         </div>
       </div>

@@ -2,19 +2,19 @@
   {
     "image": "/img/carousel-1.jpg",
     "title": "Best Architecture And Interior Design Services",
-    "description": "Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no.",
-    "link": "/about"
+    "description": "Where vision meets precision. We deliver award-winning designs that balance aesthetics, functionality, and your unique lifestyle needs – creating spaces that inspire."
+    
   },
   {
     "image": "/img/carousel-2.jpg",
     "title": "Transforming Spaces with Innovative Designs",
-    "description": "Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.",
-    "link": "/about"
+    "description": "Redefining possibilities. Our forward-thinking approach combines cutting-edge technology with artistic flair to breathe new life into every environment."
+    
   },
   {
     "image": "/img/carousel-3.jpg",
     "title": "Expert Design & Planning Solutions",
-    "description": "Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo.",
-    "link": "/about"
+    "description": "From concept to completion, our meticulous planning and seasoned expertise ensure seamless execution, exceptional quality, and timeless results."
+    
   }
 ]

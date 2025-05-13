@@ -39,10 +39,10 @@ export default function Topbar() {
             </a>
           </div> */}
           <div className="h-100 d-inline-flex align-items-center">
-            <a className="btn btn-sm-square btn-outline-body me-1" href="#">
+            <a className="btn btn-sm-square btn-outline-body me-1" href="https://www.facebook.com/profile.php?id=61572212326307">
               <i className="fab fa-facebook-f" />
             </a>
-            <a className="btn btn-sm-square btn-outline-body me-0" href="#">
+            <a className="btn btn-sm-square btn-outline-body me-0" href="https://www.instagram.com/2f_resources/">
               <i className="fab fa-instagram" />
             </a>
           </div>
