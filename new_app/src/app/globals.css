@@ -664,3 +664,7 @@ img.flex-shrink-0 {
   filter: hue-rotate(180deg);
   color: #00024f !important;
 }
+
+.list-unstyled .text-light .mb-2 {
+  margin-left: -8px;
+}

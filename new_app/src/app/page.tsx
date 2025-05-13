@@ -18,8 +18,7 @@ export default function Home() {
       <FeatureSection />
       <ProjectsSection />
       <TeamMembers />
-      <AppointmentSection />
-      <Testimonials />
+      {/* <Testimonials /> */}
     </>
   );
 }

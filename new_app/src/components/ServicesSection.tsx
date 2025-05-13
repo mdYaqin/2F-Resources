@@ -58,9 +58,9 @@ export default function ServicesSection() {
                   Erat ipsum justo amet duo et elitr dolor, est duo duo eos
                   lorem sed diam stet diam sed stet.
                 </p>
-                <a className="btn" href="#">
+                {/* <a className="btn" href="#">
                   <i className="fa fa-plus text-primary me-3"></i>Read More
-                </a>
+                </a> */}
               </div>
             </div>
           </div>
@@ -92,9 +92,9 @@ export default function ServicesSection() {
                   Erat ipsum justo amet duo et elitr dolor, est duo duo eos
                   lorem sed diam stet diam sed stet.
                 </p>
-                <a className="btn" href="#">
+                {/* <a className="btn" href="#">
                   <i className="fa fa-plus text-primary me-3"></i>Read More
-                </a>
+                </a> */}
               </div>
             </div>
           </div>
@@ -126,9 +126,9 @@ export default function ServicesSection() {
                   Erat ipsum justo amet duo et elitr dolor, est duo duo eos
                   lorem sed diam stet diam sed stet.
                 </p>
-                <a className="btn" href="#">
+                {/* <a className="btn" href="#">
                   <i className="fa fa-plus text-primary me-3"></i>Read More
-                </a>
+                </a> */}
               </div>
             </div>
           </div>
@@ -160,9 +160,9 @@ export default function ServicesSection() {
                   Erat ipsum justo amet duo et elitr dolor, est duo duo eos
                   lorem sed diam stet diam sed stet.
                 </p>
-                <a className="btn" href="#">
+                {/* <a className="btn" href="#">
                   <i className="fa fa-plus text-primary me-3"></i>Read More
-                </a>
+                </a> */}
               </div>
             </div>
           </div>

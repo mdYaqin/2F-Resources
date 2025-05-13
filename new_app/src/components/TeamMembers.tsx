@@ -8,9 +8,9 @@ import Link from "next/link";
 
 const teamMembers = [
   {
-    name: "Architect Name",
-    designation: "Designation",
-    img: "/img/team-1.jpg",
+    name: "Fathiin",
+    designation: "Interior Designer",
+    img: "/img/Fathiin.jpeg",
     socials: [
       { icon: "fab fa-facebook-f", url: "#" },
       { icon: "fab fa-twitter", url: "#" },
@@ -19,9 +19,9 @@ const teamMembers = [
     aosDelay: "100",
   },
   {
-    name: "Architect Name",
-    designation: "Designation",
-    img: "/img/team-2.jpg",
+    name: "Syafiq",
+    designation: "Interior Designer",
+    img: "/img/Syafiq.jpeg",
     socials: [
       { icon: "fab fa-facebook-f", url: "#" },
       { icon: "fab fa-twitter", url: "#" },
@@ -30,26 +30,26 @@ const teamMembers = [
     aosDelay: "300",
   },
   {
-    name: "Architect Name",
-    designation: "Designation",
-    img: "/img/team-3.jpg",
+    name: "Yaqin",
+    designation: "Interior Designer",
+    img: "/img/Yaqin.jpeg",
     socials: [
       { icon: "fas fa-envelope", url: "#" },
       { icon: "fab fa-whatsapp", url: "#" },
     ],
     aosDelay: "500",
   },
-  {
-    name: "Architect Name",
-    designation: "Designation",
-    img: "/img/team-4.jpg",
-    socials: [
-      { icon: "fab fa-facebook-f", url: "#" },
-      { icon: "fab fa-twitter", url: "#" },
-      { icon: "fab fa-instagram", url: "#" },
-    ],
-    aosDelay: "700",
-  },
+  // {
+  //   name: "Architect Name",
+  //   designation: "Designation",
+  //   img: "/img/team-4.jpg",
+  //   socials: [
+  //     { icon: "fab fa-facebook-f", url: "#" },
+  //     { icon: "fab fa-twitter", url: "#" },
+  //     { icon: "fab fa-instagram", url: "#" },
+  //   ],
+  //   aosDelay: "700",
+  // },
 ];
 
 const TeamSection = () => {
@@ -68,7 +68,7 @@ const TeamSection = () => {
         >
           <h4 className="section-title">Team Members</h4>
           <h1 className="display-5 mb-4">
-            We Are Creative Architecture Team For Your Dream Home
+            We Are Creative Interior Design Team For Your Dream Home
           </h1>
         </div>
         <div className="row g-0 team-items">

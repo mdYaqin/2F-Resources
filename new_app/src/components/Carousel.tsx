@@ -56,12 +56,12 @@ export default function Carousel() {
                     <p className="fs-5 fw-medium text-white mb-4 pb-3">
                       {item.description}
                     </p>
-                    <a
+                    {/* <a
                       href={item.link}
                       className="btn btn-primary py-3 px-5 animated slideInLeft"
                     >
                       Read More
-                    </a>
+                    </a> */}
                   </div>
                 </div>
               </div>
