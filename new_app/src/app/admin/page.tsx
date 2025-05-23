@@ -1,17 +1,14 @@
-import AboutSection from "@/components/AboutSection";
-import Carousel from "@/components/Carousel";
-import FactsSection from "@/components/FactsSection";
-import ServicesSection from "@/components/ServicesSection";
-import FeatureSection from "@/components/FeatureSection";
-import ProjectsSection from "@/components/ProjectsSection";
-import TeamMembers from "@/components/TeamMembers";
-import Testimonials from "@/components/Testimonials";
+// app/admin/page.tsx
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export default function About() {
-  return (
-    <>
-      <AboutSection />
-      <FeatureSection />
-    </>
-  );
+export default async function AdminPage() {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user) {
+    redirect("/admin/login");
+  } else {
+    redirect("/admin/dashboard");
+  }
 }

@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Topbar from "../components/Topbar";
 import Pageloader from "../components/Pageloader";
+import { SessionProvider } from "next-auth/react";
 
 export default function ClientLayout({
   children,
@@ -52,11 +53,13 @@ export default function ClientLayout({
 
   return (
     <>
-      <Pageloader />
-       <Topbar /> 
-      <Navbar />
-      {children}
-      <Footer />
+      <SessionProvider>
+        <Pageloader />
+        <Topbar />
+        <Navbar />
+        {children}
+        <Footer />
+      </SessionProvider>
     </>
   );
 }

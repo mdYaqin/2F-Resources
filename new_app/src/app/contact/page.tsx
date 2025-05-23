@@ -1,28 +1,41 @@
 "use client";
 
-import AboutSection from "@/components/AboutSection";
-import Carousel from "@/components/Carousel";
-import FactsSection from "@/components/FactsSection";
-import ServicesSection from "@/components/ServicesSection";
-import FeatureSection from "@/components/FeatureSection";
-import ProjectsSection from "@/components/ProjectsSection";
-import TeamMembers from "@/components/TeamMembers";
-import Testimonials from "@/components/Testimonials";
+import { useState } from "react";
 import PageHeader from "@/components/PageHeader";
-import AppointmentSection from "@/components/AppointmentSection";
-import { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 export default function Contact() {
-  useEffect(() => {
-    AOS.init({ once: true });
-  }, []);
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [success, setSuccess] = useState(false);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      body: JSON.stringify(form),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (res.ok) {
+      setSuccess(true);
+      setForm({ name: "", email: "", subject: "", message: "" }); // Clear form
+    }
+  };
+
   return (
     <>
       <PageHeader title="Contact Us" />
 
-      {/* Contact Start */}
       <div className="container-xxl py-5">
         <div className="container">
           <div
@@ -89,11 +102,10 @@ export default function Contact() {
             {/* Contact Form */}
             <div className="col-lg-6" data-aos="fade-up" data-aos-delay="500">
               <p className="mb-4">
-                The contact form is currently inactive. Get a functional and
-                working contact form with Ajax & PHP in a few minutes.{" "}
-                <a href="https://htmlcodex.com/contact-form">Download Now</a>.
+                You can reach out to us using the form below. We&apos;ll get
+                back to you as soon as possible.
               </p>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="row g-3">
                   <div className="col-md-6">
                     <div className="form-floating">
@@ -101,7 +113,10 @@ export default function Contact() {
                         type="text"
                         className="form-control"
                         id="name"
+                        name="name"
                         placeholder="Your Name"
+                        value={form.name}
+                        onChange={handleChange}
                       />
                       <label htmlFor="name">Your Name</label>
                     </div>
@@ -112,7 +127,10 @@ export default function Contact() {
                         type="email"
                         className="form-control"
                         id="email"
+                        name="email"
                         placeholder="Your Email"
+                        value={form.email}
+                        onChange={handleChange}
                       />
                       <label htmlFor="email">Your Email</label>
                     </div>
@@ -123,7 +141,10 @@ export default function Contact() {
                         type="text"
                         className="form-control"
                         id="subject"
+                        name="subject"
                         placeholder="Subject"
+                        value={form.subject}
+                        onChange={handleChange}
                       />
                       <label htmlFor="subject">Subject</label>
                     </div>
@@ -134,7 +155,10 @@ export default function Contact() {
                         className="form-control"
                         placeholder="Leave a message here"
                         id="message"
+                        name="message"
                         style={{ height: "100px" }}
+                        value={form.message}
+                        onChange={handleChange}
                       ></textarea>
                       <label htmlFor="message">Message</label>
                     </div>
@@ -147,6 +171,14 @@ export default function Contact() {
                       Send Message
                     </button>
                   </div>
+                  {success && (
+                    <div className="col-12">
+                      <div className="alert alert-success mt-3" role="alert">
+                        Thanks for contacting us! We&apos;ll get back to you
+                        soon.
+                      </div>
+                    </div>
+                  )}
                 </div>
               </form>
             </div>
@@ -154,7 +186,7 @@ export default function Contact() {
         </div>
       </div>
 
-      {/* Google Map Start */}
+      {/* Google Map */}
       <div
         className="container-xxl pt-5 px-0"
         data-aos="fade-in"
@@ -165,12 +197,11 @@ export default function Contact() {
           width="100%"
           height="450"
           style={{ border: 0 }}
-          allowFullScreen={true}
+          allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         />
       </div>
-      {/* Google Map End */}
     </>
   );
 }
