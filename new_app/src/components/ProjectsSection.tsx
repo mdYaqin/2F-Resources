@@ -70,7 +70,11 @@ export default function ProjectsSection() {
                         25 Years Of Experience In Architecture Industry
                       </h1>
                       <p className="mb-4">
-                      With over two decades of hands-on experience, we’ve built a reputation for excellence in delivering timeless design and high-quality renovations. Our approach blends creativity, innovation, and expert project management to bring your vision to life — beautifully and efficiently.
+                        With over two decades of hands-on experience, we’ve
+                        built a reputation for excellence in delivering timeless
+                        design and high-quality renovations. Our approach blends
+                        creativity, innovation, and expert project management to
+                        bring your vision to life — beautifully and efficiently.
                       </p>
                       <p>
                         <i className="fa fa-check text-primary me-3"></i>Design
@@ -84,7 +88,10 @@ export default function ProjectsSection() {
                         <i className="fa fa-check text-primary me-3"></i>Project
                         Management
                       </p>
-                      <Link href="/projects/5243" className="btn btn-primary py-3 px-5 mt-3">
+                      <Link
+                        href="/projects/5243"
+                        className="btn btn-primary py-3 px-5 mt-3"
+                      >
                         Read More
                       </Link>
                     </div>
