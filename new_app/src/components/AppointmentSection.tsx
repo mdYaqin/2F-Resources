@@ -18,9 +18,7 @@ export default function AppointmentSection() {
               Make An Appointment To Start Your Dream Project
             </h1>
             <p className="mb-4">
-              Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu
-              diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet
-              lorem sit clita duo justo magna dolore erat amet
+            Every great renovation begins with a conversation. Share your vision with us, and our team will craft a tailored solution—whether it’s a cozy HDB makeover, a sleek condo redesign, or a functional commercial space. We’ll handle the details so you can focus on the excitement of transformation.
             </p>
             <div className="row g-4">
               <div className="col-12">
@@ -33,7 +31,7 @@ export default function AppointmentSection() {
                   </div>
                   <div className="ms-4">
                     <p className="mb-2">Call Us Now</p>
-                    <h3 className="mb-0">+012 345 6789</h3>
+                    <h3 className="mb-0">+65 8202 3432</h3>
                   </div>
                 </div>
               </div>
@@ -47,7 +45,7 @@ export default function AppointmentSection() {
                   </div>
                   <div className="ms-4">
                     <p className="mb-2">Mail Us Now</p>
-                    <h3 className="mb-0">info@example.com</h3>
+                    <h3 className="mb-0">Project.sales@2Fresources.com</h3>
                   </div>
                 </div>
               </div>
@@ -82,9 +80,10 @@ export default function AppointmentSection() {
               <div className="col-12 col-sm-6">
                 <select className="form-select" style={{ height: 55 }}>
                   <option defaultValue>Choose Service</option>
-                  <option value="1">Service 1</option>
-                  <option value="2">Service 2</option>
-                  <option value="3">Service 3</option>
+                  <option value="1">Interior Design</option>
+                  <option value="2">3D Drawing</option>
+                  <option value="3">Layout Planning</option>
+                  <option value="4">Renovation</option>
                 </select>
               </div>
               <div className="col-12 col-sm-6">

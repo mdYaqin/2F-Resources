@@ -2,19 +2,19 @@
   {
     "icon": "/img/icons/icon-2.png",
     "title": "Design Approach",
-    "description": "Erat ipsum justo amet duo et elitr dolor...",
+    "description": "We blend creativity with functionality to craft designs that reflect your vision while maximizing space, style, and comfort.",
     "delay": "100"
   },
   {
     "icon": "/img/icons/icon-3.png",
     "title": "Innovative Solutions",
-    "description": "Erat ipsum justo amet duo et elitr dolor...",
+    "description": "From concept to completion, we apply fresh ideas and smart technologies to deliver tailored interiors that stand out.",
     "delay": "300"
   },
   {
     "icon": "/img/icons/icon-4.png",
     "title": "Project Management",
-    "description": "Erat ipsum justo amet duo et elitr dolor...",
+    "description": "With a hands-on, detail-focused approach, we ensure every project runs smoothly — on time, on budget, and beyond expectations.",
     "delay": "500"
   }
 ]

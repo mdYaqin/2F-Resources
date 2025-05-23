@@ -70,8 +70,7 @@ export default function ProjectsSection() {
                         25 Years Of Experience In Architecture Industry
                       </h1>
                       <p className="mb-4">
-                        Tempor erat elitr rebum at clita. Diam dolor diam ipsum
-                        sit. Aliqu diam amet diam et eos...
+                      With over two decades of hands-on experience, we’ve built a reputation for excellence in delivering timeless design and high-quality renovations. Our approach blends creativity, innovation, and expert project management to bring your vision to life — beautifully and efficiently.
                       </p>
                       <p>
                         <i className="fa fa-check text-primary me-3"></i>Design
