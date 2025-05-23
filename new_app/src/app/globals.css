@@ -115,8 +115,8 @@ h6,
 
 .btn-outline-body:hover {
   color: #ffffff;
-  background: var(--primary);
-  border-color: var(--primary);
+  /* background: var(--primary);
+  border-color: var(--primary); */
 }
 
 /*** Navbar ***/
