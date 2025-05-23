@@ -85,7 +85,7 @@ export default function ProjectsSection() {
                         <i className="fa fa-check text-primary me-3"></i>Project
                         Management
                       </p>
-                      <Link href="#" className="btn btn-primary py-3 px-5 mt-3">
+                      <Link href="/projects/5243" className="btn btn-primary py-3 px-5 mt-3">
                         Read More
                       </Link>
                     </div>

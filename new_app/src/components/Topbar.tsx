@@ -18,13 +18,14 @@ export default function Topbar() {
       <div className="row gx-0 d-none d-lg-flex">
         <div className="col-lg-7 px-5 text-start">
           <div className="h-100 d-inline-flex align-items-center py-3 me-3">
-            <a className="text-body px-2" href="tel:+0123456789">
+            <a className="text-body px-2" href="tel:+65 82023432">
               <i className="fa fa-phone-alt text-primary me-2" />
-              +012 345 6789
+              +65 82023432
             </a>
-            <a className="text-body px-2" href="mailto:info@example.com">
+            <a className="text-body px-2" href="mailto:Project.sales@2Fresources.com">
               <i className="fa fa-envelope-open text-primary me-2" />
-              info@example.com
+              Project.sales@2Fresources.com
+
             </a>
           </div>
         </div>

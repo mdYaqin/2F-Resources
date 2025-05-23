@@ -47,7 +47,7 @@ export default function Navbar() {
           <Link href="/about" className="nav-item nav-link">
             About
           </Link>
-          <Link href="/project" className="nav-item nav-link">
+          <Link href="/projects" className="nav-item nav-link">
             Our Projects
           </Link>
 
