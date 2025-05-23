@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Image from "next/image";
 import { useEffect } from "react";
 import AOS from "aos";
@@ -27,10 +27,16 @@ export default function ProjectDetails() {
             </h1>
           </div>
 
-          <div className="row g-5 align-items-center" data-aos="fade-up" data-aos-delay="300">
+          <div
+            className="row g-5 align-items-center"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          >
             {/* Image */}
             <div className="col-lg-6">
-              <div style={{ position: "relative", width: "100%", height: "500px" }}>
+              <div
+                style={{ position: "relative", width: "100%", height: "500px" }}
+              >
                 <Image
                   src="/img/project-1.jpeg" // Change to your actual image path
                   alt="Project"
@@ -42,24 +48,36 @@ export default function ProjectDetails() {
 
             {/* Text Content */}
             <div className="col-lg-6">
-        <h2 className="mb-3">Cozy Victorian</h2>
+              <h2 className="mb-3">Cozy Victorian</h2>
 
-        <ul className="list-unstyled mb-4">
-          <li><strong>Consultant:</strong> Marsiling Team</li>
-          <li><strong>Job Scope:</strong> Whole Unit</li>
-          <li><strong>Style:</strong> White Victorian</li>
-          <li><strong>Timeline:</strong> Just 10 Weeks</li>
-          <li><strong>Location:</strong> Woodlands</li>
-        </ul>
+              <ul className="list-unstyled mb-4">
+                <li>
+                  <strong>Consultant:</strong> Marsiling Team
+                </li>
+                <li>
+                  <strong>Job Scope:</strong> Whole Unit
+                </li>
+                <li>
+                  <strong>Style:</strong> White Victorian
+                </li>
+                <li>
+                  <strong>Timeline:</strong> Just 10 Weeks
+                </li>
+                <li>
+                  <strong>Location:</strong> Woodlands
+                </li>
+              </ul>
 
-        <p>
-          The Cozy Victorian project is a celebration of warmth, history, and personal
-          storytelling through design. Inspired by the grandeur and intimacy of Victorian
-          aesthetics, this home is intentionally filled with layered textures, intricate
-          detailing, and an eclectic mix of beloved treasures. Every corner is thoughtfully
-          curated to evoke nostalgia and personal connections.
-        </p>
-      </div>
+              <p>
+                The Cozy Victorian project is a celebration of warmth, history,
+                and personal storytelling through design. Inspired by the
+                grandeur and intimacy of Victorian aesthetics, this home is
+                intentionally filled with layered textures, intricate detailing,
+                and an eclectic mix of beloved treasures. Every corner is
+                thoughtfully curated to evoke nostalgia and personal
+                connections.
+              </p>
+            </div>
             {/* <div className="col-lg-6">
               <h1 className="mb-3">25 Years Of Experience In Architecture Industry</h1>
               <p className="mb-4">
