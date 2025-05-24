@@ -3,18 +3,16 @@
 
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { Navbar, Container, Spinner } from "react-bootstrap";
+import { Navbar, Container } from "react-bootstrap";
 import LogoutButton from "@/components/LogoutButton";
+import Pageloader from "@/components/Pageloader";
+import ProjectImageUploadForm from "@/components/ProjectImageUploadForm";
 
 export default function AdminDashboard() {
   const { data: session, status } = useSession();
 
   if (status === "loading") {
-    return (
-      <Container className="d-flex justify-content-center align-items-center vh-100">
-        <Spinner animation="border" variant="primary" />
-      </Container>
-    );
+    return <Pageloader />;
   }
 
   if (!session?.user) {
@@ -34,6 +32,7 @@ export default function AdminDashboard() {
       <Container className="mt-4">
         <h1>Welcome, {session.user.email}</h1>
         <p>You have successfully accessed the admin dashboard.</p>
+        <ProjectImageUploadForm />
       </Container>
     </>
   );

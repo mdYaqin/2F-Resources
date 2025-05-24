@@ -1,88 +1,61 @@
 import { PrismaClient } from "@prisma/client";
-import { uploadFileToGridFS } from "@/lib/mongodb/uploadToGridFS";
+import { uploadImageToCloudinary } from "@/lib/cloudinary";
 import path from "path";
-import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
-async function main() {
-  // 1. Seed Admin User
-  const adminEmail = process.env.ADMIN_EMAIL || "admin@example.com";
-  const adminPassword = process.env.ADMIN_PASSWORD || "12345678";
-  const existingAdmin = await prisma.user.findUnique({
-    where: { email: adminEmail },
-  });
+async function seed() {
+  try {
+    const imagePaths = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg"];
 
-  if (!existingAdmin) {
-    const hashedPassword = await bcrypt.hash(adminPassword, 12);
-    const adminUser = await prisma.user.create({
-      data: {
-        email: adminEmail,
-        name: "Admin",
-        hashedPassword,
-        role: "ADMIN",
-      },
+    const imageUrls: string[] = [];
+
+    for (const filename of imagePaths) {
+      const filepath = path.join(__dirname, "seed-images", filename);
+      const imageUrl = await uploadImageToCloudinary(filepath);
+      imageUrls.push(imageUrl);
+    }
+
+    const existing = await prisma.project.findFirst({
+      where: { title: "Yishun Kitchen Island – Custom Carpentry Mastery" },
     });
-    console.log("Created admin user:", {
-      email: adminEmail,
-      password: adminPassword, // Only shown for initial setup
-      userId: adminUser.id,
-    });
-  } else {
-    console.log("Admin user already exists:", existingAdmin.email);
-  }
 
-  // 2. Seed Project with Images (your existing code)
-  const imagePaths = [
-    "dining_table.jpg",
-    "dining.jpg",
-    "hall.jpg",
-    "living_room.jpg",
-    "kitchen.jpg",
-  ];
+    if (existing) {
+      console.log("Project already exists:", existing.title);
+      return;
+    }
 
-  const fileIds: string[] = [];
-
-  for (const filename of imagePaths) {
-    const filepath = path.join(__dirname, "seed-images", filename);
-    const fileId = await uploadFileToGridFS(filename, filepath);
-    fileIds.push(fileId);
-  }
-
-  // Only create project if it doesn't exist
-  const existingProject = await prisma.project.findFirst({
-    where: { title: "Cozy Victorian" },
-  });
-
-  if (!existingProject) {
     const project = await prisma.project.create({
       data: {
-        title: "Cozy Victorian",
+        title: "Yishun Kitchen Island – Custom Carpentry Mastery",
         description:
-          "The Cozy Victorian project is a celebration of warmth, history, and personal storytelling through design. Inspired by the grandeur and intimacy of Victorian aesthetics, this home is intentionally filled with layered textures, intricate detailing, and an eclectic mix of beloved treasures. Every corner is thoughtfully curated to evoke nostalgia and personal connections.",
-        location: "Woodlands",
-        consultant: "Warsiling Team",
-        jobScope: "Whole Unit",
-        style: "White Victorian",
-        timeline: "Just 10 Weeks",
+          "We’ve combined architectural precision with timeless design to create functional art. This Yishun kitchen island project showcases our innovative carpentry solutions, blending seamless project management with bespoke craftsmanship—all delivered in just 2 weeks.",
+        summary:
+          "A handcrafted kitchen island featuring premium materials, smart storage, and ergonomic design.",
+        location: "Yishun",
+        jobScope:
+          "Custom Kitchen Island (Design, Material Sourcing, Built-in Storage, Installation)",
+        style: "Contemporary Craftsmanship (Tailored + Functional)",
+        timeline: "2 weeks",
+        projectValue: "SGD $12,000",
+        tag: ["Carpentry", "Kitchen Island", "Custom Built-ins"],
+        featureTitle: "Architectural Carpentry: A 2-Week Island Transformation",
         images: {
-          create: fileIds.map((fileId) => ({
-            fileId,
+          create: imageUrls.map((url, index) => ({
+            url,
+            isPreview: index === 0,
           })),
         },
       },
     });
-    console.log("Seeded project:", project.title);
-  } else {
-    console.log("Project already exists:", existingProject.title);
+
+    console.log("Project created:", project.title);
+  } catch (e) {
+    console.error("Seeding error:", e);
+    process.exit(1);
+  } finally {
+    await prisma.$disconnect();
   }
 }
 
-main()
-  .catch((e) => {
-    console.error("Seeding error:", e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+seed();

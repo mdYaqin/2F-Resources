@@ -13,32 +13,39 @@ model ContactSubmission {
   email     String
   subject   String
   message   String
+  status    String   @default("PENDING")
+  updatedBy String   @default("SYSTEM")
   createdAt DateTime @default(now())
 
   @@map("contact_submissions")
 }
 
 model Project {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
-  description String
-  location    String
-  consultant  String
-  jobScope    String
-  style       String
-  timeline    String
-  images      Image[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  title          String
+  description    String
+  summary        String
+  location       String
+  jobScope       String
+  style          String
+  timeline       String
+  isFeatured     Boolean  @default(false)
+  featureTitle   String
+  projectValue   String
+  tags           String[]
+  images         Image[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   @@map("projects")
 }
 
 model Image {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  fileId    String
-  project   Project  @relation(fields: [projectId], references: [id])
-  projectId String   @db.ObjectId
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  url        String
+  isPreview  Boolean  @default(false)
+  project    Project  @relation(fields: [projectId], references: [id])
+  projectId  String   @db.ObjectId
 
   @@map("images")
 }

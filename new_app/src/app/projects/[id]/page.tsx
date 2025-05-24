@@ -1,101 +1,158 @@
 "use client";
-import Image from "next/image";
-import { useEffect } from "react";
+
+import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import PageHeader from "@/components/PageHeader"; // Adjust path as needed
+import Image from "next/image";
+import { useParams, notFound } from "next/navigation";
+import { Container, Row, Col, Carousel, Alert } from "react-bootstrap";
+import PageHeader from "@/components/PageHeader";
+import Pageloader from "@/components/Pageloader";
+
+interface Project {
+  id: string;
+  title: string;
+  description: string;
+  location: string;
+  jobScope: string;
+  style: string;
+  timeline: string;
+  featureTitle: string;
+  projectValue: string;
+  images: {
+    url: string;
+    isPreview: boolean;
+  }[];
+}
 
 export default function ProjectDetails() {
+  const { id } = useParams();
+  const [project, setProject] = useState<Project | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
-  }, []);
+
+    const fetchProject = async () => {
+      try {
+        const response = await fetch(`/api/projects/${id}`);
+        if (!response.ok) {
+          if (response.status === 404) {
+            return notFound();
+          }
+          throw new Error("Failed to fetch project");
+        }
+        const data = await response.json();
+        setProject(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Failed to load project");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProject();
+  }, [id]);
+
+  if (loading) {
+    return <Pageloader />;
+  }
+
+  if (error) {
+    return (
+      <div className="py-5">
+        <Alert variant="danger">
+          {error}
+          <div className="mt-3">
+            <button
+              className="btn btn-primary"
+              onClick={() => window.location.reload()}
+            >
+              Try Again
+            </button>
+          </div>
+        </Alert>
+      </div>
+    );
+  }
+
+  if (!project) {
+    return notFound();
+  }
 
   return (
     <>
       <PageHeader title="Project Details" />
-      <div className="container-xxl project py-5">
-        <div className="container">
+      <div className="project py-5">
+        <Container>
           <div
             className="text-center mx-auto mb-5"
             data-aos="fade-up"
             data-aos-delay="100"
             style={{ maxWidth: "600px" }}
           >
-            <h4 className="section-title">Our Projects</h4>
-            <h1 className="display-5 mb-4">
-              Visit Our Latest Projects And Our Innovative Works
-            </h1>
+            <h4 className="section-title">Project Details</h4>
+            <h1 className="display-5 mb-4">{project.title}</h1>
           </div>
 
-          <div
-            className="row g-5 align-items-center"
+          <Row
+            className="g-5 align-items-center"
             data-aos="fade-up"
             data-aos-delay="300"
           >
-            {/* Image */}
-            <div className="col-lg-6">
-              <div
-                style={{ position: "relative", width: "100%", height: "500px" }}
-              >
-                <Image
-                  src="/img/project-1.jpeg" // Change to your actual image path
-                  alt="Project"
-                  fill
-                  style={{ objectFit: "cover" }}
-                />
-              </div>
-            </div>
+            {/* Carousel */}
+            <Col lg={6}>
+              <Carousel fade interval={3000}>
+                {project.images.map((img, idx) => (
+                  <Carousel.Item key={idx}>
+                    <div
+                      style={{
+                        position: "relative",
+                        width: "100%",
+                        height: "500px",
+                      }}
+                    >
+                      <Image
+                        src={img.url}
+                        alt={`${project.title} - Image ${idx + 1}`}
+                        fill
+                        style={{ objectFit: "cover" }}
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        priority={idx === 0}
+                      />
+                    </div>
+                  </Carousel.Item>
+                ))}
+              </Carousel>
+            </Col>
 
             {/* Text Content */}
-            <div className="col-lg-6">
-              <h2 className="mb-3">Cozy Victorian</h2>
+            <Col lg={6}>
+              <h2 className="mb-3">{project.featureTitle}</h2>
 
               <ul className="list-unstyled mb-4">
                 <li>
-                  <strong>Consultant:</strong> Marsiling Team
+                  <strong>Job Scope:</strong> {project.jobScope}
                 </li>
                 <li>
-                  <strong>Job Scope:</strong> Whole Unit
+                  <strong>Style:</strong> {project.style}
                 </li>
                 <li>
-                  <strong>Style:</strong> White Victorian
+                  <strong>Timeline:</strong> {project.timeline}
                 </li>
                 <li>
-                  <strong>Timeline:</strong> Just 10 Weeks
+                  <strong>Location:</strong> {project.location}
                 </li>
                 <li>
-                  <strong>Location:</strong> Woodlands
+                  <strong>Budget:</strong> {project.projectValue}
                 </li>
               </ul>
 
-              <p>
-                The Cozy Victorian project is a celebration of warmth, history,
-                and personal storytelling through design. Inspired by the
-                grandeur and intimacy of Victorian aesthetics, this home is
-                intentionally filled with layered textures, intricate detailing,
-                and an eclectic mix of beloved treasures. Every corner is
-                thoughtfully curated to evoke nostalgia and personal
-                connections.
-              </p>
-            </div>
-            {/* <div className="col-lg-6">
-              <h1 className="mb-3">25 Years Of Experience In Architecture Industry</h1>
-              <p className="mb-4">
-                Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit.
-                Aliqu diam amet diam et eos...
-              </p>
-              <p>
-                <i className="fa fa-check text-primary me-3"></i>Design Approach
-              </p>
-              <p>
-                <i className="fa fa-check text-primary me-3"></i>Innovative Solutions
-              </p>
-              <p>
-                <i className="fa fa-check text-primary me-3"></i>Project Management
-              </p>
-            </div> */}
-          </div>
-        </div>
+              <p>{project.description}</p>
+            </Col>
+          </Row>
+        </Container>
       </div>
     </>
   );
