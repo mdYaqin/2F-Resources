@@ -14,6 +14,7 @@ export async function GET(
     if (!project) {
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
     }
+
     console.log(project);
     return NextResponse.json(project);
   } catch (error) {

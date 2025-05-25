@@ -42,7 +42,8 @@ model Project {
 
 model Image {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  url        String
+  url        String   // The accessible URL (e.g., https://res.cloudinary.com/...)
+  publicId   String   // Cloudinary's unique identifier (e.g., "2fResources/azxxtwiwdf92ufrizqfj")
   isPreview  Boolean  @default(false)
   project    Project  @relation(fields: [projectId], references: [id])
   projectId  String   @db.ObjectId
@@ -52,7 +53,7 @@ model Image {
 
 model User {
   id             String    @id @default(auto()) @map("_id") @db.ObjectId
-  name           String?
+  name           String?  
   email          String    @unique
   hashedPassword String?
   role           String    @default("USER")

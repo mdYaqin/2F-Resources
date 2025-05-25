@@ -34,7 +34,6 @@ export default function ProjectAdmin() {
   const [currentProject, setCurrentProject] = useState<Partial<Project> | null>(
     null
   );
-  const [newImageFile, setNewImageFile] = useState<File | null>(null);
   const [images, setImages] = useState<ImageType[]>([]);
   const [activeTab, setActiveTab] = useState("list");
 
@@ -70,17 +69,20 @@ export default function ProjectAdmin() {
   };
 
   // Handle image upload
-  const imageUpload = async (file) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return;
+
     try {
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append("file", e.target.files[0]);
 
-      const res = await fetch("/api/admin/upload", {
+      const res = await fetch("/api/upload", {
         method: "POST",
         body: formData,
       });
 
-      return await res.json();
+      const newImage = await res.json();
+      setImages((prev) => [...prev, newImage]);
     } catch (err) {
       setError("Failed to upload image");
     }
@@ -94,24 +96,6 @@ export default function ProjectAdmin() {
         isPreview: img.id === imageId,
       }))
     );
-  };
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const previewUrl = URL.createObjectURL(file); // lightweight preview URL
-    console.log(images.length, images, "hello");
-    const isFirst = images.length === 0;
-
-    const newImage: ImageType = {
-      id: crypto.randomUUID(), // will be set after upload
-      url: previewUrl,
-      isPreview: isFirst,
-      file, // keep the file to upload later
-    };
-
-    setImages((prev) => [...prev, newImage]);
   };
 
   // Save project
@@ -131,32 +115,15 @@ export default function ProjectAdmin() {
       return;
     }
 
-    console.log(images, "image");
-
-    const imageUrls: string[] = [];
-
-    for (const image of images) {
-      const formData = new FormData();
-      formData.append("file", image.file);
-
-      try {
-        const imgInfo = await imageUpload(image.file);
-        console.log(imgInfo);
-        imageUrls.push({ ...imgInfo, isPreview: image.isPreview });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
     try {
       const method = currentProject.id ? "PUT" : "POST";
       const url = currentProject.id
         ? `/api/admin/projects/${currentProject.id}`
-        : "/api/admin/projects";
+        : "/api/admin/projects/all";
 
       const body = {
         ...currentProject,
-        images: imageUrls,
+        images,
       };
 
       const res = await fetch(url, {
@@ -183,9 +150,7 @@ export default function ProjectAdmin() {
     if (!confirm("Are you sure you want to delete this project?")) return;
 
     try {
-      const res = await fetch(`/api/admin/projects/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(`/api/projects/${id}`, { method: "DELETE" });
       if (res.ok) {
         router.refresh();
       } else {
@@ -198,33 +163,9 @@ export default function ProjectAdmin() {
 
   // Open edit modal
   const openEditModal = (project: Project) => {
-    console.log(project);
     setCurrentProject(project);
     setImages(project.images || []);
     setShowModal(true);
-  };
-  console.log(images, "images");
-
-  console.log("projects:", projects);
-
-  const removeImage = (imageId: string) => {
-    // Check if we're removing the preview image
-    console.log(images);
-    const isRemovingPreview = images.find(
-      (img) => img.id === imageId
-    )?.isPreview;
-
-    setImages((prev) => {
-      const newImages = prev.filter((img) => img.id !== imageId);
-
-      // If we removed the preview image and there are other images left,
-      // automatically set the first remaining image as preview
-      if (isRemovingPreview && newImages.length > 0) {
-        newImages[0].isPreview = true;
-      }
-
-      return newImages;
-    });
   };
 
   return (
@@ -282,7 +223,7 @@ export default function ProjectAdmin() {
             {error && <Alert variant="danger">{error}</Alert>}
 
             {loading ? (
-              <Pageloader />
+              <div>Loading...</div>
             ) : (
               <Row>
                 {projects.map((project) => {
@@ -339,15 +280,6 @@ export default function ProjectAdmin() {
                 })}
               </Row>
             )}
-          </Tab>
-          <Tab eventKey="enquiries" title="Enquiries">
-            <p>Enquiries tab content will go here.</p>
-            {/* Replace with real enquiry components or logic later */}
-          </Tab>
-
-          <Tab eventKey="users" title="User Management">
-            <p>User management tab content will go here.</p>
-            {/* Replace with real user management logic later */}
           </Tab>
         </Tabs>
 
@@ -483,50 +415,34 @@ export default function ProjectAdmin() {
 
               <Form.Group className="mb-3">
                 <Form.Label>Upload Images</Form.Label>
-                <Form.Control type="file" onChange={handleImageChange} />
+                <Form.Control type="file" onChange={handleImageUpload} />
                 <Form.Text>
                   First image will be set as preview by default
                 </Form.Text>
               </Form.Group>
 
               <div className="d-flex flex-wrap gap-3 mb-3">
-                {images.map((image, index) => (
+                {images.map((image) => (
                   <div
-                    key={image.id || `${image.url}-${index}`}
+                    key={image.id}
                     className="position-relative"
                     style={{ width: "150px", height: "150px" }}
                   >
-                    {(image.url || image.previewData) && (
-                      <Image
-                        src={image.url || image.previewData!}
-                        alt="Project image"
-                        fill
-                        style={{ objectFit: "cover" }}
-                        className={`border ${image.isPreview ? "border-3 border-primary" : ""}`}
-                      />
-                    )}
-
-                    <div className="position-absolute top-0 start-0 end-0 d-flex justify-content-between p-1">
-                      <Button
-                        variant={
-                          image.isPreview ? "primary" : "outline-primary"
-                        }
-                        size="sm"
-                        onClick={() => setPreviewImage(image.id)}
-                        style={{ width: "60%" }}
-                      >
-                        {image.isPreview ? "★ Preview" : "Set Preview"}
-                      </Button>
-                      <Button
-                        variant="outline-danger"
-                        size="sm"
-                        onClick={() => removeImage(image.id)}
-                        style={{ width: "35%" }}
-                        title="Remove image"
-                      >
-                        ×
-                      </Button>
-                    </div>
+                    <Image
+                      src={image.url}
+                      alt="Project image"
+                      fill
+                      style={{ objectFit: "cover" }}
+                      className={`border ${image.isPreview ? "border-3 border-primary" : ""}`}
+                    />
+                    <Button
+                      variant={image.isPreview ? "primary" : "secondary"}
+                      size="sm"
+                      className="position-absolute top-0 end-0 m-1"
+                      onClick={() => setPreviewImage(image.id)}
+                    >
+                      {image.isPreview ? "Preview" : "Set as Preview"}
+                    </Button>
                   </div>
                 ))}
               </div>

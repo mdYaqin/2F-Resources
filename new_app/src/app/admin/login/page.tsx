@@ -38,7 +38,15 @@ export default function LoginPage() {
       <Card className="w-100" style={{ maxWidth: "400px" }}>
         <Card.Body>
           <Card.Title className="text-center mb-4">Admin Login</Card.Title>
-          {error && <Alert variant="danger">{error}</Alert>}
+          {error && (
+            <Alert variant="danger">
+              <div className="d-flex justify-content-center">
+                <i className="fa-solid fa-hand-middle-finger" />
+                <i className="fa-solid fa-hand-middle-finger" />
+                <i className="fa-solid fa-hand-middle-finger" />
+              </div>
+            </Alert>
+          )}
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3">
               <Form.Label>Email</Form.Label>
