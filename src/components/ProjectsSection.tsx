@@ -95,13 +95,17 @@ export default function ProjectsSection() {
                       <Row className="g-4">
                         <Col lg={6} style={{ minHeight: "350px" }}>
                           {previewImage && (
-                            <div className="position-relative h-100">
+                            <div
+                              className="position-relative w-100"
+                              style={{ maxWidth: "440px" }}
+                            >
                               <Image
                                 src={previewImage.url}
                                 alt={project.title}
                                 width={440}
                                 height={440}
-                                style={{ objectFit: "cover" }}
+                                className="img-fluid object-fit-cover"
+                                style={{ height: "auto", aspectRatio: "1 / 1" }}
                                 priority
                               />
                             </div>
