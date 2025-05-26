@@ -20,6 +20,22 @@ model ContactSubmission {
   @@map("contact_submissions")
 }
 
+model Appointment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  mobile    String
+  service   String
+  date      String
+  time      String
+  message   String?
+  status    String   @default("PENDING")
+  updatedBy String   @default("SYSTEM")
+  createdAt DateTime @default(now())
+
+  @@map("appointments")
+}
+
 model Project {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
   title          String
