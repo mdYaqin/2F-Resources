@@ -1,5 +1,3 @@
-// lib/mail/templates/ContactEmail.tsx
-
 import {
   Html,
   Head,
@@ -12,19 +10,25 @@ import {
   Link,
 } from "@react-email/components";
 
-type ContactEmailProps = {
+type AppointmentEmailProps = {
   name: string;
   email: string;
-  subject: string;
-  message: string;
+  mobile: string;
+  service: string;
+  date: string;
+  time: string;
+  message?: string;
 };
 
-export default function ContactEmail({
+export default function AppointmentEmail({
   name,
   email,
-  subject,
+  mobile,
+  service,
+  date,
+  time,
   message,
-}: ContactEmailProps) {
+}: AppointmentEmailProps) {
   return (
     <Html>
       <Head />
@@ -94,21 +98,8 @@ export default function ContactEmail({
               textAlign: "center",
             }}
           >
-            New Contact Form Submission
+            New Appointment Request
           </Heading>
-
-          <Text
-            style={{
-              fontSize: "16px",
-              color: "#4b5563",
-              marginBottom: 30,
-              textAlign: "center",
-              lineHeight: "1.5",
-            }}
-          >
-            You&apos;ve received a new message from your website contact form.
-            Here are the details:
-          </Text>
 
           <Section
             style={{
@@ -156,34 +147,68 @@ export default function ContactEmail({
                 color: "#1e40af",
               }}
             >
-              <strong style={{ color: "#1e40af" }}>Subject:</strong>{" "}
-              <span style={{ color: "#4b5563" }}>{subject}</span>
+              <strong style={{ color: "#1e40af" }}>Mobile:</strong>{" "}
+              <span style={{ color: "#4b5563" }}>{mobile}</span>
             </Text>
             <Text
               style={{
-                marginBottom: 10,
+                marginBottom: 15,
                 fontSize: "15px",
                 color: "#1e40af",
               }}
             >
-              <strong style={{ color: "#1e40af" }}>Message:</strong>
+              <strong style={{ color: "#1e40af" }}>Service:</strong>{" "}
+              <span style={{ color: "#4b5563" }}>{service}</span>
             </Text>
             <Text
               style={{
-                whiteSpace: "pre-wrap",
-                backgroundColor: "#ffffff",
-                padding: "15px",
-                borderRadius: "6px",
-                border: "1px solid #e2e8f0",
-                marginTop: "10px",
+                marginBottom: 15,
                 fontSize: "15px",
-                color: "#4b5563",
-                lineHeight: "1.6",
-                boxShadow: "inset 0 2px 4px rgba(0, 0, 0, 0.05)",
+                color: "#1e40af",
               }}
             >
-              {message}
+              <strong style={{ color: "#1e40af" }}>Date:</strong>{" "}
+              <span style={{ color: "#4b5563" }}>{date}</span>
             </Text>
+            <Text
+              style={{
+                marginBottom: 15,
+                fontSize: "15px",
+                color: "#1e40af",
+              }}
+            >
+              <strong style={{ color: "#1e40af" }}>Time:</strong>{" "}
+              <span style={{ color: "#4b5563" }}>{time}</span>
+            </Text>
+            {message && (
+              <>
+                <Text
+                  style={{
+                    marginBottom: 10,
+                    fontSize: "15px",
+                    color: "#1e40af",
+                  }}
+                >
+                  <strong style={{ color: "#1e40af" }}>Message:</strong>
+                </Text>
+                <Text
+                  style={{
+                    whiteSpace: "pre-wrap",
+                    backgroundColor: "#ffffff",
+                    padding: "15px",
+                    borderRadius: "6px",
+                    border: "1px solid #e2e8f0",
+                    marginTop: "10px",
+                    fontSize: "15px",
+                    color: "#4b5563",
+                    lineHeight: "1.6",
+                    boxShadow: "inset 0 2px 4px rgba(0, 0, 0, 0.05)",
+                  }}
+                >
+                  {message}
+                </Text>
+              </>
+            )}
           </Section>
 
           <Hr style={{ borderColor: "#e2e8f0", marginBottom: "25px" }} />
@@ -197,7 +222,7 @@ export default function ContactEmail({
                 lineHeight: "1.5",
               }}
             >
-              This message was sent from{" "}
+              This appointment request was sent from{" "}
               <Link
                 href="https://2fresources.com"
                 style={{

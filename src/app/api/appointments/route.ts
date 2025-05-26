@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import ContactEmail from "@/lib/mail/templates/ContactEmail";
+import AppointmentEmail from "@/lib/mail/templates/AppointmentEmail";
 import { prisma } from "@/lib/prisma";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -8,10 +8,10 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, subject, message } = body;
+    const { name, email, mobile, service, date, time, message } = body;
 
     // Validate required fields
-    if (!name || !email || !subject || !message) {
+    if (!name || !email || !mobile || !service || !date || !time) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -19,11 +19,14 @@ export async function POST(request: Request) {
     }
 
     // Save to database using Prisma
-    const contactSubmission = await prisma.contactSubmission.create({
+    const appointment = await prisma.appointment.create({
       data: {
         name,
         email,
-        subject,
+        mobile,
+        service,
+        date,
+        time,
         message,
         status: "PENDING",
         updatedBy: "SYSTEM",
@@ -34,34 +37,37 @@ export async function POST(request: Request) {
     const { error } = await resend.emails.send({
       from: process.env.EMAIL_FROM || "2F Resources <no-reply@2fresources.com>",
       to: [process.env.EMAIL_TO || "Project.sales@2Fresources.com"],
-      subject: `New Contact Form Submission: ${subject}`,
-      react: ContactEmail({
+      subject: `New Appointment Request: ${service}`,
+      react: AppointmentEmail({
         name,
         email,
-        subject,
+        mobile,
+        service,
+        date,
+        time,
         message,
       }),
     });
 
     if (error) {
-      console.error("Failed to send contact email:", error);
+      console.error("Failed to send appointment email:", error);
       return NextResponse.json(
-        { error: "Failed to send contact email" },
+        { error: "Failed to send appointment email" },
         { status: 500 }
       );
     }
 
     return NextResponse.json(
       {
-        message: "Contact form submitted successfully",
-        data: contactSubmission,
+        message: "Appointment request submitted successfully",
+        data: appointment,
       },
       { status: 200 }
     );
   } catch (error) {
-    console.error("Error processing contact form:", error);
+    console.error("Error processing appointment request:", error);
     return NextResponse.json(
-      { error: "Failed to process contact form" },
+      { error: "Failed to process appointment request" },
       { status: 500 }
     );
   }
@@ -74,10 +80,10 @@ export async function DELETE(req: Request) {
     const deleteAll = searchParams.get("deleteAll");
 
     if (deleteAll === "true") {
-      await prisma.contactSubmission.deleteMany();
+      await prisma.appointment.deleteMany();
       return NextResponse.json({
         success: true,
-        message: "All messages deleted",
+        message: "All appointments deleted",
       });
     }
 
@@ -88,11 +94,11 @@ export async function DELETE(req: Request) {
       );
     }
 
-    await prisma.contactSubmission.delete({
+    await prisma.appointment.delete({
       where: { id },
     });
 
-    return NextResponse.json({ success: true, message: "Message deleted" });
+    return NextResponse.json({ success: true, message: "Appointment deleted" });
   } catch (error) {
     console.error(error);
     return NextResponse.json(

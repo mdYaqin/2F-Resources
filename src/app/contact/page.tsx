@@ -1,34 +1,57 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PageHeader from "@/components/PageHeader";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function Contact() {
-  const [form, setForm] = useState({
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     subject: "",
     message: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    AOS.init({ once: true });
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      body: JSON.stringify(form),
-      headers: { "Content-Type": "application/json" },
-    });
+    setLoading(true);
+    setError("");
+    setSuccess(false);
 
-    if (res.ok) {
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to send message");
+      }
+
       setSuccess(true);
-      setForm({ name: "", email: "", subject: "", message: "" }); // Clear form
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to send message");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -36,22 +59,26 @@ export default function Contact() {
     <>
       <PageHeader title="Contact Us" />
 
-      <div className="container-xxl py-5">
-        <div className="container">
-          <div
-            className="text-center mx-auto mb-5"
-            data-aos="fade-up"
-            data-aos-delay="100"
-            style={{ maxWidth: "600px" }}
-          >
-            <h4 className="section-title">Contact Us</h4>
-            <h1 className="display-5 mb-4">
-              If You Have Any Query, Please Feel Free Contact Us
-            </h1>
-          </div>
-          <div className="row g-5">
+      <Container fluid className="py-5">
+        <Container>
+          <Row className="justify-content-center mb-5">
+            <Col
+              xs={12}
+              md={8}
+              lg={6}
+              className="text-center"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <h4 className="section-title">Contact Us</h4>
+              <h1 className="display-5 mb-4">
+                If You Have Any Query, Please Feel Free Contact Us
+              </h1>
+            </Col>
+          </Row>
+          <Row className="g-5">
             {/* Left Column */}
-            <div className="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <Col lg={6} data-aos="fade-up" data-aos-delay="100">
               <div className="d-flex flex-column justify-content-between h-100">
                 {/* Address */}
                 <div className="bg-light d-flex align-items-center w-100 p-4 mb-4">
@@ -97,98 +124,95 @@ export default function Contact() {
                   </div>
                 </div>
               </div>
-            </div>
+            </Col>
 
             {/* Contact Form */}
-            <div className="col-lg-6" data-aos="fade-up" data-aos-delay="500">
+            <Col lg={6} data-aos="fade-up" data-aos-delay="500">
               <p className="mb-4">
                 You can reach out to us using the form below. We&apos;ll get
                 back to you as soon as possible.
               </p>
-              <form onSubmit={handleSubmit}>
-                <div className="row g-3">
-                  <div className="col-md-6">
-                    <div className="form-floating">
-                      <input
+              <Form onSubmit={handleSubmit}>
+                {error && <Alert variant="danger">{error}</Alert>}
+                {success && (
+                  <Alert variant="success">
+                    Thanks for contacting us! We&apos;ll get back to you soon.
+                  </Alert>
+                )}
+                <Row className="g-3">
+                  <Col md={6}>
+                    <Form.Group>
+                      <Form.Control
                         type="text"
-                        className="form-control"
-                        id="name"
                         name="name"
                         placeholder="Your Name"
-                        value={form.name}
+                        value={formData.name}
                         onChange={handleChange}
+                        required
+                        style={{ height: 55 }}
                       />
-                      <label htmlFor="name">Your Name</label>
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="form-floating">
-                      <input
+                    </Form.Group>
+                  </Col>
+                  <Col md={6}>
+                    <Form.Group>
+                      <Form.Control
                         type="email"
-                        className="form-control"
-                        id="email"
                         name="email"
                         placeholder="Your Email"
-                        value={form.email}
+                        value={formData.email}
                         onChange={handleChange}
+                        required
+                        style={{ height: 55 }}
                       />
-                      <label htmlFor="email">Your Email</label>
-                    </div>
-                  </div>
-                  <div className="col-12">
-                    <div className="form-floating">
-                      <input
+                    </Form.Group>
+                  </Col>
+                  <Col xs={12}>
+                    <Form.Group>
+                      <Form.Control
                         type="text"
-                        className="form-control"
-                        id="subject"
                         name="subject"
                         placeholder="Subject"
-                        value={form.subject}
+                        value={formData.subject}
                         onChange={handleChange}
+                        required
+                        style={{ height: 55 }}
                       />
-                      <label htmlFor="subject">Subject</label>
-                    </div>
-                  </div>
-                  <div className="col-12">
-                    <div className="form-floating">
-                      <textarea
-                        className="form-control"
-                        placeholder="Leave a message here"
-                        id="message"
+                    </Form.Group>
+                  </Col>
+                  <Col xs={12}>
+                    <Form.Group>
+                      <Form.Control
+                        as="textarea"
                         name="message"
-                        style={{ height: "100px" }}
-                        value={form.message}
+                        rows={5}
+                        placeholder="Message"
+                        value={formData.message}
                         onChange={handleChange}
-                      ></textarea>
-                      <label htmlFor="message">Message</label>
-                    </div>
-                  </div>
-                  <div className="col-12">
-                    <button
-                      className="btn btn-primary w-100 py-3"
+                        required
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col xs={12}>
+                    <Button
+                      variant="primary"
+                      className="w-100 py-3"
                       type="submit"
+                      disabled={loading}
                     >
-                      Send Message
-                    </button>
-                  </div>
-                  {success && (
-                    <div className="col-12">
-                      <div className="alert alert-success mt-3" role="alert">
-                        Thanks for contacting us! We&apos;ll get back to you
-                        soon.
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+                      {loading ? "Sending..." : "Send Message"}
+                    </Button>
+                  </Col>
+                </Row>
+              </Form>
+            </Col>
+          </Row>
+        </Container>
+      </Container>
 
       {/* Google Map */}
-      <div
-        className="container-xxl pt-5 px-0"
+      <Container
+        fluid
+        className="pt-5 px-0"
         data-aos="fade-in"
         data-aos-delay="100"
       >
@@ -201,7 +225,7 @@ export default function Contact() {
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         />
-      </div>
+      </Container>
     </>
   );
 }
