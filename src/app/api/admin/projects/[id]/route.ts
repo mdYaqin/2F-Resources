@@ -32,7 +32,7 @@ export async function GET(
 }
 
 export async function PUT(
-  request: NextRequest,
+  request: Request,
   { params }: { params: { id: string } }
 ) {
   const projectId = params.id;
@@ -61,6 +61,8 @@ export async function PUT(
       projectValue: formData.get("projectValue") as string,
       tags: JSON.parse(formData.get("tags") as string) as string[],
     };
+
+    const previewImageId = formData.get("previewImageId") as string;
 
     // 3. Validate required fields
     if (!projectData.title?.trim() || !projectData.description?.trim()) {
@@ -94,15 +96,35 @@ export async function PUT(
     }
 
     // 6. Handle image updates
-    const newImages = formData.getAll("images") as File[];
+    const newImages: File[] = [];
+    let index = 0;
+    while (true) {
+      const file = formData.get(`images[${index}]`) as File | null;
+      if (!file) break;
+      newImages.push(file);
+      index++;
+    }
+
     const imagesToDelete = JSON.parse(
       (formData.get("imagesToDelete") as string) || "[]"
     ) as string[];
 
-    console.log(imagesToDelete, "delete");
+    console.log(existingProject, "-------Existing Project------");
 
-    // 7. If no image changes, do a simple update
-    if (newImages.length === 0 && imagesToDelete.length === 0) {
+    // Determine if preview image has changed
+    const previewImageChanged = existingProject.images.some(
+      (image) => image.isPreview && image.id !== previewImageId
+    );
+
+    console.log("Preview image changed:", previewImageChanged);
+
+    console.log(previewImageChanged, "------image preview------");
+    // 7. If no image changes and its preview status, do a simple update
+    if (
+      newImages.length === 0 &&
+      imagesToDelete.length === 0 &&
+      !previewImageChanged
+    ) {
       const updatedProject = await prisma.project.update({
         where: { id: projectId },
         data: projectData,
@@ -118,7 +140,7 @@ export async function PUT(
         if (imagesToDelete.length > 0) {
           // Get images to delete
           const imagesToRemove = existingProject.images.filter((img) =>
-            imagesToDelete.includes(img.id)
+            imagesToDelete.some((delImg) => delImg.id === img.id)
           );
 
           // Delete from Cloudinary
@@ -137,29 +159,35 @@ export async function PUT(
             })
           );
 
+          // Extract just the IDs for Prisma deleteMany
+          const imageIdsToDelete = imagesToDelete.map((img) => img.id);
+
           // Delete from database
           await tx.image.deleteMany({
             where: {
               id: {
-                in: imagesToDelete,
+                in: imageIdsToDelete,
               },
             },
           });
         }
 
+        console.log("_____________-------_________------------------");
         // 8.2 Upload new images
         const newImageRecords = [];
-        for (const file of newImages) {
+        for (let i = 0; i < newImages.length; i++) {
+          const file = newImages[i];
           try {
             const bytes = await file.arrayBuffer();
             const buffer = Buffer.from(bytes);
 
             const { url, public_id } = await uploadImageToCloudinary(buffer);
 
+            // Don't set isPreview here yet - we'll handle it after
             newImageRecords.push({
               url,
               publicId: public_id,
-              isPreview: false, // We'll set preview after all uploads
+              isPreview: false, // Set to false initially
             });
           } catch (error) {
             console.error("Failed to upload image:", error);
@@ -169,7 +197,7 @@ export async function PUT(
           }
         }
 
-        // 8.3 Update project with new data
+        // 8.3 Update project with new data and add new images
         const updatedProject = await tx.project.update({
           where: { id: projectId },
           data: {
@@ -181,22 +209,72 @@ export async function PUT(
           include: { images: true },
         });
 
-        // 8.4 Set first image as preview if needed
-        if (
-          newImageRecords.length > 0 &&
-          !updatedProject.images.some((img) => img.isPreview)
-        ) {
-          await tx.image.update({
-            where: { id: updatedProject.images[0].id },
-            data: { isPreview: true },
-          });
-          updatedProject.images[0].isPreview = true;
+        // 8.4 Handle preview image selection
+        // First, reset ALL images' isPreview to false
+        await tx.image.updateMany({
+          where: { projectId: projectId },
+          data: { isPreview: false },
+        });
+
+        console.log("-------------", previewImageId, "------", newImageRecords);
+
+        // Then set the correct preview image
+        if (previewImageId) {
+          if (previewImageId.startsWith("new-")) {
+            // Preview is one of the new images
+            const newImageIndex = parseInt(previewImageId.split("-")[1]);
+
+            // Get the newly uploaded images by finding images with URLs that match our new records
+            const newlyCreatedImages = updatedProject.images.filter((img) =>
+              newImageRecords.some((record) => record.url === img.url)
+            );
+
+            if (newlyCreatedImages[newImageIndex]) {
+              await tx.image.update({
+                where: { id: newlyCreatedImages[newImageIndex].id },
+                data: { isPreview: true },
+              });
+            }
+          } else {
+            // Preview is an existing image - directly update by ID
+            try {
+              await tx.image.update({
+                where: { id: previewImageId },
+                data: { isPreview: true },
+              });
+            } catch (error) {
+              console.error("Failed to set existing image as preview:", error);
+              // Fallback to first image if the specified image doesn't exist
+              const firstImage = updatedProject.images[0];
+              if (firstImage) {
+                await tx.image.update({
+                  where: { id: firstImage.id },
+                  data: { isPreview: true },
+                });
+              }
+            }
+          }
+        } else {
+          // No specific preview selected, set first available image as preview
+          const firstImage = updatedProject.images[0];
+          if (firstImage) {
+            await tx.image.update({
+              where: { id: firstImage.id },
+              data: { isPreview: true },
+            });
+          }
         }
 
-        return updatedProject;
+        // 8.5 Return the final updated project with correct preview status
+        const finalProject = await tx.project.findUnique({
+          where: { id: projectId },
+          include: { images: true },
+        });
+
+        return finalProject;
       },
       {
-        timeout: 30000, // Increased timeout
+        timeout: 30000,
         maxWait: 30000,
       }
     );

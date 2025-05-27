@@ -53,7 +53,16 @@ export async function POST(request: Request) {
       tags: JSON.parse(formData.get("tags") as string) as string[],
     };
 
-    const images = formData.getAll("images") as File[];
+    // const images = formData.getAll("images") as File[];
+
+    const images: File[] = [];
+    let index = 0;
+    while (true) {
+      const file = formData.get(`images[${index}]`) as File | null;
+      if (!file) break;
+      images.push(file);
+      index++;
+    }
 
     // Input validation
     if (!projectData.title?.trim() || !projectData.description?.trim()) {

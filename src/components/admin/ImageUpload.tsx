@@ -57,6 +57,7 @@ export default function ImageUpload({
                   size="sm"
                   onClick={() => onPreviewSet(image.id!)}
                   style={{ width: "60%" }}
+                  disabled={images.length <= 1}
                 >
                   {image.isPreview ? "★ Preview" : "Set Preview"}
                 </Button>
@@ -71,6 +72,7 @@ export default function ImageUpload({
                   }}
                   style={{ width: "35%" }}
                   title="Remove image"
+                  disabled={images.length <= 1}
                 >
                   ×
                 </Button>

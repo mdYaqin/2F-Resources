@@ -67,9 +67,21 @@ export function useProjects() {
         );
       }
 
-      newImages.forEach((image) => {
+      console.log(images);
+      let imageIndex = 0;
+      images.forEach((image) => {
         if (image.file instanceof File) {
-          formData.append("images", image.file);
+          formData.append(`images[${imageIndex}]`, image.file, image.file.name);
+          if (image.isPreview) {
+            // Use temporary ID for new preview images
+            formData.append("previewImageId", `new-${imageIndex}`);
+          }
+          imageIndex++;
+        } else {
+          if (image.isPreview) {
+            // Use temporary ID for new preview images
+            formData.append("previewImageId", image.id);
+          }
         }
       });
 
@@ -77,6 +89,7 @@ export function useProjects() {
         formData.append("imagesToDelete", JSON.stringify(imagesToDelete));
       }
 
+      console.log(formData, "---------------");
       const method = isEdit ? "PUT" : "POST";
       const url = isEdit
         ? `/api/admin/projects/${projectData.id}`

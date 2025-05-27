@@ -1,5 +1,5 @@
 {
-  "name": "new_app",
+  "name": "2f-resources",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -14,7 +14,6 @@
     "@prisma/client": "^6.8.2",
     "@react-email/components": "^0.0.41",
     "@react-email/render": "^1.1.2",
-    "@types/react-bootstrap": "^1.0.1",
     "animate.css": "^4.1.1",
     "aos": "^2.3.4",
     "bcryptjs": "^3.0.2",
@@ -34,6 +33,7 @@
     "swiper": "^11.2.6"
   },
   "devDependencies": {
+    "@types/react-bootstrap": "^1.0.1",
     "@eslint/eslintrc": "^3",
     "@types/aos": "^3.0.7",
     "@types/bcrypt": "^5.0.2",
