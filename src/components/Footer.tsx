@@ -17,15 +17,15 @@ export default function Footer() {
           <Col lg={5} md={6} data-aos="fade-up">
             <h5 className="text-light mb-4">Address</h5>
             <p>
-              <i className="fa fa-map-marker-alt text-primary me-2" />
+              <i className="fa fa-map-marker-alt text-danger me-2" />
               51 Goldhill Plaza #07-07, Singapore 308900
             </p>
             <p>
-              <i className="fa fa-phone-alt text-primary me-2" />
+              <i className="fa fa-phone-alt text-success me-2" />
               +65 82023432
             </p>
             <p>
-              <i className="fa fa-envelope text-primary me-2" />
+              <i className="fa fa-envelope text-info me-2" />
               Project.sales@2Fresources.com
             </p>
           </Col>

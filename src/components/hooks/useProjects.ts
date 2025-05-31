@@ -36,14 +36,13 @@ export function useProjects() {
     try {
       const formData = new FormData();
 
-      // Add project data
       Object.entries(projectData).forEach(([key, value]) => {
         if (key === "tags") {
           formData.append(key, JSON.stringify(value));
-        } else if (key === "isFeatured") {
+        } else if (key === "isFeatured" && typeof value === "boolean") {
           formData.append(key, value.toString());
         } else if (value !== undefined && value !== null) {
-          formData.append(key, value.toString());
+          formData.append(key, String(value)); // Safe coercion
         }
       });
 
@@ -80,7 +79,7 @@ export function useProjects() {
         } else {
           if (image.isPreview) {
             // Use temporary ID for new preview images
-            formData.append("previewImageId", image.id);
+            formData.append("previewImageId", image.id!);
           }
         }
       });

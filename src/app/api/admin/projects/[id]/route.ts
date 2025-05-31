@@ -7,39 +7,32 @@ import {
 import { Prisma } from "@prisma/client";
 
 import type { Project, Image } from "@prisma/client";
+import type { Project as ProjectType, Image as ImageType } from "@/types";
 
 interface ProjectResponse extends Project {
   images: Image[];
 }
 
+type NewImage = {
+  url: string;
+  publicId: string;
+  isPreview: boolean;
+};
+
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id: projectId } = params;
-
-  // Input validation
-  if (!projectId) {
-    return NextResponse.json(
-      { error: "Project ID is required" },
-      { status: 400 }
-    );
-  }
+  const { id } = await params;
 
   try {
-    console.log(`Fetching project with ID: ${projectId}`);
-
     const project = await prisma.project.findUnique({
-      where: { id: projectId },
+      where: { id },
       include: { images: true },
     });
 
     if (!project) {
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
-    }
-
-    if (process.env.NODE_ENV === "development") {
-      console.log("Project data:", project);
     }
 
     return NextResponse.json<ProjectResponse>(project);
@@ -54,13 +47,15 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const projectId = params.id;
+  const { id } = await params;
+
+  console.log(params, "--------", id);
 
   try {
     // 1. Validate project ID
-    if (!projectId) {
+    if (!id) {
       return NextResponse.json(
         { error: "Project ID is required" },
         { status: 400 }
@@ -95,7 +90,7 @@ export async function PUT(
 
     // 4. Get existing project
     const existingProject = await prisma.project.findUnique({
-      where: { id: projectId },
+      where: { id },
       include: { images: true },
     });
 
@@ -128,7 +123,7 @@ export async function PUT(
 
     const imagesToDelete = JSON.parse(
       (formData.get("imagesToDelete") as string) || "[]"
-    ) as string[];
+    ) as Image[];
 
     console.log(existingProject, "-------Existing Project------");
 
@@ -139,7 +134,11 @@ export async function PUT(
 
     console.log("Preview image changed:", previewImageChanged);
 
-    console.log(previewImageChanged, "------image preview------");
+    console.log(
+      previewImageChanged,
+      "------image preview------",
+      imagesToDelete
+    );
     // 7. If no image changes and its preview status, do a simple update
     if (
       newImages.length === 0 &&
@@ -147,7 +146,7 @@ export async function PUT(
       !previewImageChanged
     ) {
       const updatedProject = await prisma.project.update({
-        where: { id: projectId },
+        where: { id },
         data: projectData,
         include: { images: true },
       });
@@ -195,7 +194,7 @@ export async function PUT(
 
         console.log("_____________-------_________------------------");
         // 8.2 Upload new images
-        const newImageRecords = [];
+        const newImageRecords: NewImage[] = [];
         for (let i = 0; i < newImages.length; i++) {
           const file = newImages[i];
           try {
@@ -207,7 +206,7 @@ export async function PUT(
             // Don't set isPreview here yet - we'll handle it after
             newImageRecords.push({
               url,
-              publicId: public_id,
+              publicId: public_id!,
               isPreview: false, // Set to false initially
             });
           } catch (error) {
@@ -220,7 +219,7 @@ export async function PUT(
 
         // 8.3 Update project with new data and add new images
         const updatedProject = await tx.project.update({
-          where: { id: projectId },
+          where: { id },
           data: {
             ...projectData,
             images: {
@@ -233,7 +232,7 @@ export async function PUT(
         // 8.4 Handle preview image selection
         // First, reset ALL images' isPreview to false
         await tx.image.updateMany({
-          where: { projectId: projectId },
+          where: { projectId: id },
           data: { isPreview: false },
         });
 
@@ -288,7 +287,7 @@ export async function PUT(
 
         // 8.5 Return the final updated project with correct preview status
         const finalProject = await tx.project.findUnique({
-          where: { id: projectId },
+          where: { id },
           include: { images: true },
         });
 
@@ -329,14 +328,14 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id: projectId } = context.params;
+  const { id } = await params;
 
   try {
     // Get project with images first to handle cleanup
     const project = await prisma.project.findUnique({
-      where: { id: projectId },
+      where: { id },
       include: { images: true },
     });
 
@@ -364,12 +363,12 @@ export async function DELETE(
 
         // Delete all images from database
         await tx.image.deleteMany({
-          where: { projectId: projectId },
+          where: { projectId: id },
         });
 
         // Finally delete the project
         await tx.project.delete({
-          where: { id: projectId },
+          where: { id },
         });
       },
       {

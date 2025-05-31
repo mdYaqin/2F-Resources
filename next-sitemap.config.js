@@ -8,4 +8,19 @@ module.exports = {
   priority: 0.7,
   sitemapSize: 5000,
   outDir: "./public",
+  exclude: ["/admin/*"],
+
+  robotsTxtOptions: {
+    additionalSitemaps: [
+      `${siteUrl}/sitemap.xml`, // add any extra sitemaps here
+    ],
+    policies: [
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/admin"],
+      },
+    ],
+    host: siteUrl,
+  },
 };

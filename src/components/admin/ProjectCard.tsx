@@ -23,7 +23,7 @@ export default function ProjectCard({
           {previewImage ? (
             <Image
               src={previewImage.url}
-              alt={project.title}
+              alt={project.title || "Project Image"}
               fill
               style={{ objectFit: "cover" }}
             />
