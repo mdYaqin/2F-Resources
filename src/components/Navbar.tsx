@@ -20,7 +20,7 @@ export default function Navbar() {
       <Link href="/" className="navbar-brand ms-4 ms-lg-0">
         <h1 className="text-primary m-0 d-flex align-items-center">
           <Image
-            src="/img/icons/Logo1.svg"
+            src="/logo.svg"
             alt="Logo"
             width={80}
             height={80}
@@ -49,6 +49,9 @@ export default function Navbar() {
           </Link>
           <Link href="/projects" className="nav-item nav-link">
             Our Projects
+          </Link>
+          <Link href="/theme" className="nav-item nav-link">
+            Our Themes
           </Link>
 
           {/* <div className="nav-item dropdown">

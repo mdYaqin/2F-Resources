@@ -1,6 +1,6 @@
 "use client";
 import { Container, Navbar } from "react-bootstrap";
-import LogoutButton from "@/components/LogoutButton";
+import LogoutButton from "@/components/admin/LogoutButton";
 
 export default function AdminNavbar() {
   return (

@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Project } from "@/types";
+import { Image, Project } from "@/types";
 
 export function useProjects() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -26,9 +26,9 @@ export function useProjects() {
 
   const saveProject = async (
     projectData: any,
-    images: any[],
+    images: Image[],
     isEdit: boolean,
-    imagesToDelete: any[]
+    imagesToDelete: Image[]
   ) => {
     setSaving(true);
     setLoading(true);
@@ -49,7 +49,7 @@ export function useProjects() {
 
       // Handle images
       const existingImages = images.filter((img) => !img.file && !img._removed);
-      const newImages = images.filter((img) => img.file instanceof File);
+      // const newImages = images.filter((img) => img.file instanceof File);
       // const imagesToDelete = images
       //   .filter((img) => !img.file && img.id && img._removed)
       //   .map((img) => img.id);

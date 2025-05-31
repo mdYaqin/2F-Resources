@@ -56,3 +56,31 @@ export async function deleteImageFromCloudinary(
     throw err;
   }
 }
+
+/**
+ * Gets all images from a specific Cloudinary folder
+ * @param folder The folder to retrieve images from (default: "2fResources/asset")
+ * @returns Promise with array of image resources
+ */
+// export async function getImagesFromCloudinary(
+//   folder: string = "2fResources/asset"
+// ): Promise<CloudinaryImageResource[]> {
+//   try {
+//     const result = await cloudinary.search
+//       .expression(`folder=${folder}`)
+//       .execute();
+
+//     return result.resources.map((resource: any) => ({
+//       public_id: resource.public_id,
+//       url: resource.secure_url,
+//       width: resource.width,
+//       height: resource.height,
+//       format: resource.format,
+//       created_at: resource.created_at,
+//       folder: resource.folder,
+//     }));
+//   } catch (err) {
+//     console.error("Cloudinary retrieval error:", err);
+//     throw err;
+//   }
+// }

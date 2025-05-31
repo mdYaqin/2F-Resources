@@ -103,6 +103,7 @@ export default function ProjectAdmin() {
 
     // Update imagesToDelete if needed
     if (imageToRemove.id && !imageToRemove.file) {
+      console.log(imagesToDelete, "delete", currentProject);
       setImagesToDelete((prev) =>
         prev.some((img) => img.id === imageId) ? prev : [...prev, imageToRemove]
       );

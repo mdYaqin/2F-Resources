@@ -1,6 +1,7 @@
 export interface Image {
   id?: string;
   url: string;
+  projectId?: string;
   publicId?: string;
   isPreview: boolean;
   file?: File;
@@ -10,7 +11,7 @@ export interface Image {
 
 export interface Project {
   id?: string;
-  title: string;
+  title?: string;
   description: string;
   summary: string;
   location: string;

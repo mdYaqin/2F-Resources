@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Container, Row, Col } from "react-bootstrap";
 
 export default function Topbar() {
   useEffect(() => {
@@ -11,44 +12,51 @@ export default function Topbar() {
 
   return (
     <div
-      className="container-fluid bg-dark p-0"
+      className="bg-dark text-light py-2 d-none d-lg-block"
       data-aos="fade-in"
       data-aos-delay="100"
     >
-      <div className="row gx-0 d-none d-lg-flex">
-        <div className="col-lg-7 px-5 text-start">
-          <div className="h-100 d-inline-flex align-items-center py-3 me-3">
-            <a className="text-body px-2" href="tel:+65 82023432">
-              <i className="fa fa-phone-alt text-primary me-2" />
-              +65 82023432
-            </a>
-            <a className="text-body px-2" href="mailto:Project.sales@2Fresources.com">
-              <i className="fa fa-envelope-open text-primary me-2" />
-              Project.sales@2Fresources.com
+      <Container fluid>
+        <Row className="gx-0 align-items-center">
+          <Col lg={7} className="px-4 text-start">
+            <div className="d-inline-flex align-items-center">
+              <a
+                className="text-light me-4 text-decoration-none"
+                href="tel:+6582023432"
+              >
+                <i className="fa fa-phone-alt text-primary me-2" />
+                +65 82023432
+              </a>
+              <a
+                className="text-light text-decoration-none"
+                href="mailto:Project.sales@2Fresources.com"
+              >
+                <i className="fa fa-envelope-open text-primary me-2" />
+                Project.sales@2Fresources.com
+              </a>
+            </div>
+          </Col>
 
-            </a>
-          </div>
-        </div>
-
-        <div className="col-lg-5 px-5 text-end">
-          {/* <div className="h-100 d-inline-flex align-items-center py-3 me-2">
-            <a className="text-body px-2" href="#">
-              Terms
-            </a>
-            <a className="text-body px-2" href="#">
-              Privacy
-            </a>
-          </div> */}
-          <div className="h-100 d-inline-flex align-items-center">
-            <a className="btn btn-sm-square btn-outline-body me-1" href="https://www.facebook.com/profile.php?id=61572212326307">
-              <i className="fab fa-facebook-f" />
-            </a>
-            <a className="btn btn-sm-square btn-outline-body me-0" href="https://www.instagram.com/2f_resources/">
-              <i className="fab fa-instagram" />
-            </a>
-          </div>
-        </div>
-      </div>
+          <Col lg={5} className="px-4 text-end">
+            <div className="d-inline-flex align-items-center">
+              <a
+                className="btn btn-sm btn-outline-light rounded-circle me-2"
+                href="https://www.facebook.com/profile.php?id=61572212326307"
+                aria-label="Facebook"
+              >
+                <i className="fab fa-facebook-f" />
+              </a>
+              <a
+                className="btn btn-sm btn-outline-light rounded-circle"
+                href="https://www.instagram.com/2f_resources/"
+                aria-label="Instagram"
+              >
+                <i className="fab fa-instagram" />
+              </a>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }

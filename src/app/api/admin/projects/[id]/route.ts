@@ -6,13 +6,29 @@ import {
 } from "@/lib/cloudinary";
 import { Prisma } from "@prisma/client";
 
+import type { Project, Image } from "@prisma/client";
+
+interface ProjectResponse extends Project {
+  images: Image[];
+}
+
 export async function GET(
-  request: Request,
-  context: { params: { id: string } }
+  request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
-  const { id: projectId } = context.params;
+  const { id: projectId } = params;
+
+  // Input validation
+  if (!projectId) {
+    return NextResponse.json(
+      { error: "Project ID is required" },
+      { status: 400 }
+    );
+  }
 
   try {
+    console.log(`Fetching project with ID: ${projectId}`);
+
     const project = await prisma.project.findUnique({
       where: { id: projectId },
       include: { images: true },
@@ -21,7 +37,12 @@ export async function GET(
     if (!project) {
       return NextResponse.json({ error: "Project not found" }, { status: 404 });
     }
-    return NextResponse.json(project);
+
+    if (process.env.NODE_ENV === "development") {
+      console.log("Project data:", project);
+    }
+
+    return NextResponse.json<ProjectResponse>(project);
   } catch (error) {
     console.error("Error fetching project:", error);
     return NextResponse.json(
@@ -32,7 +53,7 @@ export async function GET(
 }
 
 export async function PUT(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   const projectId = params.id;
@@ -307,7 +328,7 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: Request,
+  request: NextRequest,
   context: { params: { id: string } }
 ) {
   const { id: projectId } = context.params;

@@ -1,173 +1,92 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect } from "react";
-import AOS from "aos"; // Ensure AOS is initialized
+import AOS from "aos";
+import Link from "next/link";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
 export default function Footer() {
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true, // Animation runs only once
-    });
+    AOS.init({ duration: 1000, once: true });
   }, []);
 
   return (
-    <div
-      className="container-fluid bg-dark text-body footer mt-5 pt-5 px-0"
-      data-aos-delay="100"
-    >
-      <div className="container py-5">
-        <div className="row g-5">
-          <div className="col-lg-3 col-md-6" data-aos="fade-up">
-            <h3 className="text-light mb-4">Address</h3>
-            <p className="mb-2">
-              <i className="fa fa-map-marker-alt text-primary me-3"></i>
+    <footer className="bg-dark text-light pt-5" data-aos-delay="100">
+      <Container>
+        <Row className="g-4 pb-5 justify-content-md-center">
+          <Col lg={5} md={6} data-aos="fade-up">
+            <h5 className="text-light mb-4">Address</h5>
+            <p>
+              <i className="fa fa-map-marker-alt text-primary me-2" />
               51 Goldhill Plaza #07-07, Singapore 308900
             </p>
-            <p className="mb-2">
-              <i className="fa fa-phone-alt text-primary me-3"></i>
+            <p>
+              <i className="fa fa-phone-alt text-primary me-2" />
               +65 82023432
             </p>
-            <p className="mb-2">
-              <i className="fa fa-envelope text-primary me-3"></i>
+            <p>
+              <i className="fa fa-envelope text-primary me-2" />
               Project.sales@2Fresources.com
             </p>
-            <div className="d-flex pt-2">
-              {/* <a className="btn btn-square btn-outline-body me-1" href="https://www.instagram.com/2f_resources/">
-                <i className="fab fa-instagram"></i>
-              </a>
-              <a className="btn btn-square btn-outline-body me-1" href="https://www.facebook.com/profile.php?id=61572212326307">
-                <i className="fab fa-facebook-f"></i>
-              </a> */}
-              {/* <a className="btn btn-square btn-outline-body me-1" href="#">
-                <i className="fab fa-youtube"></i>
-              </a> */}
-              {/* <a className="btn btn-square btn-outline-body me-0" href="#">
-                <i className="fab fa-linkedin-in"></i>
-              </a> */}
+          </Col>
+
+          <Col lg={2} md={6} data-aos="fade-up" data-aos-delay="200">
+            <h5 className="text-light mb-4">Services</h5>
+            <ul className="list-unstyled text-secondary">
+              <li>Interior Design</li>
+              <li>3D Drawing</li>
+              <li>Layout Planning</li>
+              <li>Renovation</li>
+            </ul>
+          </Col>
+
+          <Col lg={2} md={6} data-aos="fade-up" data-aos-delay="400">
+            <h5 className="text-light mb-4">Quick Links</h5>
+            <div className="d-flex flex-column text-primary">
+              <Link href="#">About Us</Link>
+              <Link href="#">Contact Us</Link>
+              <Link href="#">Our Services</Link>
+              <Link href="#">Terms & Conditions</Link>
+              <Link href="#">Support</Link>
             </div>
-          </div>
+          </Col>
 
-
-
-          <div className="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-  <h3 className="text-light mb-4">Services</h3>
-  <ul className="list-unstyled text-light">
-    <li className="mb-2">
-      <a className="text-decoration-none text-secondary" href="#">
-        <i className=" me-2"></i> Interior Design
-      </a>
-    </li>
-    <li className="mb-2">
-      <a className="text-decoration-none text-secondary" href="#">
-        <i className=" me-2"></i> 3D Drawing
-      </a>
-    </li>
-    <li className="mb-2">
-      <a className="text-decoration-none text-secondary" href="#">
-        <i className=" me-2"></i> Layout Planning
-      </a>
-    </li>
-    <li className="mb-2">
-      <a className="text-decoration-none text-secondary" href="#">
-        <i className="me-2"></i> Renovation
-      </a>
-    </li>
-  </ul>
-</div>
-          {/* <div
-            className="col-lg-3 col-md-6"
-            data-aos="fade-up"
-            data-aos-delay="200"
-          >
-  <h3 className="text-light mb-4">Services</h3>
-<div className="d-flex flex-column">
-  <a className="btn list" href="#">Interior Design</a>
-  <a className="btn list" href="#">3D Drawing</a>
-  <a className="btn list" href="#">Layout Planning</a>
-  <a className="btn list" href="#">Renovation</a>
-</div>
-          
-            
-          </div> */}
-
-          <div
-            className="col-lg-3 col-md-6"
-            data-aos="fade-up"
-            data-aos-delay="400"
-          >
-            <h3 className="text-light mb-4">Quick Links</h3>
-            <a className="btn btn-link" href="#">
-              About Us
-            </a>
-            <a className="btn btn-link" href="#">
-              Contact Us
-            </a>
-            <a className="btn btn-link" href="#">
-              Our Services
-            </a>
-            <a className="btn btn-link" href="#">
-              Terms & Condition
-            </a>
-            <a className="btn btn-link" href="#">
-              Support
-            </a>
-          </div>
-
-          <div
-            className="col-lg-3 col-md-6"
-            data-aos="fade-up"
-            data-aos-delay="600"
-
-            
-          >
-            <div className="d-flex pt-2">
-              <a className="btn btn-square btn-outline-body me-1" href="https://www.instagram.com/2f_resources/">
-                <i className="fab fa-instagram"></i>
-              </a>
-              <a className="btn btn-square btn-outline-body me-1" href="https://www.facebook.com/profile.php?id=61572212326307">
-                <i className="fab fa-facebook-f"></i>
-              </a>
-              {/* <a className="btn btn-square btn-outline-body me-1" href="#">
-                <i className="fab fa-youtube"></i>
-              </a> */}
-              {/* <a className="btn btn-square btn-outline-body me-0" href="#">
-                <i className="fab fa-linkedin-in"></i>
-              </a> */}
-            </div>
-            {/* <h3 className="text-light mb-4">Newsletter</h3>
-            <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
-            <div
-              className="position-relative mx-auto"
-              style={{ maxWidth: 400 }}
-            >
-              <input
-                className="form-control bg-transparent w-100 py-3 ps-4 pe-5"
-                type="text"
-                placeholder="Your email"
-              />
-              <button
-                type="button"
-                className="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2"
+          <Col lg={2} md={6} data-aos="fade-up" data-aos-delay="600">
+            <h5 className="text-light mb-4">Follow Us</h5>
+            <div className="d-flex gap-2">
+              <Button
+                variant="outline-light"
+                href="https://www.instagram.com/2f_resources/"
+                className="rounded-circle"
               >
-                SignUp
-              </button>
-            </div> */}
-          </div>
-        </div>
-      </div>
-
-      <div className="container-fluid copyright">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
-              &copy; <Link href="#">www.2fresources.com</Link>, All Right
-              Reserved.
+                <i className="fab fa-instagram" />
+              </Button>
+              <Button
+                variant="outline-light"
+                href="https://www.facebook.com/profile.php?id=61572212326307"
+                className="rounded-circle"
+              >
+                <i className="fab fa-facebook-f" />
+              </Button>
+              {/* Add more icons here if needed */}
             </div>
-          </div>
-        </div>
+          </Col>
+        </Row>
+      </Container>
+
+      <div className="bg-black py-3">
+        <Container>
+          <Row>
+            <Col className="text-center">
+              &copy; {new Date().getFullYear()}{" "}
+              <Link href="#" className="text-light text-decoration-none">
+                www.2fresources.com
+              </Link>
+              , All Rights Reserved.
+            </Col>
+          </Row>
+        </Container>
       </div>
-    </div>
+    </footer>
   );
 }

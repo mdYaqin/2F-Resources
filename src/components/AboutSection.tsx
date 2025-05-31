@@ -32,13 +32,16 @@ export default function AboutUs() {
               A Creative Interior Design Agency For Your Dream Home
             </h1>
             <p>
-            We are a passionate team of designers and project managers committed to turning your dream home into reality. With creativity at our core and precision in every detail, we craft spaces that blend beauty, functionality, and timeless elegance. Our collaborative approach ensures your vision takes center stage, while our expertise transforms challenges into innovative solutions. From concept to completion, we strive to deliver exceptional design that reflects your unique story. Let’s build something extraordinary together.
+              We are a passionate team of designers and project managers
+              committed to turning your dream home into reality. With creativity
+              at our core and precision in every detail, we craft spaces that
+              blend beauty, functionality, and timeless elegance. Our
+              collaborative approach ensures your vision takes center stage,
+              while our expertise transforms challenges into innovative
+              solutions. From concept to completion, we strive to deliver
+              exceptional design that reflects your unique story. Let’s build
+              something extraordinary together.
             </p>
-            {/* <p className="mb-4">
-              Stet no et lorem dolor et diam, amet duo ut dolore vero eos. No
-              stet est diam rebum amet diam ipsum. Clita clita labore, dolor duo
-              nonumy clita sit at, sed sit sanctus dolor eos.
-            </p> */}
             <div className="d-flex align-items-center mb-5">
               <div
                 className="d-flex flex-shrink-0 align-items-center justify-content-center border border-5 border-primary"

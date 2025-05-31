@@ -96,9 +96,9 @@ export default function AppointmentSection() {
             <p className="mb-4">
               Every great renovation begins with a conversation. Share your
               vision with us, and our team will craft a tailored
-              solution—whether it's a cozy HDB makeover, a sleek condo redesign,
-              or a functional commercial space. We'll handle the details so you
-              can focus on the excitement of transformation.
+              solution—whether it&apos;s a cozy HDB makeover, a sleek condo
+              redesign, or a functional commercial space. We&apos;ll handle the
+              details so you can focus on the excitement of transformation.
             </p>
             <Row className="g-4">
               <Col xs={12}>

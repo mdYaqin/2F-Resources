@@ -1,6 +1,7 @@
 "use client";
 import { Form, Row, Col } from "react-bootstrap";
 import { Project } from "@/types";
+import { useState } from "react";
 
 interface ProjectFormProps {
   project: Partial<Project>;
@@ -22,16 +23,19 @@ export default function ProjectForm({
     onProjectChange({ [name]: value });
   };
 
+  const [wasInitiallyFeatured] = useState(project.isFeatured);
+
   const handleTagsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const tags = e.target.value.split(",").map((tag) => tag.trim());
     onProjectChange({ tags });
   };
 
   const handleFeaturedChange = (checked: boolean) => {
-    if (checked && featuredCount >= 4 && !project.isFeatured) {
+    if (checked && featuredCount >= 4 && !wasInitiallyFeatured) {
       onError("Maximum 4 featured projects allowed");
       return;
     }
+
     onProjectChange({ isFeatured: checked });
   };
 
@@ -140,8 +144,12 @@ export default function ProjectForm({
             id="featured-switch"
             label="Featured Project"
             checked={project.isFeatured || false}
+            disabled={featuredCount >= 4 && !wasInitiallyFeatured}
             onChange={(e) => handleFeaturedChange(e.target.checked)}
           />
+          {featuredCount >= 4 && !wasInitiallyFeatured ? (
+            <p className="text-danger">(Maximum 4 featured projects allowed)</p>
+          ) : null}
         </Col>
       </Row>
     </Form>

@@ -5,8 +5,6 @@ import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import carouselData from "@/data/carousel.json";
-import { Container, Row, Col } from "react-bootstrap";
-
 import { useEffect, useState } from "react";
 
 export default function Carousel() {
@@ -67,7 +65,7 @@ export default function Carousel() {
       }
     `;
     document.head.appendChild(style);
-    return () => document.head.removeChild(style);
+    return () => void document.head.removeChild(style);
   }, []);
 
   return (
@@ -91,23 +89,10 @@ export default function Carousel() {
                 <div className="container">
                   <div className="row justify-content-start">
                     <div className="col-10 col-lg-8">
-                      <h1
-                        className="text-white animated slideInDown fw-bold mb-3"
-                        style={{
-                          fontSize: "clamp(1.5rem, 6vw, 4rem)",
-                          lineHeight: "1.2",
-                        }}
-                      >
+                      <h1 className="display-1 text-white animated slideInDown">
                         {item.title}
                       </h1>
-
-                      <p
-                        className="text-white fw-medium mb-4 pb-3"
-                        style={{
-                          fontSize: "clamp(1rem, 3vw, 1.5rem)",
-                          lineHeight: "1.5",
-                        }}
-                      >
+                      <p className="fs-5 fw-medium text-white mb-4 pb-3">
                         {item.description}
                       </p>
                     </div>
