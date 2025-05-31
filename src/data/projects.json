@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "title": "A Whisper-Style Kitchen Makeover",
+    "description": "A meticulously curated kitchen transformation designed with storytelling aesthetics and warm, inviting details. This project blends functionality with the 'Whisper' design style—soft textures, muted tones, and thoughtful craftsmanship—to create a space that feels both cozy and elevated.",
+    "summary": "A kitchen renovation focused on minimalist warmth, featuring custom carpentry, space optimization, and a soothing neutral palette.",
+    "location": "Jurong West",
+    "jobScope": "Full Kitchen Makeover (Cabinetry, Countertops, Lighting, Flooring)",
+    "style": "Whisper (Minimalist + Warm Neutrals)",
+    "timeline": "10 weeks",
+    "images": [],
+    "featureImg": "/img/project-1.jpeg",
+    "projectValue": "SGD $35,000",
+    "tag": ["Kitchen", "HDB", "Minimalist"],
+    "featureTitle": "From Cluttered to Cozy: A Kitchen Designed for Connection"
+  },
+  {
+    "id": 2,
+    "title": "Industrial-Chic Café Transformation",
+    "description": "A swift yet impactful café makeover blending architectural precision with innovative design. We reimagined this Bukit Timah space with raw textures, strategic lighting, and functional zoning to enhance both aesthetics and customer flow—all completed in just 4 weeks.",
+    "summary": "A high-efficiency café renovation featuring industrial elements, custom seating, and a cohesive brand-aligned design.",
+    "location": "Bukit Timah",
+    "jobScope": "Full Café Makeover (Layout, Lighting, Custom Furniture, Branding Integration)",
+    "style": "Industrial Chic (Exposed Materials + Warm Accents)",
+    "timeline": "4 weeks",
+    "images": [],
+    "featureImg": "/img/project-2.jpeg",
+    "projectValue": "SGD $15,000 – $25,000",
+    "tag": ["Café", "Commercial", "Fast-Track"],
+    "featureTitle": "From Bland to Grand: A 4-Week Café Revamp"
+  },
+  {
+    "id": 3,
+    "title": "Tampines Culinary Oasis – Full Kitchen Transformation",
+    "description": "Leveraging 25 years of architectural expertise, we delivered this complete kitchen renovation with precision design and innovative space solutions. Our project management excellence ensured a seamless 4-week transformation, blending functionality with timeless aesthetics.",
+    "summary": "A full kitchen overhaul featuring smart storage solutions, premium materials, and a workflow-optimized layout.",
+    "location": "Tampines",
+    "jobScope": "Complete Kitchen Renovation (Demolition, Custom Cabinetry, Appliances, Flooring, Lighting)",
+    "style": "Modern Functional (Clean Lines + Smart Storage)",
+    "timeline": "4 weeks",
+    "images": [],
+    "featureImg": "/img/project-3.jpeg",
+    "projectValue": "SGD $30,000",
+    "tag": ["HDB", "Kitchen", "Full Renovation"],
+    "featureTitle": "Mark of Craftsmanship: A Kitchen That Works Harder"
+  },
+  {
+    "id": 4,
+    "title": "Yishun Kitchen Island – Custom Carpentry Mastery",
+    "description": "We’ve combined architectural precision with timeless design to create functional art. This Yishun kitchen island project showcases our innovative carpentry solutions, blending seamless project management with bespoke craftsmanship—all delivered in just 2 weeks.",
+    "summary": "A handcrafted kitchen island featuring premium materials, smart storage, and ergonomic design.",
+    "location": "Yishun",
+    "jobScope": "Custom Kitchen Island (Design, Material Sourcing, Built-in Storage, Installation)",
+    "style": "Contemporary Craftsmanship (Tailored + Functional)",
+    "timeline": "2 weeks",
+    "images": [],
+    "featureImg": "/img/project-4.jpeg",
+    "projectValue": "SGD $12,000",
+    "tag": ["Carpentry", "Kitchen Island", "Custom Built-ins"],
+    "featureTitle": "Architectural Carpentry: A 2-Week Island Transformation"
+  }
+]

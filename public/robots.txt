@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /admin
+
+# Host
+Host: https://2fresources.com
+
+# Sitemaps
+Sitemap: https://2fresources.com/sitemap.xml

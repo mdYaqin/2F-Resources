@@ -1,0 +1,80 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model ContactSubmission {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  subject   String
+  message   String
+  status    String   @default("PENDING")
+  updatedBy String   @default("SYSTEM")
+  createdAt DateTime @default(now())
+
+  @@map("contact_submissions")
+}
+
+model Appointment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String
+  mobile    String
+  service   String
+  date      String
+  time      String
+  message   String?
+  status    String   @default("PENDING")
+  updatedBy String   @default("SYSTEM")
+  createdAt DateTime @default(now())
+
+  @@map("appointments")
+}
+
+model Project {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  title          String
+  description    String
+  summary        String
+  location       String
+  jobScope       String
+  style          String
+  timeline       String
+  isFeatured     Boolean  @default(false)
+  featureTitle   String
+  projectValue   String
+  tags           String[]
+  images         Image[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("projects")
+}
+
+model Image {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  url        String   // The accessible URL (e.g., https://res.cloudinary.com/...)
+  publicId   String   // Cloudinary's unique identifier (e.g., "2fResources/azxxtwiwdf92ufrizqfj")
+  isPreview  Boolean  @default(false)
+  project    Project  @relation(fields: [projectId], references: [id])
+  projectId  String   @db.ObjectId
+
+  @@map("images")
+}
+
+model User {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?  
+  email          String    @unique
+  hashedPassword String?
+  role           String    @default("USER")
+  createdAt      DateTime  @default(now())
+  
+  @@map("users")
+}
+
