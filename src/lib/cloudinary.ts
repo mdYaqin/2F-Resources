@@ -16,7 +16,7 @@ cloudinary.config({
  */
 export async function uploadImageToCloudinary(
   buffer: Buffer,
-  folder: string = "2fResources"
+  folder: string = process.env.CLOUDINARY_CLOUD_FOLDER!
 ): Promise<{ url: string; public_id: string }> {
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
