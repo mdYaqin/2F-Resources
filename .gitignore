@@ -56,4 +56,8 @@ next-env.d.ts
 .history
 .ionide
 
+### Exclude env files
+
+.env.*
+
 # End of https://www.toptal.com/developers/gitignore/api/nextjs,visualstudiocode
