@@ -88,11 +88,15 @@ export default function Carousel() {
               <div className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center">
                 <div className="container">
                   <div className="row justify-content-start">
-                    <div className="col-10 col-lg-8">
-                      <h1 className="display-1 text-white animated slideInDown">
+                    <div className="col-12 col-lg-8">
+                      <h1
+                        className={`${isMobile ? "display-6" : "display-1"} text-white animated slideInDown`}
+                      >
                         {item.title}
                       </h1>
-                      <p className="fs-5 fw-medium text-white mb-4 pb-3">
+                      <p
+                        className={`${isMobile ? "fs-sm-1" : "fs-5"} fw-medium text-white mb-4 pb-3`}
+                      >
                         {item.description}
                       </p>
                     </div>

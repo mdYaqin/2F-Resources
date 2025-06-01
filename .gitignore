@@ -58,6 +58,6 @@ next-env.d.ts
 
 ### Exclude env files
 
-.env.*
+.env*
 
 # End of https://www.toptal.com/developers/gitignore/api/nextjs,visualstudiocode
