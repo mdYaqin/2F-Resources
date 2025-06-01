@@ -1,103 +1,89 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import {
+  Navbar,
+  Nav,
+  NavDropdown,
+  Container,
+  Button,
+  Offcanvas,
+} from "react-bootstrap";
 
-export default function Navbar() {
+export default function AppNavbar() {
+  const [expanded, setExpanded] = useState(false);
+
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
 
+  const handleClose = () => setExpanded(false);
+
   return (
-    <nav
-      className="navbar navbar-expand-lg bg-white navbar-light sticky-top py-lg-0 px-lg-5"
+    <Navbar
+      expand="lg"
+      bg="white"
+      variant="light"
+      sticky="top"
+      expanded={expanded}
+      onToggle={setExpanded}
+      className="py-lg-0 px-lg-5"
       data-aos="fade-in"
       data-aos-delay="100"
     >
-      <Link href="/" className="navbar-brand ms-4 ms-lg-0">
-        <h1 className="text-primary m-0 d-flex align-items-center">
-          <Image
-            src="/logo.svg"
-            alt="Logo"
-            width={80}
-            height={80}
-            className="me-3"
-          />
-          2F Resources
-        </h1>
-      </Link>
-
-      <button
-        type="button"
-        className="navbar-toggler me-4"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarCollapse"
-      >
-        <span className="navbar-toggler-icon" />
-      </button>
-
-      <div className="collapse navbar-collapse" id="navbarCollapse">
-        <div className="navbar-nav ms-auto p-4 p-lg-0">
-          <Link href="/" className="nav-item nav-link active">
-            Home
-          </Link>
-          <Link href="/about" className="nav-item nav-link">
-            About
-          </Link>
-          <Link href="/projects" className="nav-item nav-link">
-            Our Projects
-          </Link>
-          <Link href="/theme" className="nav-item nav-link">
-            Our Themes
-          </Link>
-
-          {/* <div className="nav-item dropdown">
-            <a
-              href="#"
-              className="nav-link dropdown-toggle"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-            Pages
-            </a>
-            <div className="dropdown-menu border-0 m-0">
-              <Link href="/feature" className="dropdown-item">
-                Our Features
-              </Link>
-              <Link href="/project" className="dropdown-item">
-                Our Projects
-              </Link>
-              <Link href="/team" className="dropdown-item">
-                Team Members
-              </Link>
-              <Link href="/appointment" className="dropdown-item">
-                Appointment
-              </Link>
-              <Link href="/testimonial" className="dropdown-item">
-                Testimonial
-              </Link>
-              <Link href="/404" className="dropdown-item">
-                404 Page
-              </Link>
-            </div>
-          </div> */}
-
-          <Link href="/contact" className="nav-item nav-link">
-            Contact
-          </Link>
-        </div>
-
+      <Container fluid>
         <Link
-          href="/appointment"
-          className="btn btn-primary py-2 px-4 d-none d-lg-block"
+          href="/"
+          className="navbar-brand ms-4 ms-lg-0"
+          onClick={handleClose}
         >
-          Appointment
+          <h1 className="text-primary m-0 d-flex align-items-center">
+            <Image
+              src="/logo.svg"
+              alt="Logo"
+              width={80}
+              height={80}
+              className="me-3"
+            />
+            2F Resources
+          </h1>
         </Link>
-      </div>
-    </nav>
+
+        <Navbar.Toggle aria-controls="main-navbar" />
+
+        <Navbar.Collapse id="main-navbar">
+          <Nav className="ms-auto p-4 p-lg-0">
+            <Link href="/" className="nav-link" onClick={handleClose}>
+              Home
+            </Link>
+            <Link href="/about" className="nav-link" onClick={handleClose}>
+              About
+            </Link>
+            <Link href="/projects" className="nav-link" onClick={handleClose}>
+              Our Projects
+            </Link>
+            <Link href="/theme" className="nav-link" onClick={handleClose}>
+              Our Themes
+            </Link>
+
+            <Link href="/contact" className="nav-link" onClick={handleClose}>
+              Contact
+            </Link>
+          </Nav>
+
+          <Link
+            href="/appointment"
+            className="btn btn-primary py-2 px-4 d-none d-lg-block ms-lg-3"
+            onClick={handleClose}
+          >
+            Appointment
+          </Link>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
