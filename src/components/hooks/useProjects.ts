@@ -15,7 +15,9 @@ export function useProjects() {
       const res = await fetch("/api/admin/projects");
       const data = await res.json();
       setProjects(data);
-      setFeaturedCount(data.filter((p: Project) => p.isFeatured).length);
+      setFeaturedCount(
+        data.length > 0 ? data.filter((p: Project) => p.isFeatured).length : 0
+      );
     } catch (error) {
       console.error("Failed to load projects:", error);
       setError("Failed to load projects");
