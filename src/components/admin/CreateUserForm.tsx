@@ -3,7 +3,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button, Card, Form, Alert } from "react-bootstrap";
 
-export default function CreateUserForm() {
+export default function CreateUserForm({
+  onSuccess,
+}: {
+  onSuccess: () => void;
+}) {
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
@@ -48,6 +52,7 @@ export default function CreateUserForm() {
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to create user");
     } finally {
+      onSuccess();
       setLoading(false);
     }
   };

@@ -29,18 +29,32 @@ export default function UserManagement() {
   };
 
   const handleUserCreated = () => {
-    setShowForm(false);
+    // setShowForm(false);
     fetchUsers(); // Refresh list after adding user
   };
 
-  const handleDeleteUser = (id: string) => {
+  const handleDeleteUser = async (id: string) => {
     if (!id) return;
 
     setLoading(true);
     setError(null);
 
     try {
-    } catch (error) {}
+      const res = await fetch(`/api/admin/users/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to delete");
+      }
+
+      await fetchUsers();
+    } catch (error) {
+      console.error("Failed to delete user:", error);
+      setError("Failed to delete user");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -102,7 +116,7 @@ export default function UserManagement() {
                     className="p-0"
                     style={{ color: "red" }}
                     aria-label="Delete user"
-                    onClick={handleDeleteUser}
+                    onClick={() => handleDeleteUser(user.id)}
                   >
                     <i className="fa-solid fa-user-xmark"></i>
                   </Button>
