@@ -1,20 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Container, Row, Col, Modal, Button } from "react-bootstrap";
 import PageHeader from "@/components/PageHeader";
 import AOS from "aos";
-
-import moodBoardThemes from "@/data/moodBoardTheme.json";
+import "aos/dist/aos.css";
 import Image from "next/image";
+import moodBoardThemes from "@/data/moodBoardTheme.json";
 
 export default function Theme() {
+  const [showModal, setShowModal] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
-
-  const [showModal, setShowModal] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleImageClick = (index: number) => {
     setCurrentIndex(index);
@@ -25,96 +25,88 @@ export default function Theme() {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % moodBoardThemes.length);
   };
 
-  const goToPrev = () => {
+  const goToPrev = () =>
     setCurrentIndex(
       (prevIndex) =>
         (prevIndex - 1 + moodBoardThemes.length) % moodBoardThemes.length
     );
-  };
 
   return (
     <>
       <PageHeader title="Theme" />
-      <div
-        data-aos="fade-up"
-        data-aos-delay="200"
+
+      <section
         style={{
-          width: "100%",
+          backgroundColor: "#222",
+          padding: "40px 0",
           minHeight: "100vh",
-          padding: "40px 20px",
-          backgroundColor: "#222222",
-          display: "flex",
-          justifyContent: "center",
         }}
       >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(500px, 1fr))",
-            gap: "30px",
-            width: "100%",
-            maxWidth: "1400px",
-          }}
-        >
-          {moodBoardThemes.map((theme, index) => (
-            <div
-              key={index}
-              style={{
-                border: "1px solid #444",
-                borderRadius: "8px",
-                overflow: "hidden",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
-                backgroundColor: "#333",
-                cursor: "pointer",
-              }}
-              onClick={() => handleImageClick(index)}
-            >
-              <Image
-                src={theme.src}
-                alt={`Theme ${index + 1}`}
-                width={600}
-                height={400}
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  objectFit: "cover",
-                }}
-                quality={100}
-                priority={index < 2}
-              />
-              <div
-                style={{
-                  padding: "12px",
-                  textAlign: "center",
-                  backgroundColor: "#333",
-                  borderTop: "1px solid #444",
-                  color: "#fff",
-                  fontSize: "0.9rem",
-                }}
+        <Container data-aos="fade-up" data-aos-delay="200">
+          <Row className="g-4">
+            {moodBoardThemes.map((theme, index) => (
+              <Col
+                key={index}
+                xs={12}
+                sm={6}
+                lg={6}
+                onClick={() => handleImageClick(index)}
               >
-                Theme {index + 1} of {moodBoardThemes.length}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+                <div
+                  style={{
+                    border: "1px solid #444",
+                    borderRadius: "8px",
+                    overflow: "hidden",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
+                    backgroundColor: "#333",
+                    cursor: "pointer",
+                  }}
+                >
+                  <div style={{ position: "relative", aspectRatio: "3 / 2" }}>
+                    <Image
+                      src={theme.src}
+                      alt={`Theme ${index + 1}`}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      quality={100}
+                      priority={index < 2}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      padding: "12px",
+                      textAlign: "center",
+                      backgroundColor: "#333",
+                      borderTop: "1px solid #444",
+                      color: "#fff",
+                      fontSize: "0.9rem",
+                    }}
+                  >
+                    Theme {index + 1} of {moodBoardThemes.length}
+                  </div>
+                </div>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
 
-      {/* Modal for enlarged image */}
+      {/* Modal */}
       <Modal
         show={showModal}
         onHide={() => setShowModal(false)}
         centered
         size="xl"
-        aria-labelledby="image-modal"
+        aria-labelledby="theme-image-modal"
       >
         <Modal.Body
           style={{
-            backgroundColor: "#222222",
+            backgroundColor: "#222",
+            padding: 0,
             position: "relative",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            padding: 0,
           }}
         >
           <Button
@@ -132,18 +124,23 @@ export default function Theme() {
             &#8592;
           </Button>
 
-          <Image
-            src={moodBoardThemes[currentIndex].src}
-            alt={`Theme ${currentIndex + 1}`}
-            width={1000}
-            height={700}
+          <div
             style={{
+              position: "relative",
               width: "100%",
-              height: "auto",
-              objectFit: "contain",
-              maxHeight: "80vh",
+              maxWidth: "1000px",
+              aspectRatio: "3 / 2",
+              margin: "0 auto",
             }}
-          />
+          >
+            <Image
+              src={moodBoardThemes[currentIndex].src}
+              alt={`Theme ${currentIndex + 1}`}
+              fill
+              style={{ objectFit: "contain" }}
+              sizes="(max-width: 768px) 100vw, 80vw"
+            />
+          </div>
 
           <Button
             variant="dark"
