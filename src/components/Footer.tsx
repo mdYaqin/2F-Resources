@@ -14,7 +14,7 @@ export default function Footer() {
     <footer className="bg-dark text-light pt-5" data-aos-delay="100">
       <Container>
         <Row className="g-4 pb-5 justify-content-md-center">
-          <Col lg={5} md={6} data-aos="fade-up">
+          <Col lg={5} md={6} sm={12} data-aos="fade-up">
             <h5 className="text-light mb-4">Address</h5>
             <p>
               <i className="fa fa-map-marker-alt text-danger me-2" />
@@ -30,7 +30,7 @@ export default function Footer() {
             </p>
           </Col>
 
-          <Col lg={2} md={6} data-aos="fade-up" data-aos-delay="200">
+          <Col lg={2} md={3} sm={6} data-aos="fade-up" data-aos-delay="200">
             <h5 className="text-light mb-4">Services</h5>
             <ul className="list-unstyled text-secondary">
               <li>Interior Design</li>
@@ -40,7 +40,7 @@ export default function Footer() {
             </ul>
           </Col>
 
-          <Col lg={2} md={6} data-aos="fade-up" data-aos-delay="400">
+          <Col lg={2} md={3} sm={6} data-aos="fade-up" data-aos-delay="400">
             <h5 className="text-light mb-4">Quick Links</h5>
             <div className="d-flex flex-column text-primary">
               <Link href="#">About Us</Link>
@@ -51,7 +51,7 @@ export default function Footer() {
             </div>
           </Col>
 
-          <Col lg={2} md={6} data-aos="fade-up" data-aos-delay="600">
+          <Col lg={2} md={3} data-aos="fade-up" data-aos-delay="600">
             <h5 className="text-light mb-4">Follow Us</h5>
             <div className="d-flex gap-2">
               <Button

@@ -48,8 +48,7 @@ export default function Theme() {
               <Col
                 key={index}
                 xs={12}
-                sm={6}
-                lg={6}
+                md={6}
                 onClick={() => handleImageClick(index)}
               >
                 <div
