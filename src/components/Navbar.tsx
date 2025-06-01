@@ -73,15 +73,15 @@ export default function AppNavbar() {
             <Link href="/contact" className="nav-link" onClick={handleClose}>
               Contact
             </Link>
-          </Nav>
 
-          <Link
-            href="/appointment"
-            className="btn btn-primary py-2 px-4 d-none d-lg-block ms-lg-3"
-            onClick={handleClose}
-          >
-            Appointment
-          </Link>
+            <Link
+              href="/appointment"
+              className="btn btn-primary m-auto"
+              onClick={handleClose}
+            >
+              Appointment
+            </Link>
+          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
