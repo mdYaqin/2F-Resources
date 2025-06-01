@@ -1,15 +1,27 @@
-// components/AboutUs.tsx
 "use client";
+
 import Image from "next/image";
 import CountUp from "react-countup";
+import { Container, Row, Col } from "react-bootstrap";
+import { useInView } from "react-intersection-observer";
+import { useState, useEffect } from "react";
 
 export default function AboutUs() {
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
+  const [startCount, setStartCount] = useState(false);
+
+  useEffect(() => {
+    if (inView) {
+      setStartCount(true);
+    }
+  }, [inView]);
+
   return (
-    <div className="container-xxl py-5">
-      <div className="container">
-        <div className="row g-5">
-          <div className="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <div className="about-img d-flex gap-3">
+    <Container fluid className="py-5">
+      <Container>
+        <Row className="g-5">
+          <Col lg={6} data-aos="fade-up" data-aos-delay="100">
+            <div className="d-flex gap-3">
               <Image
                 className="img-fluid w-50"
                 src="/img/about-1.jpg"
@@ -25,31 +37,25 @@ export default function AboutUs() {
                 height={500}
               />
             </div>
-          </div>
-          <div className="col-lg-6" data-aos="fade-up" data-aos-delay="500">
+          </Col>
+
+          <Col lg={6} data-aos="fade-up" data-aos-delay="500">
             <h4 className="section-title">About Us</h4>
             <h1 className="display-5 mb-4">
               A Creative Interior Design Agency For Your Dream Home
             </h1>
             <p>
               We are a passionate team of designers and project managers
-              committed to turning your dream home into reality. With creativity
-              at our core and precision in every detail, we craft spaces that
-              blend beauty, functionality, and timeless elegance. Our
-              collaborative approach ensures your vision takes center stage,
-              while our expertise transforms challenges into innovative
-              solutions. From concept to completion, we strive to deliver
-              exceptional design that reflects your unique story. Let’s build
-              something extraordinary together.
+              committed to turning your dream home into reality...
             </p>
-            <div className="d-flex align-items-center mb-5">
+
+            <div className="d-flex align-items-center mb-5" ref={ref}>
               <div
                 className="d-flex flex-shrink-0 align-items-center justify-content-center border border-5 border-primary"
                 style={{ width: 120, height: 120 }}
               >
                 <h1 className="display-1 mb-n2">
-                  {/* To Do: fix count to start when on scroll view  */}
-                  <CountUp end={10} duration={4.5} />
+                  {startCount && <CountUp end={10} duration={4.5} />}
                 </h1>
               </div>
               <div className="ps-4">
@@ -58,12 +64,9 @@ export default function AboutUs() {
                 <h3 className="mb-0">Experience</h3>
               </div>
             </div>
-            {/* <a className="btn btn-primary py-3 px-5" href="/about">
-              Read More
-            </a> */}
-          </div>
-        </div>
-      </div>
-    </div>
+          </Col>
+        </Row>
+      </Container>
+    </Container>
   );
 }
