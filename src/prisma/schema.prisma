@@ -73,7 +73,10 @@ model User {
   email          String    @unique
   hashedPassword String?
   role           String    @default("USER")
-  createdAt      DateTime  @default(now())
+  resetToken     String?   @unique
+  resetTokenExp  DateTime?
+  createdAt      DateTime  @default(now())  
+
   
   @@map("users")
 }

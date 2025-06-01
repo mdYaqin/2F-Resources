@@ -10,6 +10,7 @@ import ProjectList from "@/components/admin/ProjectList";
 import ProjectModal from "@/components/admin/ProjectModal";
 import DeleteConfirmModal from "@/components/admin/DeleteConfirmModal";
 import { useProjects } from "@/components/hooks/useProjects";
+import UserManagement from "@/components/admin/UserManagement";
 
 export default function ProjectAdmin() {
   useEffect(() => {
@@ -253,7 +254,7 @@ export default function ProjectAdmin() {
           </Tab>
 
           <Tab eventKey="users" title="User Management">
-            <p>User management tab content will go here.</p>
+            <UserManagement />
           </Tab>
         </Tabs>
 
