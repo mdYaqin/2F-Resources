@@ -3,13 +3,13 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ projectId: string }> }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const { projectId } = await params;
+  const { id } = await params;
 
   try {
     const project = await prisma.project.findUnique({
-      where: { id: projectId },
+      where: { id },
       include: { images: true },
     });
 
