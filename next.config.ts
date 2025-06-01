@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "res.cloudinary.com",
-        pathname: "/djohggce0/**", // Restrict to your Cloudinary cloud name
+        pathname: `/${process.env.CLOUDINARY_CLOUD_NAME}/**`, // Restrict to your Cloudinary cloud name
       },
     ],
   },

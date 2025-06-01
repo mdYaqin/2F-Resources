@@ -2,10 +2,36 @@
 // import { uploadImageToCloudinary } from "@/lib/cloudinary";
 // import path from "path";
 // import fs from "fs/promises";
+// import bcrypt from "bcryptjs";
 
 // const prisma = new PrismaClient();
 
 // async function seed() {
+//   // 1. Seed Admin User
+//   const adminEmail = process.env.ADMIN_EMAIL || "admin@example.com";
+//   const adminPassword = process.env.ADMIN_PASSWORD || "12345678";
+//   const existingAdmin = await prisma.user.findUnique({
+//     where: { email: adminEmail },
+//   });
+
+//   if (!existingAdmin) {
+//     const hashedPassword = await bcrypt.hash(adminPassword, 12);
+//     const adminUser = await prisma.user.create({
+//       data: {
+//         email: adminEmail,
+//         name: "Admin",
+//         hashedPassword,
+//         role: "ADMIN",
+//       },
+//     });
+//     console.log("Created admin user:", {
+//       email: adminEmail,
+//       password: adminPassword, // Only shown for initial setup
+//       userId: adminUser.id,
+//     });
+//   } else {
+//     console.log("Admin user already exists:", existingAdmin.email);
+//   }
 //   try {
 //     const imagePaths = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg"];
 
@@ -40,7 +66,7 @@
 //         style: "Contemporary Craftsmanship (Tailored + Functional)",
 //         timeline: "2 weeks",
 //         projectValue: "SGD $12,000",
-//         tag: ["Carpentry", "Kitchen Island", "Custom Built-ins"],
+//         tags: ["Carpentry", "Kitchen Island", "Custom Built-ins"],
 //         featureTitle: "Architectural Carpentry: A 2-Week Island Transformation",
 //         images: {
 //           create: imageUrls.map((url, index) => ({
