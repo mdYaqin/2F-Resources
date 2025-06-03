@@ -35,10 +35,10 @@ export default function AppNavbar() {
       data-aos="fade-in"
       data-aos-delay="100"
     >
-      <Container fluid>
+      <Container fluid className="px-0 px-md-3">
         <Link
           href="/"
-          className="navbar-brand ms-4 ms-lg-0"
+          className="navbar-brand ps-2 ps-lg-0 ms-0 ms-lg-0"
           onClick={handleClose}
         >
           <h1 className="text-primary m-0 d-flex align-items-center">
@@ -47,13 +47,13 @@ export default function AppNavbar() {
               alt="Logo"
               width={80}
               height={80}
-              className="me-3"
+              className="me-2 me-lg-3"
             />
-            2F Resources
+            <span>2F Resources</span>
           </h1>
         </Link>
 
-        <Navbar.Toggle aria-controls="main-navbar" />
+        <Navbar.Toggle aria-controls="main-navbar" className="me-2" />
 
         <Navbar.Collapse id="main-navbar">
           <Nav className="ms-auto p-4 p-lg-0">
@@ -69,11 +69,9 @@ export default function AppNavbar() {
             <Link href="/theme" className="nav-link" onClick={handleClose}>
               Our Themes
             </Link>
-
             <Link href="/contact" className="nav-link" onClick={handleClose}>
               Contact
             </Link>
-
             <Link
               href="/appointment"
               className="btn btn-primary m-auto"

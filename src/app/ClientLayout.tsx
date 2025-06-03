@@ -57,7 +57,7 @@ export default function ClientLayout({
         <Pageloader />
         <Topbar />
         <Navbar />
-        {children}
+        <main className="flex-grow-1">{children}</main>
         <Footer />
       </SessionProvider>
     </>

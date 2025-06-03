@@ -5,7 +5,6 @@ import { useSession } from "next-auth/react";
 import { Container, Tab, Tabs } from "react-bootstrap";
 import { Project, Image as ImageType } from "@/types";
 import Pageloader from "@/components/Pageloader";
-import AdminNavbar from "@/components/admin/AdminNavbar";
 import ProjectList from "@/components/admin/ProjectList";
 import ProjectModal from "@/components/admin/ProjectModal";
 import DeleteConfirmModal from "@/components/admin/DeleteConfirmModal";
@@ -200,85 +199,84 @@ export default function ProjectAdmin() {
   };
 
   return (
-    <>
-      <AdminNavbar />
-      <Container className="py-5 position-relative">
-        {saving && (
-          <div
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-              zIndex: 1000,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Pageloader />
-          </div>
-        )}
-
-        {status === "loading" ? (
-          <Pageloader />
-        ) : session?.user ? (
-          <>
-            <h1>Welcome, {session.user.name}</h1>
-            <p>You have successfully accessed the admin dashboard.</p>
-          </>
-        ) : (
-          redirect("/admin/login?callbackUrl=/admin/dashboard")
-        )}
-
-        <Tabs
-          activeKey={activeTab}
-          onSelect={(k) => k && setActiveTab(k)}
-          className="mb-4"
+    <Container className="py-5 position-relative">
+      {saving && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            zIndex: 1000,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          <Tab eventKey="list" title="Project List">
-            <ProjectList
-              projects={projects}
-              loading={loading}
-              error={error}
-              onAddProject={openAddModal}
-              onEditProject={openEditModal}
-              onDeleteProject={handleDelete}
-            />
-          </Tab>
+          <Pageloader />
+        </div>
+      )}
 
-          <Tab eventKey="enquiries" title="Enquiries">
-            <p>Enquiries/Appointments tab content will go here.</p>
-          </Tab>
+      {status === "loading" ? (
+        <Pageloader />
+      ) : session?.user ? (
+        <>
+          <h1>Welcome, {session.user.name}</h1>
+          <p>You have successfully accessed the admin dashboard.</p>
+        </>
+      ) : (
+        redirect("/admin/login?callbackUrl=/admin/dashboard")
+      )}
 
-          <Tab eventKey="users" title="User Management">
-            <UserManagement />
-          </Tab>
-        </Tabs>
+      <Tabs
+        activeKey={activeTab}
+        onSelect={(k) => k && setActiveTab(k)}
+        className="mb-4"
+        mountOnEnter
+        unmountOnExit={false}
+      >
+        <Tab eventKey="list" title="Project List">
+          <ProjectList
+            projects={projects}
+            loading={loading}
+            error={error}
+            onAddProject={openAddModal}
+            onEditProject={openEditModal}
+            onDeleteProject={handleDelete}
+          />
+        </Tab>
 
-        <DeleteConfirmModal
-          show={showDeleteModal}
-          onHide={() => setShowDeleteModal(false)}
-          onConfirm={confirmDelete}
-        />
+        <Tab eventKey="enquiries" title="Enquiries">
+          <p>Enquiries/Appointments tab content will go here.</p>
+        </Tab>
 
-        <ProjectModal
-          show={showModal}
-          project={currentProject}
-          images={images}
-          featuredCount={featuredCount}
-          saving={saving}
-          onHide={() => setShowModal(false)}
-          onProjectChange={handleProjectChange}
-          onImageAdd={handleImageAdd}
-          onPreviewSet={handlePreviewSet}
-          onImageRemove={handleImageRemove}
-          onSubmit={handleSubmit}
-          onError={setError}
-        />
-      </Container>
-    </>
+        <Tab eventKey="users" title="User Management">
+          <UserManagement />
+        </Tab>
+      </Tabs>
+
+      <DeleteConfirmModal
+        show={showDeleteModal}
+        onHide={() => setShowDeleteModal(false)}
+        onConfirm={confirmDelete}
+      />
+
+      <ProjectModal
+        show={showModal}
+        project={currentProject}
+        images={images}
+        featuredCount={featuredCount}
+        saving={saving}
+        onHide={() => setShowModal(false)}
+        onProjectChange={handleProjectChange}
+        onImageAdd={handleImageAdd}
+        onPreviewSet={handlePreviewSet}
+        onImageRemove={handleImageRemove}
+        onSubmit={handleSubmit}
+        onError={setError}
+      />
+    </Container>
   );
 }
