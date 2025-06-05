@@ -37,9 +37,8 @@ export default function ProjectList({
       <div className="d-flex justify-content-end mb-3">
         <Button onClick={onAddProject}>Add New Project</Button>
       </div>
-
+      {projects.length === 0 && <Alert variant="info">No Projects</Alert>}
       {error && <Alert variant="danger">{error}</Alert>}
-
       {loading ? (
         <Pageloader />
       ) : (
