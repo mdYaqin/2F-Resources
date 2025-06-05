@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
+import { contactInfo } from "@/data/socials";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPhoneAlt, faEnvelopeOpen } from "@fortawesome/free-solid-svg-icons";
 
 type AppointmentFormData = {
   name: string;
@@ -107,11 +110,14 @@ export default function AppointmentSection() {
                     className="d-flex flex-shrink-0 align-items-center justify-content-center bg-light"
                     style={{ width: 65, height: 65 }}
                   >
-                    <i className="fa fa-2x fa-phone-alt text-primary"></i>
+                    <FontAwesomeIcon
+                      icon={faPhoneAlt}
+                      className="text-primary"
+                    />{" "}
                   </div>
                   <div className="ms-4">
                     <p className="mb-2">Call Us Now</p>
-                    <h3 className="mb-0">+65 8202 3432</h3>
+                    <h3 className="mb-0">{contactInfo.phone}</h3>
                   </div>
                 </div>
               </Col>
@@ -121,11 +127,14 @@ export default function AppointmentSection() {
                     className="d-flex flex-shrink-0 align-items-center justify-content-center bg-light"
                     style={{ width: 65, height: 65 }}
                   >
-                    <i className="fa fa-2x fa-envelope-open text-primary"></i>
+                    <FontAwesomeIcon
+                      icon={faEnvelopeOpen}
+                      className="text-primary"
+                    />{" "}
                   </div>
                   <div className="ms-4">
                     <p className="mb-2">Mail Us Now</p>
-                    <h3 className="mb-0">Project.sales@2Fresources.com</h3>
+                    <h3 className="mb-0 text-break">{contactInfo.email}</h3>
                   </div>
                 </div>
               </Col>

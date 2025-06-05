@@ -5,6 +5,13 @@ import PageHeader from "@/components/PageHeader";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { contactInfo } from "@/data/socials";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMapMarkerAlt,
+  faPhoneAlt,
+  faEnvelopeOpen,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -86,13 +93,14 @@ export default function Contact() {
                     className="d-flex flex-shrink-0 align-items-center justify-content-center bg-dark"
                     style={{ width: "55px", height: "55px" }}
                   >
-                    <i className="fa fa-map-marker-alt text-primary"></i>
+                    <FontAwesomeIcon
+                      icon={faMapMarkerAlt}
+                      className="text-primary"
+                    />
                   </div>
                   <div className="ms-4">
                     <p className="mb-2">Address</p>
-                    <h3 className="mb-0">
-                      51 Goldhill Plaza #07-07, Singapore 308900
-                    </h3>
+                    <h3 className="mb-0">{contactInfo.address} </h3>
                   </div>
                 </div>
 
@@ -102,11 +110,14 @@ export default function Contact() {
                     className="d-flex flex-shrink-0 align-items-center justify-content-center bg-dark"
                     style={{ width: "55px", height: "55px" }}
                   >
-                    <i className="fa fa-phone-alt text-primary"></i>
+                    <FontAwesomeIcon
+                      icon={faPhoneAlt}
+                      className="text-primary"
+                    />
                   </div>
                   <div className="ms-4">
                     <p className="mb-2">Call Us Now</p>
-                    <h3 className="mb-0">+65 82023432</h3>
+                    <h3 className="mb-0">{contactInfo.phone}</h3>
                   </div>
                 </div>
 
@@ -116,11 +127,14 @@ export default function Contact() {
                     className="d-flex flex-shrink-0 align-items-center justify-content-center bg-dark"
                     style={{ width: "55px", height: "55px" }}
                   >
-                    <i className="fa fa-envelope-open text-primary"></i>
+                    <FontAwesomeIcon
+                      icon={faEnvelopeOpen}
+                      className="text-primary"
+                    />
                   </div>
                   <div className="ms-4">
                     <p className="mb-2">Mail Us Now</p>
-                    <h3 className="mb-0">Project.sales@2Fresources.com</h3>
+                    <h3 className="mb-0 text-break">{contactInfo.email}</h3>
                   </div>
                 </div>
               </div>
