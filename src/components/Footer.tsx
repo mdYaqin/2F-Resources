@@ -2,8 +2,17 @@
 
 import { useEffect } from "react";
 import AOS from "aos";
+import "aos/dist/aos.css";
 import Link from "next/link";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMapMarkerAlt,
+  faPhoneAlt,
+  faEnvelope,
+} from "@fortawesome/free-solid-svg-icons";
+import SocialMediaLinks from "@/components/SocialMediaLinks";
+import { socialLinks, contactInfo } from "@/data/socials";
 
 export default function Footer() {
   useEffect(() => {
@@ -17,16 +26,42 @@ export default function Footer() {
           <Col lg={5} md={6} xs={12} data-aos="fade-up">
             <h5 className="text-light mb-4">Address</h5>
             <p>
-              <i className="fa fa-map-marker-alt text-danger me-2" />
-              51 Goldhill Plaza #07-07, Singapore 308900
+              <FontAwesomeIcon
+                icon={faMapMarkerAlt}
+                className="text-danger me-2"
+              />
+              <a
+                href={contactInfo.addressHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-light text-decoration-none"
+                aria-label="View address on map"
+              >
+                {contactInfo.address}
+              </a>
             </p>
             <p>
-              <i className="fa fa-phone-alt text-success me-2" />
-              +65 82023432
+              <FontAwesomeIcon
+                icon={faPhoneAlt}
+                className="text-success me-2"
+              />
+              <a
+                href={contactInfo.phoneHref}
+                className="text-light text-decoration-none"
+                aria-label={`Call us at ${contactInfo.phone}`}
+              >
+                {contactInfo.phone}
+              </a>
             </p>
             <p>
-              <i className="fa fa-envelope text-info me-2" />
-              Project.sales@2Fresources.com
+              <FontAwesomeIcon icon={faEnvelope} className="text-info me-2" />
+              <a
+                href={contactInfo.emailHref}
+                className="text-light text-decoration-none"
+                aria-label={`Email us at ${contactInfo.email}`}
+              >
+                {contactInfo.email}
+              </a>
             </p>
           </Col>
 
@@ -43,32 +78,15 @@ export default function Footer() {
           <Col lg={2} sm={3} xs={6} data-aos="fade-up" data-aos-delay="400">
             <h5 className="text-light mb-4">Quick Links</h5>
             <div className="d-flex flex-column text-primary">
-              <Link href="#">About Us</Link>
-              <Link href="#">Contact Us</Link>
-              <Link href="#">Our Services</Link>
-              <Link href="#">Terms & Conditions</Link>
-              <Link href="#">Support</Link>
+              <Link href="/about">About Us</Link>
+              <Link href="/contact">Contact Us</Link>
             </div>
           </Col>
 
           <Col lg={2} sm={3} data-aos="fade-up" data-aos-delay="600">
             <h5 className="text-light mb-4">Follow Us</h5>
             <div className="d-flex gap-2">
-              <Button
-                variant="outline-light"
-                href="https://www.instagram.com/2f_resources/"
-                className="rounded-circle"
-              >
-                <i className="fab fa-instagram" />
-              </Button>
-              <Button
-                variant="outline-light"
-                href="https://www.facebook.com/profile.php?id=61572212326307"
-                className="rounded-circle"
-              >
-                <i className="fab fa-facebook-f" />
-              </Button>
-              {/* Add more icons here if needed */}
+              <SocialMediaLinks links={socialLinks} />
             </div>
           </Col>
         </Row>
@@ -80,7 +98,7 @@ export default function Footer() {
             <Col className="text-center">
               &copy; {new Date().getFullYear()}{" "}
               <Link href="#" className="text-light text-decoration-none">
-                www.2fresources.com
+                {contactInfo.website}
               </Link>
               , All Rights Reserved.
             </Col>

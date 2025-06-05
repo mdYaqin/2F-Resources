@@ -24,7 +24,7 @@ export default function Pageloader() {
         role="status"
       />
       <Image
-        src="/img/icons/icon-1.png"
+        src="/logo.svg"
         alt="Icon"
         className="position-absolute top-50 start-50 translate-middle"
         width={60}

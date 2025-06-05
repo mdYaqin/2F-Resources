@@ -50,6 +50,7 @@ export default function SocialMediaLinks({
           aria-label={ariaLabel}
           target="_blank"
           rel="noopener noreferrer"
+          title={ariaLabel}
         >
           <Button
             variant="outline-light"

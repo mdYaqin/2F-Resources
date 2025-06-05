@@ -27,7 +27,7 @@ export default function ServicesSection() {
         >
           <h4 className="section-title">Our Services</h4>
           <h1 className="display-5 mb-4">
-            We Focused On Modern Architecture And Interior Design
+            We Focused On Modern Renovation And Interior Design
           </h1>
         </div>
         <div className="row g-4">
@@ -55,7 +55,8 @@ export default function ServicesSection() {
                 />
                 <h3 className="mb-3">Interior Design</h3>
                 <p className="mb-4">
-                We create personalized interiors that blend aesthetics and functionality, making every space feel uniquely yours.
+                  We create personalized interiors that blend aesthetics and
+                  functionality, making every space feel uniquely yours.
                 </p>
                 {/* <a className="btn" href="#">
                   <i className="fa fa-plus text-primary me-3"></i>Read More
@@ -88,7 +89,9 @@ export default function ServicesSection() {
                 />
                 <h3 className="mb-3">3D Drawing</h3>
                 <p className="mb-4">
-                Visualize your dream space before it’s built — our detailed 3D renderings help you make informed design decisions with confidence.
+                  Visualize your dream space before it’s built — our detailed 3D
+                  renderings help you make informed design decisions with
+                  confidence.
                 </p>
                 {/* <a className="btn" href="#">
                   <i className="fa fa-plus text-primary me-3"></i>Read More
@@ -121,7 +124,8 @@ export default function ServicesSection() {
                 />
                 <h3 className="mb-3">Layout Planning</h3>
                 <p className="mb-4">
-                Smart space planning tailored to your lifestyle and needs — ensuring efficient flow, comfort, and purpose in every room.
+                  Smart space planning tailored to your lifestyle and needs —
+                  ensuring efficient flow, comfort, and purpose in every room.
                 </p>
                 {/* <a className="btn" href="#">
                   <i className="fa fa-plus text-primary me-3"></i>Read More
@@ -154,7 +158,9 @@ export default function ServicesSection() {
                 />
                 <h3 className="mb-3">Renovation</h3>
                 <p className="mb-4">
-                From minor updates to full overhauls, our renovation team delivers high-quality workmanship with minimal disruption and maximum impact.
+                  From minor updates to full overhauls, our renovation team
+                  delivers high-quality workmanship with minimal disruption and
+                  maximum impact.
                 </p>
                 {/* <a className="btn" href="#">
                   <i className="fa fa-plus text-primary me-3"></i>Read More
