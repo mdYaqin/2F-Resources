@@ -18,13 +18,13 @@ export default function AdminNavbar() {
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container className="d-flex justify-content-between align-items-center w-100">
         {/* Left: Brand and Change Password (responsive) */}
-        <div className="d-flex flex-column flex-lg-row align-items-start gap-1 gap-lg-2">
+        <div className="d-flex flex-column flex-lg-row align-items-start align-items-lg-center">
           <Navbar.Brand href="/admin/dashboard" className="mb-0">
             Admin Portal
           </Navbar.Brand>
 
           {!isChangePasswordPage && (
-            <small className="ms-1">
+            <small>
               <Link
                 href="/admin/change-password"
                 className="fst-italic text-secondary text-decoration-none"
