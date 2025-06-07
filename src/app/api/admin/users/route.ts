@@ -77,7 +77,7 @@ export async function POST(request: Request) {
         name,
         email,
         hashedPassword,
-        role: "USER", // Default role for new users
+        role: "ADMIN", // Default role for new users
       },
       select: {
         id: true,
@@ -101,8 +101,14 @@ export async function POST(request: Request) {
     });
 
     if (error) {
+      await prisma.user.delete({
+        where: { email },
+      });
       console.error("Error sending email:", error);
-      throw new Error("Failed to send welcome email");
+      return NextResponse.json(
+        { error: `Failed to add User: ${name}` },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json(
