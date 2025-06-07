@@ -3,7 +3,7 @@ const siteUrl = "https://2fresources.com";
 module.exports = {
   siteUrl,
   generateRobotsTxt: true,
-  generateIndexSitemap: true,
+  generateIndexSitemap: false,
   changefreq: "daily",
   priority: 0.7,
   sitemapSize: 5000,
