@@ -1,0 +1,25 @@
+{
+  "name": "2F Resources - Home Renovation Experts in Singapore",
+  "short_name": "2F Resources",
+  "description": "Transform your space with 2F Resources – trusted home renovation experts in Singapore.",
+  "lang": "en-SG",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#232121",
+  "orientation": "portrait",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

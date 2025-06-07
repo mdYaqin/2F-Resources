@@ -1,4 +1,3 @@
-// src/app/layout.tsx
 import "bootstrap/dist/css/bootstrap.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -24,42 +23,15 @@ const teko = Teko({
 });
 
 export const metadata = {
-  title: "2F Resources | Home Renovation Experts in Singapore",
-  description:
-    "Transform your home with 2F Resources. We offer quality renovation services tailored to Singaporean living.",
-  keywords: [
-    "2F Resources",
-    "Home renovation",
-    "Singapore",
-    "Interior design",
-    "Renovation contractor",
-  ],
+  title: "2F Resources",
+  description: "Trusted home renovation experts in Singapore.",
   openGraph: {
-    title: "2F Resources | Home Renovation Experts in Singapore",
-    description:
-      "Transform your home with 2F Resources. We offer quality renovation services tailored to Singaporean living.",
-    url: "https://2fresources.sg",
+    title: "2F Resources",
+    description: "Transform your home with professional renovation services.",
+    url: "https://www.2fresources.com/",
     siteName: "2F Resources",
-    images: [
-      {
-        url: "https://2fresources.sg/og-image.jpg",
-        width: 1200,
-        height: 630,
-      },
-    ],
-    locale: "en_SG",
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "2F Resources | Home Renovation Experts in Singapore",
-    description:
-      "Transform your home with 2F Resources. We offer quality renovation services tailored to Singaporean living.",
-    images: ["https://2fresources.sg/twitter-image.jpg"],
-  },
-  metadataBase: new URL("https://2fresources.com"),
-  alternates: {
-    canonical: "/",
+    locale: "en_SG",
   },
 };
 
@@ -75,10 +47,9 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#232121" />
-        <meta name="robots" content="index, follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className="d-flex flex-column min-vh-100">
+      <body className="d-flex flex-column min-vh-100" suppressHydrationWarning>
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>

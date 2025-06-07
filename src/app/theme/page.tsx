@@ -1,172 +1,80 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { Container, Row, Col, Modal, Button } from "react-bootstrap";
 import PageHeader from "@/components/PageHeader";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import Image from "next/image";
-import moodBoardThemes from "@/data/moodBoardTheme.json";
+import ThemeSection from "@/components/ThemeSection";
+import Script from "next/script";
+
+export const metadata = {
+  title: "Renovation Themes | Interior Design Styles by 2F Resources Singapore",
+  description:
+    "Explore unique renovation themes and interior design styles by 2F Resources. Get inspired by our curated collection tailored for Singapore homes.",
+  keywords: [
+    "Renovation Themes",
+    "Interior Design Styles",
+    "Singapore Home Interiors",
+    "Modern Renovation Ideas",
+    "2F Resources Design",
+    "Theme Gallery",
+  ],
+  openGraph: {
+    title: "Renovation Themes | 2F Resources Interior Design Inspiration",
+    description:
+      "Browse our renovation themes to find inspiration for your next home makeover. 2F Resources offers modern and classic styles perfect for Singapore homes.",
+    url: "https://www.2fresources.com/theme",
+    siteName: "2F Resources",
+    type: "website",
+    locale: "en_SG",
+    images: [
+      {
+        url: "https://www.2fresources.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Renovation Themes by 2F Resources",
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
 export default function Theme() {
-  const [showModal, setShowModal] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    AOS.init({ duration: 1000, once: true });
-  }, []);
-
-  const handleImageClick = (index: number) => {
-    setCurrentIndex(index);
-    setShowModal(true);
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % moodBoardThemes.length);
-  };
-
-  const goToPrev = () =>
-    setCurrentIndex(
-      (prevIndex) =>
-        (prevIndex - 1 + moodBoardThemes.length) % moodBoardThemes.length
-    );
-
   return (
     <>
-      <PageHeader title="Theme" />
-
-      <section
-        style={{
-          backgroundColor: "#222",
-          padding: "40px 0",
-          minHeight: "100vh",
+      <Script
+        id="jsonld-theme-page"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Renovation Themes",
+            url: "https://www.2fresources.com/theme",
+            description:
+              "Explore curated renovation themes and interior design inspirations for modern Singapore homes, created by 2F Resources.",
+            mainEntity: {
+              "@type": "Organization",
+              name: "2F Resources",
+              url: "https://www.2fresources.com",
+              logo: "https://www.2fresources.com/logo.svg",
+              email: "project.sales@2fresources.com",
+              telephone: "+65 8202 3432",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "51 Goldhill Plaza #07-07",
+                addressLocality: "Singapore",
+                postalCode: "308900",
+                addressCountry: "SG",
+              },
+              sameAs: [
+                "https://www.facebook.com/profile.php?id=61572212326307",
+                "https://www.instagram.com/2f_resources",
+              ],
+            },
+          }),
         }}
-      >
-        <Container data-aos="fade-up" data-aos-delay="200">
-          <Row className="g-4">
-            {moodBoardThemes.map((theme, index) => (
-              <Col
-                key={index}
-                xs={12}
-                md={6}
-                onClick={() => handleImageClick(index)}
-              >
-                <div
-                  style={{
-                    border: "1px solid #444",
-                    borderRadius: "8px",
-                    overflow: "hidden",
-                    boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
-                    backgroundColor: "#333",
-                    cursor: "pointer",
-                  }}
-                >
-                  <div style={{ position: "relative", aspectRatio: "3 / 2" }}>
-                    <Image
-                      src={theme.src}
-                      alt={`Theme ${index + 1}`}
-                      fill
-                      style={{ objectFit: "cover" }}
-                      quality={100}
-                      priority={index < 2}
-                    />
-                  </div>
-                  <div
-                    style={{
-                      padding: "12px",
-                      textAlign: "center",
-                      backgroundColor: "#333",
-                      borderTop: "1px solid #444",
-                      color: "#fff",
-                      fontSize: "0.9rem",
-                    }}
-                  >
-                    Theme {index + 1} of {moodBoardThemes.length}
-                  </div>
-                </div>
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      </section>
-
-      {/* Modal */}
-      <Modal
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        centered
-        size="xl"
-        aria-labelledby="theme-image-modal"
-      >
-        <Modal.Body
-          style={{
-            backgroundColor: "#222",
-            padding: 0,
-            position: "relative",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Button
-            variant="dark"
-            onClick={goToPrev}
-            style={{
-              position: "absolute",
-              left: 10,
-              top: "50%",
-              transform: "translateY(-50%)",
-              zIndex: 10,
-              opacity: 0.7,
-            }}
-          >
-            &#8592;
-          </Button>
-
-          <div
-            style={{
-              position: "relative",
-              width: "100%",
-              maxWidth: "1000px",
-              aspectRatio: "3 / 2",
-              margin: "0 auto",
-            }}
-          >
-            <Image
-              src={moodBoardThemes[currentIndex].src}
-              alt={`Theme ${currentIndex + 1}`}
-              fill
-              style={{ objectFit: "contain" }}
-              sizes="(max-width: 768px) 100vw, 80vw"
-            />
-          </div>
-
-          <Button
-            variant="dark"
-            onClick={goToNext}
-            style={{
-              position: "absolute",
-              right: 10,
-              top: "50%",
-              transform: "translateY(-50%)",
-              zIndex: 10,
-              opacity: 0.7,
-            }}
-          >
-            &#8594;
-          </Button>
-        </Modal.Body>
-
-        <Modal.Footer
-          style={{
-            backgroundColor: "#333",
-            color: "#fff",
-            justifyContent: "center",
-          }}
-        >
-          Theme {currentIndex + 1} of {moodBoardThemes.length}
-        </Modal.Footer>
-      </Modal>
+      />
+      <PageHeader title="Our Theme" />
+      <ThemeSection />
     </>
   );
 }
