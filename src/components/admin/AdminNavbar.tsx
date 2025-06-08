@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LogoutButton from "@/components/admin/LogoutButton";
 
-const HIDDEN_ROUTES = ["/admin/login"];
+const HIDDEN_ROUTES = ["/admin/login", "/admin/reset-password"];
 
 export default function AdminNavbar() {
   const pathname = usePathname();
