@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Table, Button, Spinner, Alert } from "react-bootstrap";
 import { User } from "@prisma/client"; // adjust if you use a custom User type
 import CreateUserForm from "@/components/admin/CreateUserForm";
+import Pageloader from "../Pageloader";
 
 export default function UserManagement() {
   const [users, setUsers] = useState<User[]>([]);
@@ -77,7 +78,7 @@ export default function UserManagement() {
       )}
 
       {loading ? (
-        <Spinner animation="border" />
+        <Pageloader fullScreen={false} />
       ) : error ? (
         <Alert variant="danger">{error}</Alert>
       ) : users.length === 0 ? (
