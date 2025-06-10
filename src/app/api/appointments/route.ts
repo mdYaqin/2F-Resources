@@ -10,7 +10,6 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { name, email, mobile, service, date, time, message } = body;
 
-    // Validate required fields
     if (!name || !email || !mobile || !service || !date || !time) {
       return NextResponse.json(
         { error: "Missing required fields" },
@@ -18,7 +17,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // Save to database using Prisma
+    // Create appointment
     const appointment = await prisma.appointment.create({
       data: {
         name,
@@ -33,10 +32,24 @@ export async function POST(request: Request) {
       },
     });
 
-    // Send email using Resend
+    // Prepare email recipients
+    const toRecipients = [process.env.EMAIL_TO, process.env.EMAIL_CC].filter(
+      (r): r is string => typeof r === "string"
+    );
+
+    if (toRecipients.length === 0) {
+      // Rollback DB if email config is bad
+      await prisma.appointment.delete({ where: { id: appointment.id } });
+      return NextResponse.json(
+        { error: "No email recipients configured" },
+        { status: 500 }
+      );
+    }
+
+    // Send email
     const { error } = await resend.emails.send({
       from: process.env.EMAIL_FROM || "2F Resources <no-reply@2fresources.com>",
-      to: [process.env.EMAIL_TO || "Project.sales@2Fresources.com"],
+      to: toRecipients,
       subject: `New Appointment Request: ${service}`,
       react: AppointmentEmail({
         name,
@@ -51,6 +64,8 @@ export async function POST(request: Request) {
 
     if (error) {
       console.error("Failed to send appointment email:", error);
+      // Rollback the saved DB entry
+      await prisma.appointment.delete({ where: { id: appointment.id } });
       return NextResponse.json(
         { error: "Failed to send appointment email" },
         { status: 500 }

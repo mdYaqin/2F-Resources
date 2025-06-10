@@ -25,7 +25,7 @@ export async function DELETE(
     console.error("Error deleting User:", error);
 
     return NextResponse.json(
-      { error: "Failed to delete project" },
+      { error: "Failed to delete user" },
       { status: 500 }
     );
   }

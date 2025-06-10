@@ -43,7 +43,7 @@ export default function LoginPage() {
 
     try {
       // Replace this with your actual password reset API call
-      const response = await fetch("/api/auth/forgot-password", {
+      const response = await fetch("/api/admin/users/forgot-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

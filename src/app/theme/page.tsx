@@ -18,13 +18,13 @@ export const metadata = {
     title: "Renovation Themes | 2F Resources Interior Design Inspiration",
     description:
       "Browse our renovation themes to find inspiration for your next home makeover. 2F Resources offers modern and classic styles perfect for Singapore homes.",
-    url: "https://www.2fresources.com/theme",
+    url: "https://2fresources.com/theme",
     siteName: "2F Resources",
     type: "website",
     locale: "en_SG",
     images: [
       {
-        url: "https://www.2fresources.com/og-image.png",
+        url: "https://2fresources.com/og-image.png",
         width: 1200,
         height: 630,
         alt: "Renovation Themes by 2F Resources",
@@ -48,14 +48,14 @@ export default function Theme() {
             "@context": "https://schema.org",
             "@type": "WebPage",
             name: "Renovation Themes",
-            url: "https://www.2fresources.com/theme",
+            url: "https://2fresources.com/theme",
             description:
               "Explore curated renovation themes and interior design inspirations for modern Singapore homes, created by 2F Resources.",
             mainEntity: {
               "@type": "Organization",
               name: "2F Resources",
-              url: "https://www.2fresources.com",
-              logo: "https://www.2fresources.com/logo.svg",
+              url: "https://2fresources.com",
+              logo: "https://2fresources.com/logo.svg",
               email: "project.sales@2fresources.com",
               telephone: "+65 8202 3432",
               address: {

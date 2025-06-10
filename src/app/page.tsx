@@ -7,23 +7,26 @@ import ProjectsSection from "@/components/ProjectsSection";
 // import TeamMembers from "@/components/TeamMembers";
 import VideoSection from "@/components/VideoSection";
 import Script from "next/script";
+import { Project } from "@prisma/client";
 
 export const metadata = {
   title: "2F Resources | Home Renovation Experts in Singapore",
   description:
-    "Transform your home with 2F Resources – the trusted name in Singapore for kitchen, bathroom, and full-home renovations.",
+    "Transform your home with 2F Resources – Singapore's trusted experts for full-home, kitchen, and bathroom renovations. Modern interior design. Transparent pricing. Quality guaranteed.",
   keywords: [
     "Home Renovation Singapore",
-    "Renovation Contractor",
+    "Renovation Contractor Singapore",
     "Interior Design Singapore",
+    "Kitchen Remodeling Singapore",
     "Bathroom Renovation",
-    "Kitchen Remodeling",
     "HDB Renovation",
-    "2F Resources",
+    "2F Resources Reviews",
+    "Singapore Renovation Experts",
+    "Home Improvement Singapore",
   ],
-  metadataBase: new URL("https://www.2fresources.com"),
+  metadataBase: new URL("https://2fresources.com"),
   alternates: {
-    canonical: "/",
+    canonical: "https://2fresources.com/",
   },
   robots: {
     index: true,
@@ -38,17 +41,17 @@ export const metadata = {
   openGraph: {
     title: "2F Resources | Home Renovation Experts in Singapore",
     description:
-      "Reliable renovation and remodeling specialists in Singapore. Let 2F Resources bring your dream home to life.",
-    url: "https://www.2fresources.com/",
+      "Reliable renovation and remodeling specialists in Singapore. Let 2F Resources bring your dream home to life with modern designs and expert workmanship.",
+    url: "https://2fresources.com/",
     siteName: "2F Resources",
     type: "website",
     locale: "en_SG",
     images: [
       {
-        url: "https://www.2fresources.com/og-image.png",
+        url: "https://2fresources.com/og-image.png",
         width: 1200,
         height: 630,
-        alt: "2F Resources - Singapore Home Renovation Experts",
+        alt: "2F Resources - Home Renovation Experts Singapore",
       },
     ],
   },
@@ -56,8 +59,9 @@ export const metadata = {
     card: "summary_large_image",
     title: "2F Resources | Home Renovation Experts in Singapore",
     description:
-      "Discover the art of home renovation with 2F Resources – trusted by homeowners across Singapore.",
-    images: ["https://www.2fresources.com/og-image.png"],
+      "Discover the art of home renovation with 2F Resources – trusted by homeowners across Singapore for quality and design.",
+    images: ["https://2fresources.com/og-image.png"],
+    creator: "@2fresources",
   },
   icons: {
     icon: "/favicon.ico",
@@ -70,9 +74,43 @@ export const metadata = {
     capable: true,
   },
   category: "Home Renovation",
+  authors: [{ name: "2F Resources", url: "https://2fresources.com" }],
+  publisher: "2F Resources",
 };
 
-export default function Home() {
+// This is the new export that replaces viewport and themeColor in metadata
+export function generateViewport() {
+  return {
+    viewport: "width=device-width, initial-scale=1",
+    themeColor: "#ffffff",
+  };
+}
+
+async function fetchProjects() {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/projects`,
+      {
+        cache: "no-store",
+      }
+    );
+
+    if (!res.ok) {
+      console.error("Fetch error:", res.status, res.statusText);
+      throw new Error("Failed to fetch projects");
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    return [];
+  }
+}
+
+export default async function Home() {
+  const projects = await fetchProjects();
+
   return (
     <>
       <Script
@@ -83,13 +121,13 @@ export default function Home() {
             "@context": "https://schema.org",
             "@type": "HomeAndConstructionBusiness",
             name: "2F Resources",
+            url: "https://2fresources.com",
+            logo: "https://2fresources.com/logo.svg",
+            image: "https://2fresources.com/og-image.png",
             description:
-              "2F Resources is a trusted renovation contractor in Singapore offering full-home, kitchen, and bathroom renovations with modern interior design solutions.",
-            url: "https://www.2fresources.com",
-            logo: "https://www.2fresources.com/logo.svg",
-            email: "info@2fresources.com",
+              "2F Resources is a leading renovation contractor in Singapore, offering professional kitchen, bathroom, and full-home renovations with high-quality interior design services.",
+            email: "project.sales@2fresources.com",
             telephone: "+65 8202 3432",
-            image: "https://www.2fresources.com/og-image.png",
             address: {
               "@type": "PostalAddress",
               streetAddress: "51 Goldhill Plaza #07-07",
@@ -97,13 +135,42 @@ export default function Home() {
               postalCode: "308900",
               addressCountry: "SG",
             },
+            geo: {
+              "@type": "GeoCoordinates",
+              latitude: 1.320291,
+              longitude: 103.841687,
+            },
             hasMap:
               "https://www.google.com/maps/place/51+Goldhill+Plaza,+#07-07,+Singapore+308900",
-            openingHours: "Mo-Sa 09:00-18:00",
+            openingHoursSpecification: [
+              {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday",
+                ],
+                opens: "09:00",
+                closes: "18:00",
+              },
+            ],
             sameAs: [
               "https://www.facebook.com/profile.php?id=61572212326307",
               "https://www.instagram.com/2f_resources",
             ],
+            hasPart: projects.map((project: Project) => ({
+              "@type": "CreativeWork",
+              name: project.title,
+              url: `https://2fresources.com/projects/${project.id}`,
+            })),
+            areaServed: {
+              "@type": "Country",
+              name: "Singapore",
+            },
+            priceRange: "$$",
           }),
         }}
       />
@@ -114,7 +181,7 @@ export default function Home() {
       <ServicesSection />
       <FeatureSection />
       <VideoSection />
-      <ProjectsSection />
+      <ProjectsSection projects={projects} />
       {/* <TeamMembers /> */}
       {/* <Testimonials /> */}
     </>

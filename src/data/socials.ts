@@ -42,5 +42,5 @@ export const contactInfo: ContactInfo = {
   address: "51 Goldhill Plaza #07-07, Singapore 308900",
   addressHref:
     "https://www.google.com/maps/place/51+Goldhill+Plaza,+#07-07,+Singapore+308900",
-  website: "www.2fresources.com",
+  website: "2fresources.com",
 };

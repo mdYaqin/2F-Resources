@@ -2,34 +2,68 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Spinner from "react-bootstrap/Spinner";
+import clsx from "clsx";
 
-export default function Pageloader() {
-  const [loading, setLoading] = useState(true);
+type PageloaderProps = {
+  /** Show loader manually */
+  loading?: boolean;
+  /** Automatically show for `delay` ms */
+  auto?: boolean;
+  /** Duration in ms for auto loader */
+  delay?: number;
+  /** Show full-screen or inline */
+  fullScreen?: boolean;
+};
+
+export default function Pageloader({
+  loading,
+  auto = true,
+  delay = 2000,
+  fullScreen = true,
+}: PageloaderProps) {
+  const [internalLoading, setInternalLoading] = useState(auto);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
+    if (auto) {
+      const timer = setTimeout(() => setInternalLoading(false), delay);
+      return () => clearTimeout(timer);
+    }
+  }, [auto, delay]);
 
-  if (!loading) return null;
+  const isVisible = auto ? internalLoading : loading;
+
+  if (!isVisible) return null;
+
+  // Sizes depending on mode
+  const spinnerSize = fullScreen ? "6rem" : "2.5rem";
+  const imageSize = fullScreen ? 80 : 30;
 
   return (
     <div
-      id="spinner"
-      className="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
+      className={clsx(
+        "bg-white d-flex align-items-center justify-content-center",
+        fullScreen
+          ? "position-fixed top-0 start-0 w-100 vh-100"
+          : "w-100 h-100 position-relative"
+      )}
+      style={fullScreen ? { zIndex: 1055 } : {}}
     >
-      <div
-        className="spinner-border position-relative text-primary"
-        style={{ width: "6rem", height: "6rem" }}
-        role="status"
-      />
-      <Image
-        src="/logo.svg"
-        alt="Icon"
-        className="position-absolute top-50 start-50 translate-middle"
-        width={60}
-        height={60}
-      />
+      <div className="position-relative">
+        <Spinner
+          animation="border"
+          variant="primary"
+          style={{ width: spinnerSize, height: spinnerSize }}
+        />
+        <Image
+          src="/logo.svg"
+          alt="Icon"
+          width={imageSize}
+          height={imageSize}
+          priority
+          className="position-absolute top-50 start-50 translate-middle"
+        />
+      </div>
     </div>
   );
 }

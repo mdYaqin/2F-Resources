@@ -13,7 +13,6 @@ export async function GET() {
       orderBy: { createdAt: "desc" },
     });
 
-    console.log(projects);
     return NextResponse.json(projects);
   } catch (error) {
     console.log(error);

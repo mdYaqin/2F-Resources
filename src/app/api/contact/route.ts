@@ -30,10 +30,25 @@ export async function POST(request: Request) {
       },
     });
 
+    const toRecipients = [process.env.EMAIL_TO, process.env.EMAIL_CC].filter(
+      (r): r is string => typeof r === "string"
+    );
+
+    if (toRecipients.length === 0) {
+      // Rollback DB if email config is bad
+      await prisma.contactSubmission.delete({
+        where: { id: contactSubmission.id },
+      });
+      return NextResponse.json(
+        { error: "No email recipients configured" },
+        { status: 500 }
+      );
+    }
+
     // Send email using Resend
     const { error } = await resend.emails.send({
       from: process.env.EMAIL_FROM || "2F Resources <no-reply@2fresources.com>",
-      to: [process.env.EMAIL_TO || "Project.sales@2Fresources.com"],
+      to: toRecipients,
       subject: `New Contact Form Submission: ${subject}`,
       react: ContactEmail({
         name,
@@ -45,6 +60,10 @@ export async function POST(request: Request) {
 
     if (error) {
       console.error("Failed to send contact email:", error);
+      await prisma.contactSubmission.delete({
+        where: { id: contactSubmission.id },
+      });
+
       return NextResponse.json(
         { error: "Failed to send contact email" },
         { status: 500 }
