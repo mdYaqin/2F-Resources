@@ -9,11 +9,10 @@ module.exports = {
   sitemapSize: 5000,
   outDir: "./public",
   exclude: ["/admin/*"],
+  autoLastmod: true,
 
   robotsTxtOptions: {
-    additionalSitemaps: [
-      `${siteUrl}/sitemap.xml`, // add any extra sitemaps here
-    ],
+    additionalSitemaps: [`${siteUrl}/sitemap.xml`],
     policies: [
       {
         userAgent: "*",
