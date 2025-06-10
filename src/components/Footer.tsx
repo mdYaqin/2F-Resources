@@ -77,9 +77,13 @@ export default function Footer() {
 
           <Col lg={2} sm={3} xs={6} data-aos="fade-up" data-aos-delay="400">
             <h5 className="text-light mb-4">Quick Links</h5>
-            <div className="d-flex flex-column text-primary">
-              <Link href="/about">About Us</Link>
-              <Link href="/contact">Contact Us</Link>
+            <div className="d-flex flex-column text-secondary">
+              <Link href="/about" className="text-decoration-none">
+                About Us
+              </Link>
+              <Link href="/contact" className="text-decoration-none">
+                Contact Us
+              </Link>
             </div>
           </Col>
 

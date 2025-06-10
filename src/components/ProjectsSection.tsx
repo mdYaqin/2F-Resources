@@ -4,7 +4,6 @@ import AOS from "aos";
 import Image from "next/image";
 import Link from "next/link";
 import { Container, Row, Col, Tab, Nav, Alert } from "react-bootstrap";
-import Pageloader from "@/components/Pageloader";
 
 interface Project {
   id: string;
@@ -20,38 +19,21 @@ interface Project {
   }[];
 }
 
-export default function ProjectsSection() {
-  const [activeKey, setActiveKey] = useState<string>("");
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+export default function ProjectsSection({
+  projects = [],
+}: {
+  projects?: Project[];
+}) {
+  const [activeKey, setActiveKey] = useState(
+    projects.length > 0 ? `project-${projects[0].id}` : ""
+  );
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
-
-    const fetchProjects = async () => {
-      try {
-        const response = await fetch("/api/projects");
-        if (!response.ok) throw new Error("Failed to fetch");
-        const data = await response.json();
-        setProjects(data);
-        if (data.length > 0) setActiveKey(`project-${data[0].id}`);
-      } catch (err) {
-        setError(
-          err instanceof Error ? err.message : "Failed to load projects"
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProjects();
   }, []);
 
-  if (loading) return <Pageloader />;
-  if (error) return <Alert variant="danger">{error}</Alert>;
   if (projects.length === 0)
-    return <Alert variant="info">No featured projects</Alert>;
+    return <Alert variant="info">No featured projects available</Alert>;
 
   return (
     <Container fluid className="project py-5">
