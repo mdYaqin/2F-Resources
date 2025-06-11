@@ -67,6 +67,13 @@ export const metadata = {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
     apple: "/apple-touch-icon.png",
+    other: [
+      {
+        rel: "icon",
+        url: "/logo.svg",
+        type: "image/svg+xml",
+      },
+    ],
   },
   appleWebApp: {
     title: "2F Resources",
@@ -78,7 +85,6 @@ export const metadata = {
   publisher: "2F Resources",
 };
 
-// This is the new export that replaces viewport and themeColor in metadata
 export function generateViewport() {
   return {
     viewport: "width=device-width, initial-scale=1",
@@ -113,6 +119,23 @@ export default async function Home() {
 
   return (
     <>
+      {/* WebSite Schema for brand name & logo */}
+      <Script
+        id="jsonld-website"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "2F Resources E&C Pte Ltd",
+            alternateName: "2F Resources",
+            url: "https://2fresources.com",
+            logo: "https://2fresources.com/logo.svg",
+          }),
+        }}
+      />
+
+      {/* Main business schema with projects */}
       <Script
         id="jsonld-home"
         type="application/ld+json"
@@ -120,7 +143,7 @@ export default async function Home() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "HomeAndConstructionBusiness",
-            name: "2F Resources",
+            name: "2F Resources E&C Pte Ltd",
             url: "https://2fresources.com",
             logo: "https://2fresources.com/logo.svg",
             image: "https://2fresources.com/og-image.png",
@@ -164,7 +187,7 @@ export default async function Home() {
             hasPart: projects.map((project: Project) => ({
               "@type": "CreativeWork",
               name: project.title,
-              url: `https://2fresources.com/projects/${project.id}`,
+              url: `https://2fresources.com/ projects/${project.id}`,
             })),
             areaServed: {
               "@type": "Country",
