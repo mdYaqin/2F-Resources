@@ -6,7 +6,6 @@ import "aos/dist/aos.css";
 import Image from "next/image";
 import { useParams, notFound } from "next/navigation";
 import { Container, Row, Col, Carousel, Alert } from "react-bootstrap";
-import PageHeader from "@/components/PageHeader";
 import Pageloader from "@/components/Pageloader";
 
 interface Project {
