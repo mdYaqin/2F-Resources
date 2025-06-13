@@ -1,9 +1,9 @@
 "use client";
+
 import { Modal, Button } from "react-bootstrap";
 import { Project, Image as ImageType } from "@/types";
 import ProjectForm from "./ProjectForm";
 import ImageUpload from "./ImageUpload";
-
 interface ProjectModalProps {
   show: boolean;
   project: Partial<Project> | null;
