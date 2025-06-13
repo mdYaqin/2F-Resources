@@ -64,14 +64,14 @@ export default function CreateUserForm({
       {success && <Alert variant="success">{success}</Alert>}
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
-          <Form.Label>Full Name</Form.Label>
+          <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
             name="name"
             value={formData.name}
             onChange={handleChange}
             required
-            placeholder="Enter user's full name"
+            placeholder="Enter username"
           />
         </Form.Group>
 
