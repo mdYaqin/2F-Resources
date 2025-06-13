@@ -119,7 +119,7 @@ export default async function Home() {
 
   return (
     <>
-      {/* WebSite Schema for brand name & logo */}
+      {/* ✅ WebSite Schema */}
       <Script
         id="jsonld-website"
         type="application/ld+json"
@@ -130,12 +130,49 @@ export default async function Home() {
             name: "2F Resources E&C Pte Ltd",
             alternateName: "2F Resources",
             url: "https://2fresources.com",
-            logo: "https://2fresources.com/logo.svg",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://2fresources.com/logo-512x512.png",
+              width: 512,
+              height: 512,
+            },
           }),
         }}
       />
 
-      {/* Main business schema with projects */}
+      {/* ✅ Organization Schema */}
+      <Script
+        id="jsonld-organization"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "2F Resources E&C Pte Ltd",
+            alternateName: "2F Resources",
+            url: "https://2fresources.com",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://2fresources.com/logo-512x512.png",
+              width: 512,
+              height: 512,
+            },
+            contactPoint: {
+              "@type": "ContactPoint",
+              telephone: "+65 8202 3432",
+              contactType: "Customer Service",
+              areaServed: "SG",
+              availableLanguage: ["English"],
+            },
+            sameAs: [
+              "https://www.facebook.com/profile.php?id=61572212326307",
+              "https://www.instagram.com/2f_resources",
+            ],
+          }),
+        }}
+      />
+
+      {/* ✅ HomeAndConstructionBusiness Schema */}
       <Script
         id="jsonld-home"
         type="application/ld+json"
@@ -145,7 +182,12 @@ export default async function Home() {
             "@type": "HomeAndConstructionBusiness",
             name: "2F Resources E&C Pte Ltd",
             url: "https://2fresources.com",
-            logo: "https://2fresources.com/logo.svg",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://2fresources.com/logo-512x512.png",
+              width: 512,
+              height: 512,
+            },
             image: "https://2fresources.com/og-image.png",
             description:
               "2F Resources is a leading renovation contractor in Singapore, offering professional kitchen, bathroom, and full-home renovations with high-quality interior design services.",
@@ -184,11 +226,6 @@ export default async function Home() {
               "https://www.facebook.com/profile.php?id=61572212326307",
               "https://www.instagram.com/2f_resources",
             ],
-            hasPart: projects.map((project: Project) => ({
-              "@type": "CreativeWork",
-              name: project.title,
-              url: `https://2fresources.com/ projects/${project.id}`,
-            })),
             areaServed: {
               "@type": "Country",
               name: "Singapore",
@@ -197,7 +234,6 @@ export default async function Home() {
           }),
         }}
       />
-
       <Carousel />
       <FactsSection />
       <AboutSection />
