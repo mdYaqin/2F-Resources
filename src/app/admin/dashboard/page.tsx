@@ -248,9 +248,9 @@ export default function ProjectAdmin() {
           />
         </Tab>
 
-        <Tab eventKey="enquiries" title="Enquiries">
+        {/* <Tab eventKey="enquiries" title="Enquiries">
           <p>Enquiries/Appointments tab content will go here.</p>
-        </Tab>
+        </Tab> */}
 
         <Tab eventKey="users" title="User Management">
           <UserManagement />
