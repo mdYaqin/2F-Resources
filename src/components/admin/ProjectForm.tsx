@@ -2,6 +2,7 @@
 import { Form, Row, Col } from "react-bootstrap";
 import { Project } from "@/types";
 import { useState } from "react";
+import FieldLabelWithTooltip from "./FieldLabelWithTooltip";
 
 interface ProjectFormProps {
   project: Partial<Project>;
@@ -44,7 +45,9 @@ export default function ProjectForm({
       <Row>
         <Col md={6}>
           <Form.Group className="mb-3">
-            <Form.Label>Title</Form.Label>
+            <Form.Label>
+              <FieldLabelWithTooltip field="title" label="Title" />
+            </Form.Label>
             <Form.Control
               name="title"
               value={project.title || ""}
@@ -53,7 +56,12 @@ export default function ProjectForm({
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Feature Title</Form.Label>
+            <Form.Label>
+              <FieldLabelWithTooltip
+                field="featureTitle"
+                label="Feature Title"
+              />
+            </Form.Label>
             <Form.Control
               name="featureTitle"
               value={project.featureTitle || ""}
@@ -62,7 +70,9 @@ export default function ProjectForm({
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Description</Form.Label>
+            <Form.Label>
+              <FieldLabelWithTooltip field="description" label="Description" />
+            </Form.Label>
             <Form.Control
               as="textarea"
               rows={3}
@@ -73,7 +83,9 @@ export default function ProjectForm({
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Summary</Form.Label>
+            <Form.Label>
+              <FieldLabelWithTooltip field="summary" label="Summary" />
+            </Form.Label>
             <Form.Control
               as="textarea"
               rows={2}
@@ -86,7 +98,9 @@ export default function ProjectForm({
 
         <Col md={6}>
           <Form.Group className="mb-3">
-            <Form.Label>Location</Form.Label>
+            <Form.Label>
+              <FieldLabelWithTooltip field="location" label="Location" />
+            </Form.Label>
             <Form.Control
               name="location"
               value={project.location || ""}
@@ -95,7 +109,9 @@ export default function ProjectForm({
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Job Scope</Form.Label>
+            <Form.Label>
+              <FieldLabelWithTooltip field="jobScope" label="Job Scope" />
+            </Form.Label>
             <Form.Control
               name="jobScope"
               value={project.jobScope || ""}
@@ -104,7 +120,9 @@ export default function ProjectForm({
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Style</Form.Label>
+            <Form.Label>
+              <FieldLabelWithTooltip field="style" label="Style" />
+            </Form.Label>
             <Form.Control
               name="style"
               value={project.style || ""}
@@ -113,7 +131,9 @@ export default function ProjectForm({
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Timeline</Form.Label>
+            <Form.Label>
+              <FieldLabelWithTooltip field="timeline" label="Timeline" />
+            </Form.Label>
             <Form.Control
               name="timeline"
               value={project.timeline || ""}
@@ -122,7 +142,12 @@ export default function ProjectForm({
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Project Value</Form.Label>
+            <Form.Label>
+              <FieldLabelWithTooltip
+                field="projectValue"
+                label="Project Value"
+              />
+            </Form.Label>
             <Form.Control
               name="projectValue"
               value={project.projectValue || ""}
@@ -131,7 +156,12 @@ export default function ProjectForm({
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Tags (comma separated)</Form.Label>
+            <Form.Label>
+              <FieldLabelWithTooltip
+                field="tags"
+                label="Tags (comma separated)"
+              />
+            </Form.Label>
             <Form.Control
               name="tags"
               value={project.tags?.join(", ") || ""}
@@ -142,7 +172,12 @@ export default function ProjectForm({
           <Form.Check
             type="switch"
             id="featured-switch"
-            label="Featured Project"
+            label={
+              <FieldLabelWithTooltip
+                field="isFeatured"
+                label="Featured Project"
+              />
+            }
             checked={project.isFeatured || false}
             disabled={featuredCount >= 4 && !wasInitiallyFeatured}
             onChange={(e) => handleFeaturedChange(e.target.checked)}
