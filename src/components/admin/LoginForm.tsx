@@ -29,8 +29,13 @@ export default function LoginPage() {
       callbackUrl,
     });
 
+    console.log(result);
     if (result?.error) {
-      setError(result.error);
+      if (result.status === 401) {
+        setError("Invalid email or password");
+      } else {
+        setError("Request cannot be completed. Please try again later.");
+      }
     } else {
       router.push(callbackUrl);
     }
