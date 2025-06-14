@@ -42,7 +42,6 @@ export default function LoginPage() {
     setResetError("");
 
     try {
-      // Replace this with your actual password reset API call
       const response = await fetch("/api/admin/users/forgot-password", {
         method: "POST",
         headers: {
@@ -74,11 +73,6 @@ export default function LoginPage() {
           <Card.Title className="text-center mb-4">Admin Login</Card.Title>
           {error && (
             <Alert variant="danger">
-              <div className="d-flex justify-content-center">
-                <i className="fa-solid fa-hand-middle-finger" />
-                <i className="fa-solid fa-hand-middle-finger" />
-                <i className="fa-solid fa-hand-middle-finger" />
-              </div>
               <div className="text-center mt-2">{error}</div>
             </Alert>
           )}
