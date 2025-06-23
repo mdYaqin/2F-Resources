@@ -1,11 +1,11 @@
-import { NextResponse, NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/lib/authOptions";
 import { getServerSession } from "next-auth";
 
 export async function DELETE(
   request: NextRequest,
-  params: { params: { id: string } }
+  context: { params: { id: string } } // ✅ CORRECT
 ) {
   const session = await getServerSession(authOptions);
 
@@ -14,7 +14,7 @@ export async function DELETE(
   }
 
   const currentUserId = session.user.id;
-  const userIdToDelete = params.params.id;
+  const userIdToDelete = context.params.id;
 
   if (currentUserId === userIdToDelete) {
     return NextResponse.json(
