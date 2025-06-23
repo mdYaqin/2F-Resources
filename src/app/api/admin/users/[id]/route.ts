@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth";
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  params: { params: { id: string } }
 ) {
   const session = await getServerSession(authOptions);
 
@@ -14,7 +14,7 @@ export async function DELETE(
   }
 
   const currentUserId = session.user.id;
-  const userIdToDelete = params.id;
+  const userIdToDelete = params.params.id;
 
   if (currentUserId === userIdToDelete) {
     return NextResponse.json(
