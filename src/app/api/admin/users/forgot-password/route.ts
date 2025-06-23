@@ -1,4 +1,4 @@
-// /app/api/auth/forgot-password/route.tsx
+// /app/api/auth/forgot-password/route.ts
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import crypto from "crypto";
@@ -11,53 +11,73 @@ export async function POST(request: Request) {
   try {
     const { email } = await request.json();
 
-    if (!email) {
+    const trimmedEmail = email?.trim().toLowerCase();
+
+    if (!trimmedEmail) {
       return NextResponse.json({ error: "Email is required" }, { status: 400 });
     }
 
-    const user = await prisma.user.findUnique({ where: { email } });
+    const user = await prisma.user.findUnique({
+      where: { email: trimmedEmail },
+    });
 
+    // 🔒 Don't reveal if user exists
     if (!user) {
+      // Always return 200 to avoid email enumeration
       return NextResponse.json(
-        { error: "No user found with that email" },
-        { status: 404 }
+        { message: "If this email is registered, a reset link will be sent." },
+        { status: 200 }
       );
     }
 
-    // Generate token
+    // 🔐 Generate secure token
     const resetToken = crypto.randomBytes(32).toString("hex");
-    const resetTokenExp = new Date(Date.now() + 1000 * 60 * 60); // 1 hour from now
+    const resetTokenHash = crypto
+      .createHash("sha256")
+      .update(resetToken)
+      .digest("hex");
+    const resetTokenExp = new Date(Date.now() + 1000 * 60 * 60); // 1 hour
 
-    // Save to user
+    // 💾 Save hashed token and expiry
     await prisma.user.update({
-      where: { email },
-      data: { resetToken, resetTokenExp },
+      where: { email: trimmedEmail },
+      data: {
+        resetToken: resetTokenHash,
+        resetTokenExp,
+      },
     });
 
     const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password?token=${resetToken}`;
 
-    // Send email
-    const { error } = await resend.emails.send({
+    const { error: emailError } = await resend.emails.send({
       from: process.env.EMAIL_FROM || "2F Resources <no-reply@2fresources.com>",
-      to: [email],
+      to: [trimmedEmail],
       subject: "Reset Your Password",
-      react: ForgotPasswordEmail({ resetUrl, userName: user.name || "there" }),
+      react: ForgotPasswordEmail({
+        resetUrl,
+        userName: user.name || "there",
+      }),
     });
 
-    if (error) {
-      console.error("Email send failed:", error);
+    if (emailError) {
+      console.error("Resend failed:", emailError);
       return NextResponse.json(
-        { error: "Failed to send reset email" },
+        { error: "Failed to send email" },
         { status: 500 }
       );
     }
 
     return NextResponse.json(
-      { message: "Password reset email sent" },
+      {
+        message: "If this email is registered, a reset link will be sent.",
+      },
       { status: 200 }
     );
   } catch (error) {
     console.error("Forgot password error:", error);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
