@@ -51,7 +51,7 @@ async function fetchProjects() {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/projects`,
       {
-        cache: "no-store",
+        next: { revalidate: 60 }, // Revalidate every 60 seconds
       }
     );
 
