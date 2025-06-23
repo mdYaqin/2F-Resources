@@ -2,6 +2,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { hash } from "bcryptjs";
+import crypto from "crypto";
 
 export async function POST(request: Request) {
   try {
@@ -14,12 +15,15 @@ export async function POST(request: Request) {
       );
     }
 
-    // Find user with the reset token and check if it's still valid
+    // 🔐 Hash the received token to match DB
+    const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+
+    // 🔎 Find the user with the hashed token and unexpired expiry
     const user = await prisma.user.findFirst({
       where: {
-        resetToken: token,
+        resetToken: hashedToken,
         resetTokenExp: {
-          gte: new Date(), // Not expired
+          gte: new Date(), // still valid
         },
       },
     });
@@ -31,10 +35,10 @@ export async function POST(request: Request) {
       );
     }
 
-    // Hash the new password
+    // 🔐 Hash the new password
     const hashedPassword = await hash(newPassword, 12);
 
-    // Update user's password and remove reset token
+    // ✅ Update password & clear reset token
     await prisma.user.update({
       where: { id: user.id },
       data: {
